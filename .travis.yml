@@ -6,8 +6,5 @@ rvm:
 bundler_args: --without production
 
 script:
- — bundle install — jobs=3 — retry=3
- — bundle exec rake db:create
- — bundle exec rake db:migrate
  — bundle exec rspec
- - bundle exec cucumber
+ - bundle exec cucumber --strict
