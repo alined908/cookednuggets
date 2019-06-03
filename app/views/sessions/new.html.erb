@@ -1,0 +1,14 @@
+<div class="jumbotron shadow">
+    <h1>Login</h1>
+
+    <%= form_for(:session, url: login_path) do |f| %>
+        <div class="form-group">
+            <%= f.email_field :email, placeholder: "Email", class: "form-control"%>
+        </div>
+        <div class="form-group">
+            <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+        </div>
+        <div class="form-group">New user? <%= link_to "Sign up now!", signup_path %></div>
+        <%= f.submit "Login", class:"btn btn-primary" %>
+    <% end %>
+</div>
