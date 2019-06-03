@@ -6,5 +6,5 @@ rvm:
 bundler_args: --without production
 
 script:
- — rails test
+ — bundle exec rake test
  - bundle exec cucumber --strict
