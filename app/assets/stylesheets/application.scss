@@ -10,6 +10,21 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+ @import "bootstrap";
+
+.jumbotron {
+  margin: 2rem auto;
+  width: 60%;
+  background: white;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.username{
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
