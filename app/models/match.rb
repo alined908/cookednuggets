@@ -1,4 +1,4 @@
-class Match < ActiveRecord::Base
+class Match < ApplicationRecord
   belongs_to :user
   validates :date, presence: true
   validates :opponent, presence: true

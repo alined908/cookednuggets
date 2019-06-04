@@ -1,0 +1,21 @@
+<% devise_error_messages! %>
+<div class="jumbotron shadow">
+    <h1>Login</h1>
+
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <div class="form-group">
+            <%= f.email_field :email, placeholder: "Email", class: "form-control"%>
+        </div>
+        <div class="form-group">
+            <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-group">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+        <div class="form-group">New user? <%= link_to "Sign up now!", new_user_registration_path %></div>
+        <%= f.submit "Login", class:"btn btn-primary" %>
+    <% end %>
+</div>
