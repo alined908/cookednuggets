@@ -1,0 +1,16 @@
+<%= form_for(@match, url: user_match_path, method: :patch) do |f|%>
+  <div class="jumbotron shadow">
+    <h1>Edit Match</h1>
+    <%= f.label :date %>
+    <%= f.date_field :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control'%>
+    <%= f.label :opponent %>
+    <%= f.text_field :opponent, class:"form-control" %>
+    <%= f.label :map %>
+    <%= f.text_field :map, class:"form-control" %>
+  </div>
+  <div class="jumbotron shadow actions">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= link_to 'Show', user_match_path(current_user, @match), class: "btn btn-primary" %>
+    <%= link_to 'Back', user_matches_path(current_user), class: "btn btn-primary" %>
+  </div>
+<% end %>

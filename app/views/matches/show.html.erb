@@ -1,0 +1,17 @@
+<p>
+  <strong>Date:</strong>
+  <%= @match.date %>
+</p>
+
+<p>
+  <strong>Opponent:</strong>
+  <%= @match.opponent %>
+</p>
+
+<p>
+  <strong>Map:</strong>
+  <%= @match.map %>
+</p>
+
+<%= link_to 'Edit', edit_user_match_path(current_user, @match) %> |
+<%= link_to 'Back', user_matches_path(current_user) %>

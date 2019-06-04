@@ -4,6 +4,8 @@ class CreateMatches < ActiveRecord::Migration[5.2]
       t.date :date
       t.string :opponent
       t.string :map
+      t.references :user
+      t.timestamps
     end
   end
 end

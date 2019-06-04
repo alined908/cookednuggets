@@ -1,3 +1,20 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible show">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<% if alert %>
+<div class="alert alert-danger alert-dismissible show">
+  <%= alert %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% end %>
+
 <% if flash[:success] %>
   <div class="alert alert-success alert-dismissible show" role="alert">
     <% messages = Array(flash[:success]) %>

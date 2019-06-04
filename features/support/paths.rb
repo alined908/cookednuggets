@@ -15,10 +15,10 @@ module NavigationHelpers
       '/'
 
     when /^the login page$/
-      login_path
+      new_user_session_path
 
     when /^the signup page$/
-      signup_path
+      new_user_registration_path
 
     when /^the user page for "(.*)"$/
       user_path(User.find_by(:email => $1))
