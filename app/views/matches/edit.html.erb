@@ -3,10 +3,12 @@
     <h1>Edit Match</h1>
     <%= f.label :date %>
     <%= f.date_field :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control'%>
-    <%= f.label :opponent %>
-    <%= f.text_field :opponent, class:"form-control" %>
     <%= f.label :map %>
     <%= f.text_field :map, class:"form-control" %>
+    <%= f.label :left_team %>
+    <%= f.text_field :left_team, class:"form-control" %>
+    <%= f.label :right_team %>
+    <%= f.text_field :right_team, class:"form-control" %>
   </div>
   <div class="jumbotron shadow actions">
     <%= f.submit "Submit", class: "btn btn-primary" %>

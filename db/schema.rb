@@ -10,11 +10,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_232359) do
+ActiveRecord::Schema.define(version: 2019_06_05_122732) do
+
+  create_table "compositions", force: :cascade do |t|
+    t.string "player_roster"
+    t.string "hero_roster"
+    t.string "roundtype"
+    t.integer "duration"
+    t.integer "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_compositions_on_match_id"
+  end
+
+  create_table "fights", force: :cascade do |t|
+    t.string "roundtype"
+    t.integer "duration"
+    t.string "left_players"
+    t.string "left_heroes"
+    t.string "right_players"
+    t.string "right_heroes"
+    t.string "winner"
+    t.string "first_blood"
+    t.integer "left_kill_num"
+    t.integer "right_kill_num"
+    t.integer "left_ults_used"
+    t.integer "right_ults_used"
+    t.string "left_ult_sequence"
+    t.string "right_ult_sequence"
+    t.string "total_kill_sequence"
+    t.string "total_death_sequence"
+    t.integer "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_fights_on_match_id"
+  end
+
+  create_table "generals", force: :cascade do |t|
+    t.string "player"
+    t.string "hero"
+    t.integer "kill"
+    t.integer "death"
+    t.string "ttcu"
+    t.string "ttuu"
+    t.integer "fight_total"
+    t.integer "fight_win"
+    t.integer "fight_lose"
+    t.integer "first_kill"
+    t.integer "first_death"
+    t.integer "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_generals_on_match_id"
+  end
 
   create_table "matches", force: :cascade do |t|
     t.date "date"
-    t.string "opponent"
+    t.string "left_team"
+    t.string "right_team"
     t.string "map"
     t.integer "user_id"
     t.datetime "created_at", null: false

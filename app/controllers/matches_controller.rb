@@ -11,7 +11,9 @@ class MatchesController < ApplicationController
   # GET /matches/1
   # GET /matches/1.json
   def show
-
+    @compositions = Composition.where(match_id: @match).order(roundtype: :desc)
+    @generals = General.where(match_id: @match).order(player: :asc)
+    @fights = Fight.where(match_id: @match)
   end
 
   # GET /matches/new
@@ -29,7 +31,7 @@ class MatchesController < ApplicationController
     @match.user = current_user
 
     if @match.save
-      flash[:success] = "Match successfully created!"
+      flash[:success] = "Match successfully created! Upload compostions, fights, and general statistics!"
       redirect_to user_match_path(current_user, @match)
     else
       flash.now[:danger] = @match.errors.full_messages
@@ -65,6 +67,6 @@ class MatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def match_params
-      params.require(:match).permit(:date, :opponent, :map)
+      params.require(:match).permit(:date, :left_team, :map, :right_team)
     end
 end
