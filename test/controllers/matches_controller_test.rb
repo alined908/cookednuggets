@@ -21,7 +21,7 @@ class MatchesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create match" do
     assert_difference('Match.count') do
-      post user_matches_path(@user), params: { match: { date: @match.date, map: @match.map, opponent: @match.opponent } }
+      post user_matches_path(@user), params: { match: { date: @match.date, map: @match.map, left_team: @match.left_team, right_team: @match.right_team } }
     end
 
     assert_redirected_to user_match_path(@user, Match.last)
@@ -39,7 +39,7 @@ class MatchesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update" do
     get edit_user_match_path(@user, @match)
-    patch user_match_path(@user, @match), params: {match: {date: @match2.date, map: @match2.map, opponent: @match2.opponent}}
+    patch user_match_path(@user, @match), params: {match: {date: @match2.date, map: @match2.map, left_team: @match2.left_team, right_team: @match2.right_team }}
     assert_response :success
   end
 
