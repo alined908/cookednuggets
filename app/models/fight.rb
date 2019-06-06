@@ -30,13 +30,8 @@ class Fight < ApplicationRecord
   def self.import(file, match)
     CSV.foreach(file.path, :headers => [:row_id, :date, :opponent, :map, :roundname, :length, :lp, :lh, :rp, :rh, :fb, :winner, :lkn, :rkn, :luu, :ruu, :tks, :rks, :lks, :tds, :lds, :rds, :lus, :rus]).with_index do |row, index|
       next if index == 0
-
       lh = row[:lh][1...-1].gsub("'","").gsub(" ", "").split(",").map(&:downcase)
-      puts row[:lh]
-      puts lh
       rh = row[:rh][1...-1].gsub("'","").gsub(" ", "").split(",").map(&:downcase)
-      puts row[:rh]
-      puts rh
 
       Fight.create(match_id: match.id, roundtype: row[:roundname], duration: row[:length], left_players: row[:lp], right_players: row[:rp], left_heroes: lh,
         right_heroes: rh, first_blood: row[:fb], winner: row[:winner], left_kill_num: row[:lkn], right_kill_num: row[:rkn], left_ults_used: row[:luu],

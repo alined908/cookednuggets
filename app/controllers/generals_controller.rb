@@ -4,6 +4,7 @@ class GeneralsController < ApplicationController
   def create
     @match = Match.find(params[:match_id])
     General.import(csv_params[:general_csv], @match)
+    flash[:success] = "Successfully imported general statistics"
     redirect_to user_match_path(current_user, @match)
   end
 
