@@ -2,10 +2,12 @@
 
 one:
   date: 2019-06-03
-  opponent: Dallas Fuel
+  left_team: SFS
+  right_team: DAL
   map: Rialto
 
 two:
   date: 2019-06-04
-  opponent: London Spitfire
+  left_team: SFS
+  right_team: DAL
   map: Lijiang Tower
