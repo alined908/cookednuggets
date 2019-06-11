@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :paths => 'users'
 
+  resources :articles
   resources :users do
     resources :matches do
       resource :composition, :only => [:create]

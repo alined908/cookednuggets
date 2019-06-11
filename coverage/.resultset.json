@@ -33,6 +33,49 @@
         1,
         null
       ],
+      "/Users/daniel/Desktop/cookednuggets/app/controllers/application_controller.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/composition_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/devise_helper.rb": [
+        1,
+        1,
+        1,
+        0,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/matches_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
       "/Users/daniel/Desktop/cookednuggets/app/controllers/matches_controller.rb": [
         1,
         1,
@@ -105,49 +148,6 @@
         1,
         2,
         null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/controllers/application_controller.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/application_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/composition_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/devise_helper.rb": [
-        1,
-        1,
-        1,
-        0,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/matches_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/users_helper.rb": [
-        1,
         null
       ],
       "/Users/daniel/Desktop/cookednuggets/app/models/general.rb": [
@@ -587,7 +587,7 @@
         0
       ]
     },
-    "timestamp": 1559786640
+    "timestamp": 1560289735
   },
   "Cucumber Features": {
     "coverage": {
@@ -1177,7 +1177,7 @@
         0
       ]
     },
-    "timestamp": 1559786524
+    "timestamp": 1560289729
   },
   "features": {
     "coverage": {

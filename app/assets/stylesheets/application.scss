@@ -75,3 +75,46 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
+/* Streams */
+.streamer-list{
+  width: 30%;
+  padding: 1rem;
+
+  a {
+    color: black;
+
+    &:hover{
+      text-decoration: none;
+      background-color: #F0F0F0;
+    }
+
+    &:active{
+      background-color: white;
+    }
+  }
+
+  .streamer-row{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    border-bottom: .5px solid grey;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+
+    .streamer-info{
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .streamer-title{
+      font-weight: 200;
+    }
+
+    .streamer-viewcount{
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
