@@ -1,4 +1,4 @@
-class GeneralsController < ApplicationController
+class Matches::GeneralsController < ApplicationController
   before_action :authenticate_user!
 
   def create

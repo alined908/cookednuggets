@@ -118,3 +118,13 @@
     }
   }
 }
+
+/* Forum */
+.thread {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    margin-right: 10px;
+  }
+}
