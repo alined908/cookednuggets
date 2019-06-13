@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 /app/assets/javascripts/secrets.js
+/coverage
 
 # Ignore bundler config.
 /.bundle
