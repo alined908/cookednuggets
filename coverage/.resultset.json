@@ -1,6 +1,25 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/daniel/Desktop/cookednuggets/app/models/user.rb": [
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
       "/Users/daniel/Desktop/cookednuggets/app/models/composition.rb": [
         1,
         1,
@@ -173,25 +192,6 @@
         0,
         0,
         null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/models/application_record.rb": [
-        0,
-        0,
-        0
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/models/user.rb": [
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
         0,
         0,
         0,
@@ -693,7 +693,7 @@
         0
       ]
     },
-    "timestamp": 1560466545
+    "timestamp": 1560466956
   },
   "Cucumber Features": {
     "coverage": {
@@ -1389,7 +1389,7 @@
         0
       ]
     },
-    "timestamp": 1560466537
+    "timestamp": 1560467004
   },
   "features": {
     "coverage": {
