@@ -1,0 +1,12 @@
+<div class="jumbotron shadow">
+  <%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}) %>
+</div>
+
+<%= form_for(@forum_thread, url: forum_threads_path) do |f| %>
+  <div class="jumbotron shadow">
+    <h2>Create New Thread</h2>
+    <%= f.text_field :subject, placeholder: "Subject", class:"form-control" %>
+    <%= f.text_area :description, placeholder: "Description", rows: 5, class:"form-control" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

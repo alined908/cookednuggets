@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_122732) do
+ActiveRecord::Schema.define(version: 2019_06_11_230310) do
 
   create_table "compositions", force: :cascade do |t|
     t.string "player_roster"
@@ -44,6 +44,22 @@ ActiveRecord::Schema.define(version: 2019_06_05_122732) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_fights_on_match_id"
+  end
+
+  create_table "forum_posts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "forum_thread_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forum_threads", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "subject"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "generals", force: :cascade do |t|

@@ -1,4 +1,4 @@
-class FightsController < ApplicationController
+class Matches::FightsController < ApplicationController
   before_action :authenticate_user!
 
   def create

@@ -1,4 +1,4 @@
-class CompositionsController < ApplicationController
+class Matches::CompositionsController < ApplicationController
   before_action :authenticate_user!
 
   def create

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CompositionControllerTest < ActionDispatch::IntegrationTest
+class ForumThreadTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

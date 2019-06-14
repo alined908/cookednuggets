@@ -1,0 +1,12 @@
+<%= react_component("Thread", {thread: @forum_thread, info: @thread_info, compact: false}, class: "jumbotron shadow") %>
+
+<% @posts.each do |post| %>
+  <%= react_component("Post", {body: post.body}, class: "jumbotron shadow") %>
+<% end %>
+
+<%= form_for(ForumPost.new, url: forum_thread_forum_posts_path(@forum_thread)) do |f| %>
+  <div class="jumbotron shadow">
+    <%= f.text_area :body, placeholder: "Add a comment", rows: 5, class: "form-control" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
