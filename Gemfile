@@ -11,7 +11,7 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # React rails
 gem 'react-rails'
-gem 'webpacker'
+gem 'webpacker', '~> 3.2.2'
 # Bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
