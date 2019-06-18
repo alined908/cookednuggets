@@ -12,16 +12,17 @@
  *
  */
  @import "bootstrap";
+ $background: #dadadc;
+ $body-width: 65%;
 
  body {
-   & > div {
-     width: 65%;
+   background-color: $background;
+
+   .body-wrapper{
+     margin: 0 auto;
+     width: $body-width;
    }
 
-   & > form {
-     margin: 0 auto;
-     width: 65%;
-   }
    .alert {
      width: 100%;
    }
@@ -120,11 +121,94 @@
 }
 
 /* Forum */
-.thread {
-  display: flex;
-  flex-direction: row;
+.forum-post-wrapper {
 
-  div {
-    margin-right: 10px;
+  margin: 10px 0;
+
+  .forum-post {
+    display:grid;
+    grid-template-rows: 1fr auto 1fr;
+    font-size: 14px;
+    background-color: white;
+
+    > div {
+      display: flex;
+      padding: 0 20px;
+      height: 30px;
+      align-items: center;
+    }
+
+    .post-body {
+      padding: 20px 20px;
+    }
+
+    .post-footer{
+      border-top: 1px solid #ccc;
+      font-size: 12px;
+      justify-content: space-between;
+
+      .post-footer-thread {
+        font-weight: lighter;
+      }
+
+      .post-timestamp{
+        flex: 93;
+        font-weight: lighter;
+      }
+
+      .reply-button{
+        text-align: center;
+        flex: 7;
+        border-left: 1px solid #ccc;
+        cursor: pointer;
+
+        &:hover {
+          color: #3393FF;
+        }
+      }
+    }
+
+    .post-header{
+      justify-content: space-between;
+      font-size: 13px;
+      background-color: #eee;
+
+      .post-title{
+        font-size: 15px;
+        font-weight: bold;
+      }
+    }
   }
+}
+.post-reply {
+  margin-top: 10px;
+
+  .post-reply-topbar {
+    background-color: #eee;
+    height: 30px;
+  }
+
+  .reply-form {
+    width: 100%;
+  }
+
+  .submit-post-button{
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    background-color: #5d9dd5;
+  }
+}
+
+.bottom-reply {
+  margin: 1rem 0;
+}
+
+.parent-post > .parent-post {
+  margin-left: 10px;
+}
+
+.thread-wrapper{
+  margin: 1rem 0;
 }

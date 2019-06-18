@@ -1,6 +1,4 @@
-<div class="jumbotron shadow">
-  <%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}) %>
-</div>
+<%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}, class: "jumbotron shadow") %>
 
 <%= form_for(@forum_thread, url: forum_threads_path) do |f| %>
   <div class="jumbotron shadow">

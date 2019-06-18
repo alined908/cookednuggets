@@ -10,7 +10,6 @@ class Forums::ForumThreadsController < ApplicationController
 
   def show
     @thread_info = ForumThread.info([@forum_thread])
-    @posts = ForumPost.where(forum_thread_id: @forum_thread.id)
   end
 
   def new

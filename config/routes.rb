@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :forum_threads, :path => 'forums/threads' do
       resources :forum_posts, :path => 'posts'
     end
+    resources :forum_posts, :path => 'forums/posts' do
+      resources :forum_posts, :path => 'posts'
+    end
   end
 
   resources :users do

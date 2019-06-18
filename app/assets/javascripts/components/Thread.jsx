@@ -5,20 +5,41 @@ class Thread extends React.Component {
   render() {
     if (this.props.compact) {
       return (
-        <a className="thread" href={"/forums/threads/" + this.props.id}>
-          <div>Username: {this.props.info[1]}</div>
-          <div>Title: {this.props.title}</div>
-          <div>Date: {this.props.info[0]} ago</div>
-        </a>
+        <tr>
+          <td>
+            <a href={"/forums/threads/" + this.props.id}>
+              {this.props.title}
+            </a>
+          </td>
+          <td>{this.props.info[2]}</td>
+          <td>{this.props.info[1]}</td>
+          <td>{this.props.info[0]} ago</td>
+        </tr>
       )
     }
     else {
       return (
-        <div>
-          <div>Username: {this.props.info[0][1]}</div>
-          <div>Title: {this.props.thread.subject}</div>
-          <div>Topic: {this.props.thread.description}</div>
-          <div>Created at: {this.props.thread.created_at}</div>
+        <div className="thread-wrapper">
+          <div className="forum-post-wrapper">
+            <div className="forum-post">
+              <div className="post-header">
+                <div>
+                  {this.props.info[0][1]}
+                </div>
+                <div className="post-title">
+                  {this.props.thread.subject}
+                </div>
+              </div>
+              <div className="post-body">
+                {this.props.thread.description}
+              </div>
+              <div className="post-footer">
+                <div className="post-footer-thread">
+                  posted {this.props.timestamp} ago
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )
     }

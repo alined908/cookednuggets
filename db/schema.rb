@@ -48,7 +48,8 @@ ActiveRecord::Schema.define(version: 2019_06_11_230310) do
 
   create_table "forum_posts", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "forum_thread_id"
+    t.integer "commentable_id"
+    t.string "commentable_type"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

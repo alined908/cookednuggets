@@ -1,110 +1,18 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/daniel/Desktop/cookednuggets/app/models/composition.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
+      "/Users/daniel/Desktop/cookednuggets/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/models/forum_post.rb": [
-        1,
-        1,
-        1,
-        null
+        0
       ],
       "/Users/daniel/Desktop/cookednuggets/app/models/match.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/models/forum_thread.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
         0,
         0,
         0,
         0,
         0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/controllers/application_controller.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/application_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/composition_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/devise_helper.rb": [
-        1,
-        1,
-        1,
-        0,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/matches_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/helpers/users_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/daniel/Desktop/cookednuggets/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
@@ -130,6 +38,35 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/models/composition.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/models/forum_post.rb": [
         0,
         0,
         0,
@@ -181,6 +118,38 @@
         0
       ],
       "/Users/daniel/Desktop/cookednuggets/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/models/forum_thread.rb": [
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
         0,
         0,
         0
@@ -262,16 +231,17 @@
         0,
         0,
         0,
-        0,
         null,
         0,
         0,
         0,
         0,
         0,
+        null,
         0,
         0,
         null,
+        0,
         0,
         0,
         0,
@@ -297,7 +267,6 @@
         0,
         0,
         0,
-        0,
         null,
         0,
         0,
@@ -323,6 +292,23 @@
         0,
         0,
         0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/controllers/application_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        0,
+        null,
         0,
         null,
         0,
@@ -680,6 +666,44 @@
         0,
         0
       ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/matches_helper.rb": [
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/composition_helper.rb": [
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/users_helper.rb": [
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/forums_helper.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/devise_helper.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/application_helper.rb": [
+        0,
+        0
+      ],
       "/Users/daniel/Desktop/cookednuggets/app/channels/application_cable/connection.rb": [
         0,
         0,
@@ -693,7 +717,7 @@
         0
       ]
     },
-    "timestamp": 1560472973
+    "timestamp": 1560825346
   },
   "Cucumber Features": {
     "coverage": {
@@ -751,6 +775,18 @@
         null,
         null
       ],
+      "/Users/daniel/Desktop/cookednuggets/app/helpers/forums_helper.rb": [
+        1,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
       "/Users/daniel/Desktop/cookednuggets/app/helpers/matches_helper.rb": [
         1,
         null
@@ -828,6 +864,8 @@
         0,
         0,
         0,
+        0,
+        0,
         0
       ],
       "/Users/daniel/Desktop/cookednuggets/app/models/fight.rb": [
@@ -892,7 +930,17 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
         null,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "/Users/daniel/Desktop/cookednuggets/app/policies/application_policy.rb": [
@@ -958,16 +1006,17 @@
         0,
         0,
         0,
-        0,
         null,
         0,
         0,
         0,
         0,
         0,
+        null,
         0,
         0,
         null,
+        0,
         0,
         0,
         0,
@@ -990,7 +1039,6 @@
         0,
         0,
         null,
-        0,
         0,
         0,
         0,
@@ -1389,7 +1437,7 @@
         0
       ]
     },
-    "timestamp": 1560472980
+    "timestamp": 1560825245
   },
   "features": {
     "coverage": {

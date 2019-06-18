@@ -1,23 +1,24 @@
 class Forums::ForumPostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_forum_thread
+  before_action :find_commentable
 
   def create
-    @forum_post = ForumPost.new(forum_post_params)
+    @forum_post = @commentable.forum_posts.new(forum_post_params)
     @forum_post.user = current_user
-    @forum_post.forum_thread = @forum_thread
 
     if @forum_post.save
       flash[:success] = "Post successfully created"
     else
       flash[:danger] = @forum_post.errors.full_messages
     end
-    redirect_to forum_thread_path(@forum_thread)
+
+    redirect_to request.referrer
   end
 
   private
-    def set_forum_thread
-      @forum_thread = ForumThread.find(params[:forum_thread_id])
+    def find_commentable
+      @commentable = ForumPost.find(params[:forum_post_id]) if params[:forum_post_id]
+      @commentable = ForumThread.find(params[:forum_thread_id]) if params[:forum_thread_id]
     end
 
     def forum_post_params
