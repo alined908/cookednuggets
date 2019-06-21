@@ -1,17 +1,24 @@
 import React from "react";
 import ReplyForm from './ReplyForm'
+import EditForm from './EditForm'
 
 class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      replyForm: false
+      replyForm: false,
+      editForm: false
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleReplyClick = this.handleReplyClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
   }
 
-  handleClick(){
+  handleReplyClick(){
     this.setState({replyForm: !this.state.replyForm});
+  }
+
+  handleEditClick(){
+    this.setState({editForm: !this.state.editForm})
   }
 
   render() {
@@ -22,14 +29,18 @@ class Post extends React.Component {
             {this.props.user}
           </div>
           <div className="post-body">
-            {this.props.post.body}
+            {this.state.editForm && <EditForm post={this.props.post} authenticity_token={this.props.authenticity_token}/>}
+            {!this.state.editForm && this.props.post.body}
           </div>
           <div className="post-footer">
             <div className="post-timestamp">posted {this.props.time} ago</div>
-            <div className="reply-button" onClick={this.handleClick}>reply</div>
+            <div className="post-footer-actions">
+              {this.props.owner && <div className="post-edit" onClick={this.handleEditClick}>edit</div>}
+              {this.props.signed_in && <div className="reply-button" onClick={this.handleReplyClick}>reply</div>}
+            </div>
           </div>
         </div>
-        {this.state.replyForm && <ReplyForm id={this.props.post.id} type={this.props.post.commentable_type} authenticity_token={this.props.authenticity_token}/>}
+        {this.state.replyForm && <ReplyForm id={this.props.post.id} authenticity_token={this.props.authenticity_token}/>}
       </div>
     )
   }

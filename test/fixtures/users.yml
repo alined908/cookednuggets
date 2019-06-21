@@ -1,6 +1,0 @@
-daniel:
-  firstname: Daniel
-  lastname: Lee
-  username: alined
-  email: daniellee908908@gmail.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>

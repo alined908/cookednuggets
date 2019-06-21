@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_06_11_230310) do
     t.integer "user_id"
     t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "thread_id"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

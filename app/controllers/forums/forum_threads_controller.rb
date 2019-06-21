@@ -1,19 +1,15 @@
 class Forums::ForumThreadsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create]
   before_action :set_forum_thread, except: [:index, :new, :create]
 
   def index
     @forum_thread = ForumThread.new
     @forum_threads = ForumThread.all
-    @thread_info = ForumThread.info(@forum_threads)
+    @thread_info = ForumThread.info(@forum_threads, true)
   end
 
   def show
-    @thread_info = ForumThread.info([@forum_thread])
-  end
-
-  def new
-    @forum_thread = ForumThread.new
+    @thread_info = ForumThread.info([@forum_thread], false)
   end
 
   def create
@@ -22,10 +18,10 @@ class Forums::ForumThreadsController < ApplicationController
 
     if @forum_thread.save
       flash[:success] = "Thread successfully created"
-      redirect_to forum_threads_path
+      redirect_to forum_thread_path(@forum_thread)
     else
-      flash.now[:danger] = @forum_thread.errors.full_messages
-      render 'new'
+      flash[:danger] = @forum_thread.errors.full_messages
+      redirect_to forum_threads_path
     end
   end
 

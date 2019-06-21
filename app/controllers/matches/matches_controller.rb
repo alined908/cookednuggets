@@ -31,7 +31,7 @@ class Matches::MatchesController < ApplicationController
     @match.user = current_user
 
     if @match.save
-      flash[:success] = "Match successfully created! Upload compostions, fights, and general statistics!"
+      flash[:success] = "Match successfully created! Upload compositions, fights, and general statistics!"
       redirect_to user_match_path(current_user, @match)
     else
       flash.now[:danger] = @match.errors.full_messages

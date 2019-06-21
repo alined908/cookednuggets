@@ -79,7 +79,7 @@
 
 /* Streams */
 .streamer-list{
-  width: 30%;
+  width: 50%;
   padding: 1rem;
 
   a {
@@ -139,7 +139,8 @@
     }
 
     .post-body {
-      padding: 20px 20px;
+      padding: 10px 20px;
+      height: 100%;
     }
 
     .post-footer{
@@ -152,18 +153,25 @@
       }
 
       .post-timestamp{
-        flex: 93;
+        flex: 90;
         font-weight: lighter;
       }
 
-      .reply-button{
+      .post-footer-actions{
         text-align: center;
-        flex: 7;
-        border-left: 1px solid #ccc;
-        cursor: pointer;
+        flex: 10;
+        display: grid;
+        grid-template-columns: 50% 50%;
 
-        &:hover {
-          color: #3393FF;
+        > div {
+          cursor: pointer;
+          &:hover {
+            color: #3393FF;
+          }
+        }
+
+        .reply-button{
+          border-left: 1px solid #ccc;
         }
       }
     }
@@ -187,18 +195,6 @@
     background-color: #eee;
     height: 30px;
   }
-
-  .reply-form {
-    width: 100%;
-  }
-
-  .submit-post-button{
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    color: white;
-    background-color: #5d9dd5;
-  }
 }
 
 .bottom-reply {
@@ -211,4 +207,20 @@
 
 .thread-wrapper{
   margin: 1rem 0;
+}
+
+.edit_forum_post {
+  width: 100%;
+}
+
+.reply-form {
+  width: 100%;
+}
+
+.submit-post-button{
+  padding: 6px;
+  text-align: center;
+  font-size: 13px;
+  color: white;
+  background-color: #5d9dd5;
 }
