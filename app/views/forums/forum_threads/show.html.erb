@@ -1,6 +1,6 @@
 <%= react_component("Thread", {timestamp: get_time_ago(@forum_thread.created_at), thread: @forum_thread, info: @thread_info, compact: false}) %>
 <hr>
-<%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts) %>
+<%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts.includes(:user, :forum_posts)) %>
 <hr>
 <div class="post-reply bottom-reply">
   <% if user_signed_in? %>
