@@ -1,0 +1,18 @@
+<div class="header-nav shadow-sm">
+  <a href="/events">
+    <div class="header-nav-entry header-nav-first">
+      Ongoing
+    </div>
+  </a>
+  <a>
+    <div class="header-nav-entry">
+      Completed
+    </div>
+  </a>
+</div>
+
+<div class="events-container">
+  <% @events.each do |event| %>
+    <%= react_component("Event", {event: event}) %>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<div class="jumbotron shadow">
+  <%= react_component("TeamsTable", {teams: @teams}) %>
+</div>
+
+<%= form_for(@team, url: teams_path) do |f| %>
+  <div class="jumbotron shadow">
+    <h2>Create New Team</h2>
+    <%= f.text_field :name, placeholder: "Team Name", class:"form-control", :required => true %>
+    <%= f.text_field :shortname, placeholder: "Initials (ex. SFS)", class:"form-control" %>
+    <%= f.text_field :website, placeholder: "Website", class:"form-control" %>
+    <%= f.text_field :logo, placeholder: "Logo Link", class: "form-control" %>
+    <%= f.select :country, options_for_select(Team::COUNTRIES), :required => true, prompt: "" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

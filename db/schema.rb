@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_230310) do
+ActiveRecord::Schema.define(version: 2019_06_26_230227) do
 
   create_table "compositions", force: :cascade do |t|
     t.string "player_roster"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 2019_06_11_230310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_compositions_on_match_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.string "location"
+    t.string "country"
+    t.integer "prize"
+    t.date "start_date"
+    t.date "end_date"
+  end
+
+  create_table "eventteams", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_eventteams_on_event_id"
+    t.index ["team_id"], name: "index_eventteams_on_team_id"
   end
 
   create_table "fights", force: :cascade do |t|
@@ -91,6 +110,42 @@ ActiveRecord::Schema.define(version: 2019_06_11_230310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_matches_on_user_id"
+  end
+
+  create_table "officials", force: :cascade do |t|
+    t.integer "team1_id"
+    t.integer "team2_id"
+    t.integer "map_count"
+    t.datetime "start"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_officials_on_event_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "headshot"
+    t.string "eng_name"
+    t.string "nat_name"
+    t.string "nicknames"
+    t.string "handle"
+    t.string "country"
+    t.integer "age"
+    t.string "roles"
+    t.string "socials"
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.string "shortname"
+    t.string "logo"
+    t.string "country"
+    t.string "socials"
+    t.string "website"
   end
 
   create_table "users", force: :cascade do |t|

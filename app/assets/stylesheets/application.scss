@@ -14,8 +14,17 @@
  @import "bootstrap";
  $background: #dadadc;
  $body-width: 65%;
+ $hover-color: rgb(240, 240, 240);
+ $info-heavy-width: 90%;
+
+ html {
+   height: 100%;
+ }
 
  body {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
    background-color: $background;
 
    .body-wrapper{
@@ -26,6 +35,15 @@
    .alert {
      width: 100%;
    }
+   .main-content{
+     flex: 1 0 auto;
+   }
+ }
+
+ footer {
+  color: white;
+  flex-shrink: 0;
+  padding: .75rem 1.5rem;
  }
 
  table{
@@ -55,6 +73,61 @@
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.font-light{
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.card-header{
+  padding: 1rem;
+  border-bottom: 1px solid #d4d4d4;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.country{
+  display: flex;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 11px;
+  .country-flag {
+    margin-right: 5px;
+  }
+}
+
+.header-nav{
+  width: 75%;
+  height: 55px;
+  margin: 1rem auto;
+  background-color: white;
+  display: flex;
+  padding: 0 1rem;
+
+  .header-nav-first{
+    border-left: 1px solid #d4d4d4;
+  }
+
+  a{
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
+  .header-nav-entry {
+    font-size: 13px;
+    vertical-align: middle;
+    padding: 1rem;
+    height: 100%;
+    border-right: 1px solid #d4d4d4;
+
+    &:hover{
+      background-color: $hover-color;
+    }
+  }
 }
 
 /* Matches */
@@ -107,10 +180,15 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      height: 100%;
+      .streamer-flag {
+        margin-right: 8px;
+      }
     }
 
     .streamer-title{
       font-weight: 200;
+      font-size: 11px;
     }
 
     .streamer-viewcount{
@@ -223,4 +301,135 @@
   font-size: 13px;
   color: white;
   background-color: #5d9dd5;
+}
+
+/* Events */
+
+
+
+/* Officials */
+.team-logo {
+  width: 26px;
+  height: 26px;
+}
+
+.flag-logo{
+  width: 24px;
+  height: 15px;
+}
+
+
+.social-logo{
+  width: 20px;
+}
+
+.team-table-row{
+  font-size: 13px;
+  td {
+    vertical-align: middle;
+  }
+  span {
+    margin-right: 5px;
+  }
+
+  .team-shortname {
+    font-weight: lighter;
+  }
+}
+
+.team-header{
+  display: flex;
+  width: $info-heavy-width;
+  margin: 1.5em auto;
+  background: white;
+  padding: 1.5em 1em;
+
+  h2 {
+    margin: 0;
+  }
+
+  a {
+    color: black;
+  }
+  .team-socials {
+    justify-content: space-between;
+    .team-social {
+      font-size: 13px;
+      margin-right: 5px;
+    }
+  }
+
+  .team-header-logo {
+    width: 100px;
+    border: 1px solid #ccc;
+  }
+
+  .team-header-name {
+    margin-left: 15px;
+    display: grid;
+  }
+}
+
+.team-information{
+  background-color: inherit;
+  display: grid;
+  width: $info-heavy-width;
+  margin: 1.5em auto;
+  grid-template-columns: 6.5fr 3.5fr;
+  grid-column-gap: 1.5em;
+
+  .team-matches{
+    background: white;
+  }
+
+  .team-roster{
+    background: white;
+    a{
+      text-decoration: none;
+    }
+
+    .team-player{
+      display: flex;
+      padding: .5rem;
+      border-bottom: 1px solid #d4d4d4;
+      cursor: pointer;
+
+      .team-player-inner{
+        display: flex;
+      }
+
+      &:hover{
+        background-color: $hover-color;
+      }
+
+      .team-player-info{
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+
+        .team-player-handle{
+          color: #444;
+          text-transform: none;
+          font-weight: 500;
+          font-size: 13px;
+        }
+
+        .team-player-name{
+          color: rgb(136, 136, 136);
+          font-weight: 300;
+          text-transform: none;
+        }
+        .team-player-roles{
+          font-size: 12px;
+          text-transform: capitalize;
+          color: black;
+        }
+      }
+
+      .team-player-headshot-img{
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
 }

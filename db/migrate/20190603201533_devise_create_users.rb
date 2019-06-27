@@ -40,5 +40,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+    add_column :users, :username, :string
+    add_column :users, :firstname, :string
+    add_column :users, :lastname, :string
+    add_index :users, :username, unique: true
   end
 end

@@ -5,7 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'json'
 
+# Create Users
 users = [
   ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password'],
   ['Billy', 'Bob', 'bigmacgal', 'billy@gmail.com', 'password'],
@@ -18,6 +21,7 @@ users.each do |first, last, username, email, password|
               email: email, password: password, password_confirmation: password)
 end
 
+#Create Forum
 forum_threads = [
   [1, 'OWL Postseason Trades', 'Which players should each OWL team pick up?'],
   [2, 'Best Gaming Mice?', 'What mouse do you think is the best to use?'],
@@ -42,4 +46,45 @@ forum_posts = [
 forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|
   ForumPost.create(user_id: user_id, commentable_id: parent_id,
     commentable_type: parent_type, thread_id: thread_id, body: body)
+end
+
+#Create Events
+events = [
+  ["Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,7,15)]
+]
+
+events.each do |name, desc, location, prize, start, end_date|
+  @event = Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start, end_date: end_date)
+end
+
+#Create Teams
+response = JSON.parse(open('https://api.overwatchleague.com/v2/teams').read)['data']
+countries = {'DAL': 'us', 'PHI': 'us', 'HOU': 'us', 'BOS': 'us', 'NYE':'us', 'SFS':'us',
+            'VAL': 'us', 'GLA': 'us', 'FLA': 'us', 'SHD': 'cn', 'SEO': 'kr', 'LDN': 'gb', 'PAR': 'fr',
+            'CDH': 'cn', 'HZS': 'cn', 'TOR': 'ca', 'VAN': 'ca', 'WAS': 'us', 'ATL': 'us', 'GZC': 'cn'}
+teams = {}
+response.each do |team|
+  socials = {}
+  team['accounts'].each do |social|
+    if social['type'] == "WEIBO"
+      next
+    end
+    socials[social['type']] = social['url']
+  end
+
+  tem = Team.create(name: team['name'], shortname: team['abbreviatedName'], logo: team['logo']['main']['svg'],
+          country: countries[team['abbreviatedName'].to_sym], socials: socials, website: team['website'])
+  @event.teams << tem
+  teams[tem.name] = tem.id
+end
+
+#Create Players
+response = JSON.parse(open('https://api.overwatchleague.com/players').read)['content']
+response.each do |player|
+  socials = {}
+  player['accounts'].each do |social|
+    socials[social['accountType']] = social['value']
+  end
+  Player.create(headshot: player['headshot'], eng_name: player['givenName'] + " " + player['familyName'], handle: player['name'],
+    country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[player['teams'][0]['team']['name']])
 end

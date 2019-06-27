@@ -22,7 +22,6 @@ class LiveStreams extends React.Component {
       return response.json();
     })
     .then(json => {
-      console.log(json.data)
       this.setState({
         streamers: json.data
       });

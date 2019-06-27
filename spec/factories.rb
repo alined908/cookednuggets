@@ -1,4 +1,36 @@
 FactoryBot.define do
+  factory :official do
+    team1 { "MyString" }
+    team2 { "MyString" }
+    map_count { 1 }
+    start { "2019-06-26 16:07:34" }
+  end
+
+  factory :event do
+    name { "MyString" }
+    desc { "MyString" }
+    location { "MyString" }
+    prize { 1 }
+    start_date { "2019-06-26" }
+    end_date { "2019-06-26" }
+  end
+
+  factory :player do
+    eng_name { "MyString" }
+    nat_name { "MyString" }
+    country { "MyString" }
+    age { 1 }
+    role { "MyString" }
+    social_stream { "MyString" }
+    social_twitter { "MyString" }
+    team { nil }
+  end
+
+  factory :team do
+    name { "MyString" }
+    country { "MyString" }
+  end
+
   sequence :email do |n|
     "person#{n}@example.com"
   end

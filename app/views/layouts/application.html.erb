@@ -11,10 +11,13 @@
   </head>
 
   <body>
-    <%= render "layouts/navbar" %>
-    <%= render "layouts/alerts" %>
-    <div class="body-wrapper">
+    <div class="main-content">
+      <%= render "layouts/navbar" %>
+      <%= render "layouts/alerts" %>
       <%= yield %>
     </div>
+    <footer class="bg-dark">z</footer>
   </body>
+
+
 </html>
