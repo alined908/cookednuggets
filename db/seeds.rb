@@ -50,13 +50,17 @@ end
 
 #Create Events
 events = [
-  ["Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,7,15)]
+  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,7,15)],
+  ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
+  ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
+  ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)]
 ]
 
-events.each do |name, desc, location, prize, start, end_date|
-  @event = Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start, end_date: end_date)
+events.each do |country, name, desc, location, prize, start, end_date|
+  Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start, end_date: end_date, country: country)
 end
 
+@event = Event.first
 #Create Teams
 response = JSON.parse(open('https://api.overwatchleague.com/v2/teams').read)['data']
 countries = {'DAL': 'us', 'PHI': 'us', 'HOU': 'us', 'BOS': 'us', 'NYE':'us', 'SFS':'us',

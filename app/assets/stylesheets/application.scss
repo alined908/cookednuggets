@@ -16,6 +16,7 @@
  $body-width: 65%;
  $hover-color: rgb(240, 240, 240);
  $info-heavy-width: 90%;
+ $header-width: 75%;
 
  html {
    height: 100%;
@@ -36,6 +37,7 @@
      width: 100%;
    }
    .main-content{
+     margin-bottom: 2rem;
      flex: 1 0 auto;
    }
  }
@@ -65,6 +67,12 @@
 .actions {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.light-text {
+  font-size: 12px;
+  font-weight: lighter;
+  color: rgb(180, 180, 180);
 }
 
 .username{
@@ -100,12 +108,12 @@
 }
 
 .header-nav{
-  width: 75%;
+  width: $header-width;
   height: 55px;
   margin: 1rem auto;
   background-color: white;
   display: flex;
-  padding: 0 1rem;
+  padding: 0 2rem;
 
   .header-nav-first{
     border-left: 1px solid #d4d4d4;
@@ -304,8 +312,102 @@
 }
 
 /* Events */
+.events-container {
+  margin: auto;
+  width: $header-width;
+  background-color: rgb(253,253,253);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 1rem;
 
 
+  .event-entry{
+    position: relative;
+    box-sizing: border-box;
+    a{
+      text-decoration: none;
+    }
+  }
+
+  .event-entry::before{
+    content: '';
+    display: block;
+    padding-top: 110%;
+  }
+  .event-card{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 15px;
+
+    &:hover{
+      background-color: rgb(249,249,249);
+    }
+
+    .event-card-wrapper{
+      height: 100%;
+      background-color: rgb(245,245,245);
+      display: grid;
+      grid-template-rows: 55% 45%;
+      font-size: 13px;
+      color: black;
+      border-radius: 5px;
+    }
+
+    .event-picture{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 85%;
+        height: 85%;
+      }
+    }
+
+    .event-information {
+      background-color: white;
+      display: grid;
+      grid-template-rows: 55% 45%;
+      text-align: center;
+
+      .event-info-top{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+
+        .event-name{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        }
+
+        .event-place {
+          display: flex;
+          justify-content: center;
+          .event-country{
+            margin-right: 5px;
+          }
+        }
+      }
+      .event-info-bottom{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        font-weight: bold;
+        font-size: 12px;
+
+        .event-date{
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          grid-row-gap: 5px;
+        }
+      }
+    }
+  }
+}
 
 /* Officials */
 .team-logo {

@@ -11,8 +11,8 @@
   </a>
 </div>
 
-<div class="events-container">
+<div class="events-container shadow">
   <% @events.each do |event| %>
-    <%= react_component("Event", {event: event}) %>
+    <%= react_component("Event", {event: event}, {class: "event-entry"}) %>
   <% end %>
 </div>
