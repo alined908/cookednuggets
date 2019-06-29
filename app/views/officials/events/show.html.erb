@@ -1,0 +1,11 @@
+<%= react_component("Event", {event: @event, compact: false}) %>
+<div class="jumbotron shadow">
+  <h2>Teams</h2>
+  <% @event.teams.each do |team| %>
+    <%= team %>
+  <% end %>
+</div>
+
+<div class="jumbotron shadow">
+  <h2>Schedule</h2>
+</div>

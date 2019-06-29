@@ -10,7 +10,6 @@ class TeamsTable extends React.Component {
           <tr>
             <th>Team</th>
             <th>Country</th>
-            <th>Social</th>
           </tr>
         </thead>
         <tbody>

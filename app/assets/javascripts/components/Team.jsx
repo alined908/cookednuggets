@@ -1,6 +1,7 @@
 import React from "react"
 import Player from "./Player"
 import countries from "./countries"
+
 class Team extends React.Component {
   render () {
     if (this.props.compact) {

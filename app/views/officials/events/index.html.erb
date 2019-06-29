@@ -13,6 +13,6 @@
 
 <div class="events-container shadow">
   <% @events.each do |event| %>
-    <%= react_component("Event", {event: event}, {class: "event-entry"}) %>
+    <%= react_component("Event", {event: event, compact: true}, {class: "event-entry"}) %>
   <% end %>
 </div>

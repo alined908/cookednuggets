@@ -58,6 +58,7 @@
  }
 
 .jumbotron {
+  width: 90%;
   margin: 2rem auto;
   background: white;
   padding-top: 2.0rem;
@@ -87,6 +88,18 @@
   text-transform: uppercase;
   font-weight: 500;
   font-size: 12px;
+}
+
+.header-img {
+  overflow: hidden;
+  width: 130px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width: 200px;
+  }
 }
 
 .card-header{
@@ -207,6 +220,10 @@
 }
 
 /* Forum */
+.thread{
+  margin: 0 auto;
+  width: 80%;
+}
 .forum-post-wrapper {
 
   margin: 10px 0;
@@ -357,16 +374,6 @@
       border-radius: 5px;
     }
 
-    .event-picture{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        width: 85%;
-        height: 85%;
-      }
-    }
-
     .event-information {
       background-color: white;
       display: grid;
@@ -409,6 +416,16 @@
   }
 }
 
+.event-picture{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 85%;
+    height: 85%;
+  }
+}
+
 /* Officials */
 .team-logo {
   width: 26px;
@@ -444,7 +461,7 @@
   width: $info-heavy-width;
   margin: 1.5em auto;
   background: white;
-  padding: 1.5em 1em;
+  padding: 1.5em;
 
   h2 {
     margin: 0;

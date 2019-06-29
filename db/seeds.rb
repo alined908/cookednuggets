@@ -92,3 +92,6 @@ response.each do |player|
   Player.create(headshot: player['headshot'], eng_name: player['givenName'] + " " + player['familyName'], handle: player['name'],
     country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[player['teams'][0]['team']['name']])
 end
+
+#Create Matches
+response = JSON.parse(open().read)
