@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   has_many :eventteams
   has_many :teams, through: :eventteams
-  has_many :officials
+  has_many :sections
   validates :name, presence: true
   validates :location, presence: true
   validates :prize, presence: true

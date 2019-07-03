@@ -39,13 +39,33 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :officials do |t|
-      t.integer :team1_id
-      t.integer :team2_id
-      t.integer :map_count
-      t.datetime :start
+    create_table :sections do |t|
       t.references :event
+      t.string :name
+      t.date :start
+      t.date :end
+    end
+
+    #Matches
+    create_table :officials do |t|
+      t.references :team1, index: true, foreign_key: {to_table: :teams}
+      t.references :team2, index: true, foreign_key: {to_table: :teams}
+      t.references :winner, index: true, foreign_key: {to_table: :teams}
+      t.string :label
+      t.string :score
+      t.string :match_type
+      t.datetime :start
+      t.datetime :end
+      t.references :section
       t.timestamps
+    end
+
+    create_table :maps do |t|
+      t.references :official
+      t.references :winner, index: true, foreign_key: {to_table: :teams}
+      t.string :score
+      t.string :map
+      t.string :state
     end
   end
 end

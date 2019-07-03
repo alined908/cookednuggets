@@ -36,5 +36,8 @@
 </div>
 
 <div class="jumbotron shadow">
-  <h2>Standings</h2>
+  <h2>Schedule</h2>
+  <% @section.officials.each do |match| %>
+    <%= react_component("Match", {match: match, compact: true, teams: [Team.find(match.team1_id), Team.find(match.team2_id)]}) %>
+  <% end %>
 </div>

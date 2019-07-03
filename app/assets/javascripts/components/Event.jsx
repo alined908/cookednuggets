@@ -13,7 +13,7 @@ class Event extends React.Component {
 
   getDate(str){
     var formatted = str.split("-")
-    return months[parseInt(formatted[1]) - 1] + " " + formatted[2]
+    return months[parseInt(formatted[1]) - 1] + " " + formatted[2] + ", " + formatted[0]
   }
 
   render () {
@@ -69,16 +69,16 @@ class Event extends React.Component {
                 </a>
               </h3>
               <div className="country">
-                Location:
+                <b>Location:</b>
                 <div className="country-flag"><img className="flag-logo" src={"/assets/flags/" + this.props.event.country + '.svg'}/></div>
                 {this.props.event.location}
               </div>
-              <div>
+              <div className="event-overview-prize">
                 Prize: ${this.props.event.prize}
               </div>
               <div>
-              <div className="event-date-start"><span className="light-text">Start</span> {this.getDate(this.props.event.start_date)}</div>
-              <div className="event-date-end"><span className="light-text">End</span> {this.getDate(this.props.event.end_date)}</div>
+              <div className="event-date-start">Start: {this.getDate(this.props.event.start_date)}</div>
+              <div className="event-date-end">End: {this.getDate(this.props.event.end_date)}</div>
               </div>
             </div>
           </div>

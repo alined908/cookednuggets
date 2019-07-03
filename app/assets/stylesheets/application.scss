@@ -17,6 +17,7 @@
  $hover-color: rgb(240, 240, 240);
  $info-heavy-width: 90%;
  $header-width: 75%;
+ $link-color: rgb(13, 120, 165);
 
  html {
    height: 100%;
@@ -65,6 +66,22 @@
   padding-bottom: 2.0rem;
 }
 
+.skinny {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.link{
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    text-decoration: none;
+    color: black;
+    background-color: $hover-color;
+  }
+}
+
 .actions {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -73,7 +90,7 @@
 .light-text {
   font-size: 12px;
   font-weight: lighter;
-  color: rgb(180, 180, 180);
+  color: #aaa;
 }
 
 .username{
@@ -112,11 +129,11 @@
 
 .country{
   display: flex;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 300;
-  font-size: 11px;
+  font-size: 13px;
   .country-flag {
-    margin-right: 5px;
+    margin: 0 5px;
   }
 }
 
@@ -416,6 +433,10 @@
   }
 }
 
+.event-overview-prize{
+  font-size: 13px;
+}
+
 .event-picture{
   display: flex;
   justify-content: center;
@@ -423,6 +444,82 @@
   img {
     width: 85%;
     height: 85%;
+  }
+}
+
+.event-stages{
+  padding-left: 1rem;
+  display:flex;
+  align-items: center;
+  border-top: 1px solid #ccc;
+
+  a:last-child{
+    border-right: 1px solid #ccc;
+  }
+
+  .event-stages-entry{
+    padding: 1rem;
+    border-left: 1px solid #ccc;
+
+    &:hover{
+      cursor: pointer;
+      background-color: $hover-color;
+    }
+  }
+
+  .event-stages-dates{
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .event-stages-name{
+    font-size: 14px;
+    color: $link-color;
+  }
+}
+
+.match-horz{
+  font-size: 12px;
+  display: grid;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid #ccc;
+  grid-template-columns: 2fr 2.5fr 2fr 1.5fr;
+  grid-column-gap: 4rem;
+
+  .match-horz-rel-time {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .match-horz-type{
+    display: flex;
+    align-items: center;
+  }
+
+  .match-horz-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0 0 100px;
+    .match-horz-day {
+      margin-right: 1rem;
+    }
+  }
+
+  .match-horz-vs{
+    display: flex;
+    flex: 0 0 220px;
+    flex-direction: column;
+
+    .match-horz-vs-scores{
+      display: flex;
+      justify-content: space-between;
+
+      .match-horz-vs-team{
+        margin-right: 2rem;
+      }
+    }
   }
 }
 
@@ -440,6 +537,37 @@
 
 .social-logo{
   width: 20px;
+}
+
+.team-table{
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 15px;
+
+  .team-table-link{
+    text-decoration: none;
+  }
+
+  .team-table-entry{
+    width: 100%;
+    font-size: 13px;
+    color: $link-color;
+    text-align: center;
+
+    &:hover div{
+      background-color: $hover-color;
+    }
+    .team-table-img {
+      border: 1px solid #ccc;
+      padding: .5rem;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    img {
+      width: 100%;
+    }
+  }
 }
 
 .team-table-row{
@@ -486,6 +614,10 @@
   .team-header-name {
     margin-left: 15px;
     display: grid;
+  }
+
+  .event-date-end, .event-date-start{
+    font-size: 13px;
   }
 }
 

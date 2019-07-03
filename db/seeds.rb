@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'open-uri'
-require 'json'
+  require 'open-uri'
+  require 'json'
 
 # Create Users
 users = [
@@ -93,5 +93,64 @@ response.each do |player|
     country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[player['teams'][0]['team']['name']])
 end
 
+#Create Sections
+sections = [
+  [1, "Stage 1", Date.new(2019, 2, 14), Date.new(2019, 3, 24)],
+  [1, "Stage 2", Date.new(2019, 4, 4), Date.new(2019, 5, 12)],
+  [1, "Stage 3", Date.new(2019, 6, 7), Date.new(2019, 7, 7)],
+  [1, "Stage 4", Date.new(2019, 7, 25), Date.new(2019, 8, 25)],
+  [1, "Playoffs", Date.new(2019, 8, 31), Date.new(2019, 9, 30)]
+]
+
+sections.each do |event, name, start, ends|
+  Section.create(event_id: event, name: name, start: start, end: ends)
+end
+
+owl_teams = {}
+Team.all.each do |team|
+  owl_teams[team.name] = team
+end
+
+i = 0
 #Create Matches
-response = JSON.parse(open().read)
+response = JSON.parse(open("https://api.overwatchleague.com/schedule").read)['data']
+# Stages
+response['stages'].each do |stage|
+  next if !(stage['name'].include? "Stage")
+  # Matches
+  i += 1
+  stage['matches'].each do |match|
+    next if match['competitors'].include?(nil)
+    team1 = owl_teams[match['competitors'][0]['name']].id
+    team2 = owl_teams[match['competitors'][1]['name']].id
+    start = match['startDate']
+    ends = match['endDate']
+    score = match['wins']
+    match.key?('winner') ? (winner = owl_teams[match['winner']['name']].id) : (winner = nil)
+    (match['tournament']['type'] == "OPEN_MATCHES") ? (match_type = "regular") : (match_type = "playoff")
+
+    official = Official.create(match_type: match_type, section_id: i, team1_id: team1, team2_id: team2,
+        winner_id: winner, start: start, end: ends, score: score)
+    # Maps
+    match['games'].each do |map|
+      if !map.key?('points')
+        map_winner = nil
+        state = 'unstarted'
+        score = []
+        map_name = nil
+      else
+        score = map['points']
+        state = 'concluded'
+        map_name = map['attributes']['map']
+        if map['points'][0] > map['points'][1]
+          map_winner = team1
+        elsif map['points'][0] < map['points'][1]
+          map_winner = team2
+        else
+          map_winner = 0
+        end
+      end
+      Map.create(official_id: official.id, winner_id: map_winner, map: map_name, state: state, score: score)
+    end
+  end
+end

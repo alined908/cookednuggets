@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   end
 
   scope module: 'officials' do
-    resources :events
+    resources :events do
+      resources :sections, :path => '/', :except => [:index]
+    end
     resources :officials, :path => 'matches', :as => 'matches'
     resources :teams
     resources :players
