@@ -481,7 +481,7 @@
 .match-horz{
   font-size: 12px;
   display: grid;
-  padding: .5rem 1rem;
+  padding: .4rem 1rem;
   border-bottom: 1px solid #ccc;
   grid-template-columns: 2fr 2.5fr 2fr 1.5fr;
   grid-column-gap: 4rem;
@@ -626,7 +626,7 @@
   display: grid;
   width: $info-heavy-width;
   margin: 1.5em auto;
-  grid-template-columns: 6.5fr 3.5fr;
+  grid-template-columns: 7.5fr 2.5fr;
   grid-column-gap: 1.5em;
 
   .team-matches{

@@ -1,5 +1,6 @@
 import React from "react"
 import Player from "./Player"
+import Match from "./Match"
 import countries from "./countries"
 
 class Team extends React.Component {
@@ -73,7 +74,9 @@ class Team extends React.Component {
                 Matches
               </div>
               <div>
-                1
+                {this.props.matches.map((match, index) => (
+                  <Match match={match} compact={false} teams={[this.props.teams1[index], this.props.teams2[index]]}/>
+                ))}
               </div>
             </div>
             <div className="team-roster shadow">

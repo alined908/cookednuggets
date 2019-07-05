@@ -1,6 +1,6 @@
 class Officials::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :new, :destroy, :edit]
-  
+
   def index
     @teams = Team.all
     @team = Team.new
@@ -8,6 +8,8 @@ class Officials::TeamsController < ApplicationController
 
   def show
     @players = @team.players
+    @officials = Official.includes(:team1, :team2).where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(:start)
+    @teams = [@officials.collect{|match| match.team1}, @officials.collect{|match| match.team2}]
   end
 
   def create

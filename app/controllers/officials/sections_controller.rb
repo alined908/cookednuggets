@@ -1,8 +1,10 @@
 class Officials::SectionsController < ApplicationController
-  before_action :set_section
+  before_action :set_section, only: [:edit, :destroy]
 
   def show
     @event = Event.find(params[:event_id])
+    @sections = @event.sections
+    @officials = @sections.find(params[:id]).officials.includes(:team1, :team2)
   end
 
   def create

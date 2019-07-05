@@ -12,7 +12,6 @@ class Match extends React.Component {
     if (this.props.match.score.toString() === [0,0].toString()) {
       score = false
     }
-    console.log(score);
     this.state = {
       date: this.checkTime(time[0]),
       hour: time[1],
