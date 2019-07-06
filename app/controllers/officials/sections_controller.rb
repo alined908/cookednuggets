@@ -3,8 +3,11 @@ class Officials::SectionsController < ApplicationController
 
   def show
     @event = Event.find(params[:event_id])
+    @teams = @event.teams
     @sections = @event.sections
     @officials = @sections.find(params[:id]).officials.includes(:team1, :team2)
+    @regulars = @officials.where("match_type = ?", 'regular').includes(:winner, maps: :winner)
+    @standings = Section.standings(@teams, @regulars)
   end
 
   def create

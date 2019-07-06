@@ -101,16 +101,6 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["match_id"], name: "index_generals_on_match_id"
   end
 
-  create_table "maps", force: :cascade do |t|
-    t.integer "official_id"
-    t.integer "winner_id"
-    t.string "score"
-    t.string "map"
-    t.string "state"
-    t.index ["official_id"], name: "index_maps_on_official_id"
-    t.index ["winner_id"], name: "index_maps_on_winner_id"
-  end
-
   create_table "matches", force: :cascade do |t|
     t.date "date"
     t.string "left_team"
@@ -122,10 +112,21 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
+  create_table "official_maps", force: :cascade do |t|
+    t.integer "official_id"
+    t.integer "winner_id"
+    t.string "score"
+    t.string "map"
+    t.string "state"
+    t.index ["official_id"], name: "index_official_maps_on_official_id"
+    t.index ["winner_id"], name: "index_official_maps_on_winner_id"
+  end
+
   create_table "officials", force: :cascade do |t|
     t.integer "team1_id"
     t.integer "team2_id"
     t.integer "winner_id"
+    t.string "label"
     t.string "score"
     t.string "match_type"
     t.datetime "start"

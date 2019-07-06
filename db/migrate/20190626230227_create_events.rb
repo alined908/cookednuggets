@@ -60,7 +60,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :maps do |t|
+    create_table :official_maps do |t|
       t.references :official
       t.references :winner, index: true, foreign_key: {to_table: :teams}
       t.string :score

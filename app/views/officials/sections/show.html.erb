@@ -19,10 +19,21 @@
   </div>
 </div>
 
+<div class="jumbotron shadow standings">
+  <h3>Standings</h3>
+  <% @teams.each do |team| %>
+    <div>
+      <%= team.name %>
+      <%= @standings[team.name][:match] %>
+      <%= @standings[team.name][:map]%>
+    </div>
+  <% end %>
+</div>
+
 <div class="jumbotron shadow">
-  <h2>Teams</h2>
+  <h3>Teams</h3>
   <div class="team-table">
-    <% @event.teams.each do |team| %>
+    <% @teams.each do |team| %>
       <%= link_to team_path(team), class: "team-table-link" do %>
         <div class="team-table-entry">
           <div class="team-table-img">
@@ -36,7 +47,7 @@
 </div>
 
 <div class="jumbotron shadow">
-  <h2>Schedule</h2>
+  <h3>Schedule</h3>
   <% @officials.each do |match| %>
     <%= react_component("Match", {match: match, compact: true, teams: [match.team1, match.team2]}) %>
   <% end %>

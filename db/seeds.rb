@@ -140,6 +140,7 @@ response['stages'].each do |stage|
         map_name = nil
       else
         score = map['points']
+        puts score.to_a
         state = 'concluded'
         map_name = map['attributes']['map']
         if map['points'][0] > map['points'][1]
@@ -147,10 +148,11 @@ response['stages'].each do |stage|
         elsif map['points'][0] < map['points'][1]
           map_winner = team2
         else
+          puts "dwaddwa"
           map_winner = 0
         end
       end
-      Map.create(official_id: official.id, winner_id: map_winner, map: map_name, state: state, score: score)
+      Official::Map.create(official_id: official.id, winner_id: map_winner, map: map_name, state: state, score: score)
     end
   end
 end
