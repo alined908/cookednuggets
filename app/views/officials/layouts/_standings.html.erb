@@ -1,0 +1,32 @@
+<div class="jumbotron shadow standings skinny">
+  <div class="card-header">Standings</div>
+  <table class="table">
+    <thead class="standings-header">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Team</th>
+        <th scope="col">W</th>
+        <th scope="col">L</th>
+        <th scope="col">MP</th>
+        <th scope="col">Map W-L-D</th>
+        <th scope="col">Diff</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @teams.each_with_index do |team, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td>
+          <%= image_tag(team.logo, class: "standings-team-logo")%>
+          <%= link_to team.name, team_path(team) %>
+        </td>
+        <td><%= @standings[team.name][:match][0]%></td>
+        <td><%= @standings[team.name][:match][1]%></td>
+        <td><%= @standings[team.name][:match][0] + @standings[team.name][:match][1] %></td>
+        <td><%= @standings[team.name][:map][0]%>-<%=@standings[team.name][:map][1]%>-<%=@standings[team.name][:map][2]%></td>
+        <td><%= @standings[team.name][:map][0] - @standings[team.name][:map][1]%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+</div>

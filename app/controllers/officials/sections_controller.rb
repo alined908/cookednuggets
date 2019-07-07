@@ -1,13 +1,12 @@
 class Officials::SectionsController < ApplicationController
-  before_action :set_section, only: [:edit, :destroy]
+  before_action :set_section
 
   def show
     @event = Event.find(params[:event_id])
-    @teams = @event.teams
     @sections = @event.sections
-    @officials = @sections.find(params[:id]).officials.includes(:team1, :team2)
+    @officials = @section.officials.includes(:team1, :team2)
     @regulars = @officials.where("match_type = ?", 'regular').includes(:winner, maps: :winner)
-    @standings = Section.standings(@teams, @regulars)
+    @teams, @standings = Section.standings(@event.teams, @regulars)
   end
 
   def create

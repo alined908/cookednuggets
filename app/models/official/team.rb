@@ -1,4 +1,4 @@
-class Team < ApplicationRecord
+class Team1 < ApplicationRecord
   has_many :eventteams
   has_many :events, through: :eventteams
   has_many :players

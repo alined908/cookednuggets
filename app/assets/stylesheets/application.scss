@@ -560,7 +560,7 @@
     }
     .team-table-img {
       border: 1px solid #ccc;
-      padding: .5rem;
+      padding: 1rem;
       border-radius: 5px;
       margin-bottom: 5px;
     }
@@ -682,5 +682,24 @@
         height: 50px;
       }
     }
+  }
+}
+
+/* Standings */
+.standings {
+  width: 45%;
+  margin: 2rem 0 0 5%;
+
+  .standings-header {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .standings-team-logo{
+    width: 25px;
+  }
+
+  tbody{
+    font-size: 13px;
   }
 }

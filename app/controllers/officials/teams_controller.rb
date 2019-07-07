@@ -2,8 +2,8 @@ class Officials::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :new, :destroy, :edit]
 
   def index
-    @teams = Team.all
-    @team = Team.new
+    @teams = Official::Team.all
+    @team = Official::Team.new
   end
 
   def show
@@ -13,7 +13,7 @@ class Officials::TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
+    @team = Official::Team.new(team_params)
 
     if @team.save
       flash[:success] = "Successfully created team."

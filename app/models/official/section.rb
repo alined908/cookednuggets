@@ -17,9 +17,11 @@ class Section < ApplicationRecord
       if winner == team1
         standings[team1.name][:match][0] += 1
         standings[team2.name][:match][1] += 1
-      else
+      elsif winner == team2
         standings[team2.name][:match][0] += 1
         standings[team1.name][:match][1] += 1
+      else
+
       end
       match.maps.each do |map|
         winner = map.winner
@@ -35,6 +37,16 @@ class Section < ApplicationRecord
         end
       end
     end
-    return standings
+    sorted_teams = standings_sort(teams, standings)
+    return sorted_teams, standings
+  end
+
+  def self.standings_sort(teams, standings)
+    sorted = teams.sort_by{|team|
+      standings[team.name][:match][0] - standings[team.name][:match][1] + (
+        (standings[team.name][:map][0].to_f - standings[team.name][:map][1])/100 + standings[team.name][:map][0].to_f/1000
+      )
+    }
+    return sorted.reverse
   end
 end

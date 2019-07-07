@@ -6,7 +6,10 @@ class Officials::EventsController < ApplicationController
   end
 
   def show
-
+    @regulars = []
+    @event.sections.each {|stage|
+       @regulars += stage.officials.where("match_type = ?", 'regular').includes(:winner, :team1, :team2, maps: :winner)}
+    @teams, @standings = Section.standings(@event.teams, @regulars)
   end
 
   def create

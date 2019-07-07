@@ -1,0 +1,15 @@
+<div class="jumbotron shadow">
+  <h2>Teams</h2>
+  <div class="team-table">
+    <% @event.teams.each do |team| %>
+      <%= link_to team_path(team), class: "team-table-link" do %>
+        <div class="team-table-entry">
+          <div class="team-table-img">
+            <img src=<%=team.logo%>></img>
+          </div>
+          <%= team.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
