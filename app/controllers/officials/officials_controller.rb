@@ -6,7 +6,11 @@ class Officials::OfficialsController < ApplicationController
   end
 
   def show
-
+    @section = Section.find(@match.section_id)
+    @event = Event.find(@section.event_id)
+    @teams = Team.find(@match.team1_id, @match.team2_id)
+    @maps = @match.maps
+    @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
   end
 
   def create
@@ -27,10 +31,10 @@ class Officials::OfficialsController < ApplicationController
 
   private
     def set_match
-      @match = Officials.find(params[:id])
+      @match = Official.find(params[:id])
     end
 
-    def event_params
+    def match_params
       params.require(:match).permit()
     end
 end

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :sections, :path => '/', :except => [:index]
     end
+    resources :rankings
     resources :officials, :path => 'matches', :as => 'matches'
     resources :teams
     resources :players

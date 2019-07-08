@@ -1,0 +1,109 @@
+<div class="match-page">
+
+  <div class="shadow-sm match-header">
+    <div class="match-header-info">
+      <div class="match-header-event">
+        <div><%= link_to @event.name, event_path(@event), class: "link-nodec color"%></div>
+        <div><%= @section.name %>: <%= @match.match_type.capitalize %></div>
+      </div>
+      <div class="match-header-date">
+        <div><%= @match.start.strftime("%A, %B %d") %></div>
+        <div><%= @match.start.localtime.strftime("%I:%M %p %Z")%></div>
+      </div>
+    </div>
+    <div class="match-header-scoreboard">
+      <%= link_to team_path(@teams[0]), class: "link-nodec color" do %>
+        <div>
+          <%= @teams[0].name %>
+          <%= image_tag(@teams[0].logo, class: 'team-img-lg')%>
+        </div>
+      <% end %>
+      <div class="match-header-score">
+        <%= @match.score[0] %> - <%= @match.score[1]%>
+        <div><span><%= @maps.size %><span> <span>maps</span></div>
+      </div>
+      <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
+        <div>
+          <%= image_tag(@teams[1].logo, class: 'team-img-lg')%>
+          <%= @teams[1].name %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <h3>Maps</h3>
+  <div class="shadow-sm match-maps">
+
+  </div>
+
+  <h3>Head to Head</h3>
+  <div class='shadow-sm match-head-to-head'>
+    <div class="head-to-head-teams">
+      <%= link_to team_path(@teams[0]), class: "link-nodec" do %>
+        <div>
+          <%= image_tag(@teams[0].logo, class: 'team-img-md')%>
+          <%= @teams[0].name %>
+        </div>
+      <% end %>
+      <%= link_to team_path(@teams[1]), class: "link-nodec" do %>
+        <div>
+          <%= @teams[1].name %>
+          <%= image_tag(@teams[1].logo, class: 'team-img-md')%>
+        </div>
+      <% end %>
+    </div>
+    <div class="match-h2hs">
+      <% if @h2hs.empty? %>
+        <div style="text-align: center; padding: 1rem 0;">No previous encounters.</div>
+      <% end %>
+      <% @h2hs.each do |h2h|%>
+        <%= link_to match_path(h2h), class: "link-nodec" do%>
+          <div class="match-h2h">
+            <div class="match-h2h-event">
+              <div><%= image_tag("events/" + h2h.section.event.name.split(" ")[0,2].join("-")+ ".png",class:"event-logo")%></div>
+              <div><%= h2h.section.event.name %>: <%= h2h.section.name %></div>
+            </div>
+            <div class="match-h2h-teams">
+              <div>
+                <%= image_tag(h2h.team1.logo, class:"team-logo") %>
+              </div>
+              <div class="score-entrys">
+                <span class="score-entry"><%= h2h.score[0]%></span>
+                <span class="score-entry"><%= h2h.score[1]%></span>
+              </div>
+              <div>
+                <%= image_tag(h2h.team2.logo, class:"team-logo")%>
+              </div>
+            </div>
+            <div class="match-h2h-date"><%=h2h.start.strftime("%m/%d/%Y")%></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <h3>Recent Matches</h3>
+  <div class="match-recent-matches">
+    <% @recents.each_with_index do |team, index| %>
+      <div class="shadow-sm match-recent-team">
+        <% team.each do |match|%>
+          <%= link_to match_path(match), class: 'link-nodec' do %>
+            <div class="match-recent-entry <%= match.team1.id == match.winner_id ? 'match-win': 'match-lose'%>">
+              <div class="match-recent-entry-score">
+                <span class="score-entry"><%= match.score[0]%></span>
+                <span class="score-entry"><%= match.score[1]%></span>
+              </div>
+              <div class="match-recent-entry-opp">
+                <span><em>vs</em></span>
+                <span><%=image_tag(match.team2.logo, class: 'team-logo')%></span>
+                <span><%= match.team2.name %></span>
+              </div>
+              <div class="match-recent-entry-date"><%= match.start.strftime("%m/%d/%Y")%></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>

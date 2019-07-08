@@ -11,9 +11,7 @@ class Section < ApplicationRecord
     end
 
     matches.each do |match|
-      team1 = match.team1
-      team2 = match.team2
-      winner = match.winner
+      team1, team2, winner  = match.team1, match.team2, match.winner
       if winner == team1
         standings[team1.name][:match][0] += 1
         standings[team2.name][:match][1] += 1
