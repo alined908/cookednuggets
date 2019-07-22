@@ -130,7 +130,7 @@ response['stages'].each do |stage|
     (match['tournament']['type'] == "OPEN_MATCHES") ? (match_type = "regular") : (match_type = "playoff")
 
     official = Official.create(match_type: match_type, section_id: i, team1_id: team1, team2_id: team2,
-        winner_id: winner, start: start, end: ends, score: score)
+        winner_id: winner, start: start, end: ends, score: score, identifier: match['id'])
     # Maps
     match['games'].each do |map|
       if !map.key?('points')
@@ -140,7 +140,6 @@ response['stages'].each do |stage|
         map_name = nil
       else
         score = map['points']
-        puts score.to_a
         state = 'concluded'
         map_name = map['attributes']['map']
         if map['points'][0] > map['points'][1]
@@ -148,11 +147,36 @@ response['stages'].each do |stage|
         elsif map['points'][0] < map['points'][1]
           map_winner = team2
         else
-          puts "dwaddwa"
           map_winner = 0
         end
       end
-      Official::Map.create(official_id: official.id, winner_id: map_winner, map: map_name, state: state, score: score)
+      Map.create(official_id: official.id, winner_id: map_winner, name: map_name, state: state, score: score)
+    end
+  end
+end
+
+response = JSON.parse(open("https://api.overwatchleague.com/matches").read)['content']
+
+response.each do |match|
+  puts "hello"
+  puts match['id']
+  official = Official.find_by(identifier: match['id'].to_i)
+  if official == nil
+    next
+  else
+    match['games'].each_with_index do |map, index|
+      map_db = official.maps[index]
+      puts map_db
+      map['players'].each do |player|
+        player_db = Player.find_by(handle: player['player']['name'])
+        if player_db == nil
+          next
+        end
+        puts player['player']['name']
+        puts player_db
+        perf = Performance.create(player_id: player_db.id, map_id: map_db.id)
+        map_db.performances << perf
+      end
     end
   end
 end

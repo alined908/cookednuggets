@@ -16,3 +16,7 @@
     <%= react_component("Event", {event: event, compact: true}, {class: "event-entry"}) %>
   <% end %>
 </div>
+
+<div class="jumbotron shadow">
+  <%= link_to "Create New Event", new_event_path, class: "btn btn-primary"%>
+</div>

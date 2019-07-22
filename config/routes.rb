@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   scope module: 'officials' do
     resources :events do
-      resources :sections, :path => '/', :except => [:index]
+      resources :sections, :path => 's', :except => [:index]
     end
     resources :rankings
     resources :officials, :path => 'matches', :as => 'matches'

@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
+  has_many :performances
+  has_many :maps, :through => :performances
   belongs_to :team
   serialize :nicknames
   serialize :roles

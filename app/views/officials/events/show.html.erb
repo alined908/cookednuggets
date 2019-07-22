@@ -2,3 +2,7 @@
 <%= render "officials/layouts/sections", :event => @event %>
 <%= render "officials/layouts/teams", :teams => @teams %>
 <%= render "officials/layouts/standings", :teams => @teams, :standings => @standings %>
+<div class="jumbotron shadow">
+  <%= link_to 'Edit', [:edit, @event] %>
+  <%= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+</div>

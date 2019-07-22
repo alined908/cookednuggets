@@ -101,6 +101,16 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["match_id"], name: "index_generals_on_match_id"
   end
 
+  create_table "maps", force: :cascade do |t|
+    t.integer "official_id"
+    t.integer "winner_id"
+    t.string "score"
+    t.string "map"
+    t.string "state"
+    t.index ["official_id"], name: "index_maps_on_official_id"
+    t.index ["winner_id"], name: "index_maps_on_winner_id"
+  end
+
   create_table "matches", force: :cascade do |t|
     t.date "date"
     t.string "left_team"
@@ -112,20 +122,11 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
-  create_table "official_maps", force: :cascade do |t|
-    t.integer "official_id"
-    t.integer "winner_id"
-    t.string "score"
-    t.string "map"
-    t.string "state"
-    t.index ["official_id"], name: "index_official_maps_on_official_id"
-    t.index ["winner_id"], name: "index_official_maps_on_winner_id"
-  end
-
   create_table "officials", force: :cascade do |t|
     t.integer "team1_id"
     t.integer "team2_id"
     t.integer "winner_id"
+    t.integer "identifier"
     t.string "label"
     t.string "score"
     t.string "match_type"
@@ -138,6 +139,15 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["team1_id"], name: "index_officials_on_team1_id"
     t.index ["team2_id"], name: "index_officials_on_team2_id"
     t.index ["winner_id"], name: "index_officials_on_winner_id"
+  end
+
+  create_table "performances", id: false, force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "map_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_performances_on_map_id"
+    t.index ["player_id"], name: "index_performances_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|

@@ -66,6 +66,10 @@
   padding-bottom: 2.0rem;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .skinny {
   margin: 0 auto;
   padding: 0;
@@ -875,4 +879,58 @@
       }
    }
  }
+}
+
+.map-container{
+  background: white;
+  font-size: 12px;
+
+  .map-container-navbar {
+    background-color: $hover-color;
+    display: flex;
+
+    .map-entry {
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 1rem;
+      flex:1 1 0;
+
+      .map-entry-num{
+        font-weight: lighter;
+      }
+
+      &:hover{
+        background-color: white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .map-container-games{
+    padding: 1rem;
+
+    .map-info {
+      display: none;
+      .map-game-wrapper{
+        display: flex;
+        flex-direction: column;
+
+        .map-game-stats {
+          display: flex;
+          justify-content: space-between;
+          padding: 1rem;
+
+          .map-team{
+            font-size: 15px;
+          }
+        }
+
+        .map-rosters{
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
 }

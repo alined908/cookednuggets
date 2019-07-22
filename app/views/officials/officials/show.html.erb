@@ -19,7 +19,10 @@
         </div>
       <% end %>
       <div class="match-header-score">
-        <%= @match.score[0] %> - <%= @match.score[1]%>
+        <div class="score-entrys">
+          <span class="score-entry"><%= @match.score[0]%></span>
+          <span class="score-entry"><%= @match.score[1]%></span>
+        </div>
         <div><span><%= @maps.size %><span> <span>maps</span></div>
       </div>
       <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
@@ -32,9 +35,8 @@
   </div>
 
   <h3>Maps</h3>
-  <div class="shadow-sm match-maps">
-
-  </div>
+  <% maps_json = @maps.includes(performances: :player).map {|map| map.as_json.merge({players: map.performances.collect {|perf| perf.player}})} %>
+  <%= react_component("matchMaps", {maps_json: maps_json, teams: @teams}) %>
 
   <h3>Head to Head</h3>
   <div class='shadow-sm match-head-to-head'>

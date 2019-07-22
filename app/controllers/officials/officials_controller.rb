@@ -6,10 +6,8 @@ class Officials::OfficialsController < ApplicationController
   end
 
   def show
-    @section = Section.find(@match.section_id)
-    @event = Event.find(@section.event_id)
-    @teams = Team.find(@match.team1_id, @match.team2_id)
-    @maps = @match.maps
+    @section, @teams = Section.find(@match.section_id), Team.find(@match.team1_id, @match.team2_id)
+    @event, @maps = Event.find(@section.event_id), @match.maps
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
   end
 

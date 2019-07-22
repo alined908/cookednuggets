@@ -8,7 +8,7 @@ class Officials::TeamsController < ApplicationController
 
   def show
     @players = @team.players
-    @officials = Official.includes(:team1, :team2).where("team1_id = ? OR team2_id = ?", @team.id, @team.id).order(:start)
+    @officials = Official.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).includes(:team1, :team2).order(:start)
     @teams = [@officials.collect{|match| match.team1}, @officials.collect{|match| match.team2}]
   end
 

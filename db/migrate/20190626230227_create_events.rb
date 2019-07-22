@@ -25,6 +25,28 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
+    create_table :sections do |t|
+      t.references :event
+      t.string :name
+      t.date :start
+      t.date :end
+    end
+
+    #Matches
+    create_table :officials do |t|
+      t.references :team1, index: true, foreign_key: {to_table: :teams}
+      t.references :team2, index: true, foreign_key: {to_table: :teams}
+      t.references :winner, index: true, foreign_key: {to_table: :teams}
+      t.integer :identifier
+      t.string :label
+      t.string :score
+      t.string :match_type
+      t.datetime :start
+      t.datetime :end
+      t.references :section
+      t.timestamps
+    end
+
     create_table :players do |t|
       t.string :headshot
       t.string :eng_name
@@ -39,33 +61,18 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :sections do |t|
-      t.references :event
-      t.string :name
-      t.date :start
-      t.date :end
-    end
-
-    #Matches
-    create_table :officials do |t|
-      t.references :team1, index: true, foreign_key: {to_table: :teams}
-      t.references :team2, index: true, foreign_key: {to_table: :teams}
-      t.references :winner, index: true, foreign_key: {to_table: :teams}
-      t.string :label
-      t.string :score
-      t.string :match_type
-      t.datetime :start
-      t.datetime :end
-      t.references :section
-      t.timestamps
-    end
-
-    create_table :official_maps do |t|
+    create_table :maps do |t|
       t.references :official
       t.references :winner, index: true, foreign_key: {to_table: :teams}
       t.string :score
-      t.string :map
+      t.string :name
       t.string :state
+    end
+
+    create_table :performances, id:false do |t|
+      t.belongs_to :player, index: true, foreign_key: true
+      t.belongs_to :map, index: true, foreign_key: true
+      t.timestamps
     end
   end
 end
