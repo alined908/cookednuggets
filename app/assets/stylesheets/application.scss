@@ -66,6 +66,13 @@
   padding-bottom: 2.0rem;
 }
 
+.winner{
+  color: green;
+}
+.draw{
+  color: blue;
+}
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -922,15 +929,59 @@
 
           .map-team{
             font-size: 15px;
+            font-weight: bold;
           }
         }
 
         .map-rosters{
           padding: 1rem;
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 30% 40% 30%;
+
+          .map-scoreboard{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 70px;
+
+            span {
+              margin-bottom: 40px;
+            }
+          }
+          .map-roster-right{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
+
+          .map-player{
+            display: flex;
+            margin-bottom: 10px;
+
+            .map-player-info-top{
+              color: $link-color;
+            }
+          }
         }
       }
     }
   }
+}
+.map-team-status{
+  text-transform: capitalize;
+  &:before{
+    content: '​';
+  }
+}
+
+.checkmark {
+
+  display: flex;
+  align-items: center;
+
+  .check {
+    width: 15px;
+  }
+
 }

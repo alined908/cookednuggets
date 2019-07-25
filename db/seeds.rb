@@ -158,25 +158,20 @@ end
 response = JSON.parse(open("https://api.overwatchleague.com/matches").read)['content']
 
 response.each do |match|
-  puts "hello"
-  puts match['id']
   official = Official.find_by(identifier: match['id'].to_i)
-  if official == nil
-    next
-  else
-    match['games'].each_with_index do |map, index|
-      map_db = official.maps[index]
-      puts map_db
-      map['players'].each do |player|
-        player_db = Player.find_by(handle: player['player']['name'])
-        if player_db == nil
-          next
-        end
-        puts player['player']['name']
-        puts player_db
-        perf = Performance.create(player_id: player_db.id, map_id: map_db.id)
-        map_db.performances << perf
-      end
+  next if official == nil
+  comps = match['competitors']
+  ids = {comps[0]['id'] => Team.find_by(name: comps[0]['name']), comps[1]['id'] => Team.find_by(name: comps[1]['name'])}
+
+  match['games'].each_with_index do |map, index|
+    map_db = official.maps[index]
+    map['players'].each do |player|
+      team = player['team']['id']
+      player_db = Player.find_by(handle: player['player']['name'])
+      next if player_db == nil
+      puts player['player']['name']
+      perf = Performance.create(player_id: player_db.id, map_id: map_db.id, team_id: ids[team].id)
+      map_db.performances << perf
     end
   end
 end

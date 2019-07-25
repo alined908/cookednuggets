@@ -1,5 +1,4 @@
 <div class="match-page">
-
   <div class="shadow-sm match-header">
     <div class="match-header-info">
       <div class="match-header-event">
@@ -35,8 +34,7 @@
   </div>
 
   <h3>Maps</h3>
-  <% maps_json = @maps.includes(performances: :player).map {|map| map.as_json.merge({players: map.performances.collect {|perf| perf.player}})} %>
-  <%= react_component("matchMaps", {maps_json: maps_json, teams: @teams}) %>
+  <%= react_component("matchMaps", {maps_json: @maps_json, teams: @teams}) %>
 
   <h3>Head to Head</h3>
   <div class='shadow-sm match-head-to-head'>
@@ -66,6 +64,11 @@
               <div><%= h2h.section.event.name %>: <%= h2h.section.name %></div>
             </div>
             <div class="match-h2h-teams">
+              <div class="checkmark">
+                <% if h2h.score[0] > h2h.score[1] %>
+                  <%= image_tag("misc/check-mark-3-32", class: 'checkmark')%>
+                <% end %>
+              </div>
               <div>
                 <%= image_tag(h2h.team1.logo, class:"team-logo") %>
               </div>
@@ -75,6 +78,11 @@
               </div>
               <div>
                 <%= image_tag(h2h.team2.logo, class:"team-logo")%>
+              </div>
+              <div class="checkmark">
+                <% if h2h.score[0] < h2h.score[1] %>
+                  <%= image_tag("misc/check-mark-3-32", class: 'check')%>
+                <% end %>
               </div>
             </div>
             <div class="match-h2h-date"><%=h2h.start.strftime("%m/%d/%Y")%></div>

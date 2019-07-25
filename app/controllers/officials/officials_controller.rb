@@ -9,6 +9,7 @@ class Officials::OfficialsController < ApplicationController
     @section, @teams = Section.find(@match.section_id), Team.find(@match.team1_id, @match.team2_id)
     @event, @maps = Event.find(@section.event_id), @match.maps
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
+    @maps_json = Map.get_perfs(@maps, @teams)
   end
 
   def create
