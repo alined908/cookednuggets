@@ -9,7 +9,7 @@
     <%= f.text_field :shortname, placeholder: "Initials (ex. SFS)", class:"form-control" %>
     <%= f.text_field :website, placeholder: "Website", class:"form-control" %>
     <%= f.text_field :logo, placeholder: "Logo Link", class: "form-control" %>
-    <%= f.select :country, options_for_select(Team::COUNTRIES), :required => true, prompt: "" %>
+    <%= f.select :country, options_for_select(COUNTRIES), :required => true, prompt: "" %>
     <%= f.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

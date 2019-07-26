@@ -1,11 +1,11 @@
 class Officials::PlayersController < ApplicationController
   before_action :set_player, only: [:show, :update, :edit, :destroy]
   def index
-    
+
   end
 
   def show
-
+    
   end
 
   def edit
@@ -30,7 +30,7 @@ class Officials::PlayersController < ApplicationController
 
   private
     def set_player
-
+      @player = Player.find(params[:id])
     end
 
     def player_params

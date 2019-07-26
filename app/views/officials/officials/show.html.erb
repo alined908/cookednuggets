@@ -116,4 +116,19 @@
     <% end %>
   </div>
 
+  <hr>
+  <%= render(partial: 'forums/forum_posts/post', collection: @match.forum_posts.includes(:user, :forum_posts)) %>
+  <hr>
+
+  <div class="post-reply bottom-reply">
+    <% if user_signed_in? %>
+      <div class="post-reply-topbar"></div>
+      <%= form_for(@forum_post, url: match_posts_path(@match)) do |f| %>
+        <%= f.text_area :body, placeholder: "Add a comment", rows: 6, class: "reply-form" %>
+        <%= f.submit "Submit Post", class: "submit-post-button" %>
+      <% end %>
+    <% else %>
+      Login or register to add your comment to the discussion.
+    <% end %>
+  </div>
 </div>

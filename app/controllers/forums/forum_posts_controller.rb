@@ -4,37 +4,41 @@ class Forums::ForumPostsController < ApplicationController
   #before_action :require_permission, only: [:update]
 
   def create
-    @forum_post = @commentable.forum_posts.new(forum_post_params)
-    @forum_post.user = current_user
-    @forum_post.thread_id = @parent_id
-    if @forum_post.save
+    @post = @commentable.forum_posts.new(forum_post_params)
+    @post.user = current_user
+    @post.thread_id = @parent_id
+    if @post.save
       flash[:success] = "Post successfully created."
     else
-      flash[:danger] = @forum_post.errors.full_messages
+      flash[:danger] = @post.errors.full_messages
     end
-    redirect_to forum_thread_path(@parent_id)
+    redirect_to request.referrer
   end
 
   def update
-    @forum_post = ForumPost.find(params[:id])
-    @forum_post.body = forum_post_params[:body]
-    if @forum_post.save
+    @post = ForumPost.find(params[:id])
+    @post.body = forum_post_params[:body]
+    if @post.save
       flash[:success] = "Post successfully updated."
     else
-      flash[:danger] = @forum_post.errors.full_messages
+      flash[:danger] = @post.errors.full_messages
     end
-    redirect_to forum_thread_path(@parent_id)
+    redirect_to request.referrer
   end
 
   private
     def find_commentable
-      if params[:forum_post_id]
-        @commentable = ForumPost.find(params[:forum_post_id])
+      if params[:post_id]
+        @commentable = ForumPost.find(params[:post_id])
         @parent_id = @commentable.thread_id
       end
-      if params[:forum_thread_id]
-        @commentable = ForumThread.find(params[:forum_thread_id])
-        @parent_id = params[:forum_thread_id]
+      if params[:thread_id]
+        @commentable = ForumThread.find(params[:thread_id])
+        @parent_id = params[:thread_id]
+      end
+      if params[:match_id]
+        @commentable = Official.find(params[:match_id])
+        @parent_id = params[:match_id]
       end
     end
 

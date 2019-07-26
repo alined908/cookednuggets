@@ -1,0 +1,55 @@
+<div class="team-header shadow">
+  <div>
+    <%= image_tag(@player.headshot, class: "team-header-logo")%>
+  </div>
+  <div class="team-header-name">
+    <h2>
+      <%= @player.handle %><%= @player.eng_name %>
+    </h2>
+    <div class="team-socials">
+      <% if @player.socials['TWITTER'] %>
+        <span class="team-social">
+          <%= link_to @player.socials['TWITTER'], target: "_blank" do %>
+            <img class="social-logo" src="/assets/socials/twitter.svg"/>
+          <% end %>
+        </span>
+      <% end %>
+      <% if @player.socials['INSTAGRAM'] %>
+        <span className="team-social">
+          <%= link_to @player.socials['INSTAGRAM'], target: "_blank" do %>
+            <img class="social-logo" src="/assets/socials/instagram.svg"/>
+          <% end %>
+        </span>
+      <% end %>
+      <% if @player.socials['FACEBOOK'] %>
+        <span className="team-social">
+          <%= link_to @player.socials['FACEBOOK'], target: "_blank" do %>
+            <img className="social-logo" src="/assets/socials/facebook.png"/>
+          <% end %>
+        </span>
+      <% end %>
+      <% if @player.socials['YOUTUBE_CHANNEL'] %>
+        <span className="team-social">
+          <%= link_to @player.socials['YOUTUBE_CHANNEL'], target: "_blank" do %>
+            <img className="social-logo" src="/assets/socials/youtube.svg"/>
+          <% end %>
+        </span>
+      <% end %>
+      <% if @player.socials['TWITCH'] %>
+        <span className="team-social">
+          <%= link_to @player.socials['TWITCH'], target: "_blank" do %>
+            <img className="social-logo" src="/assets/socials/twitch.png"/>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+    <div className="country">
+      <div className="country-flag">
+        <%= image_tag("flags/" + @player.country.downcase, class: "flag-logo") %>
+      </div>
+      <div>
+
+      </div>
+    </div>
+  </div>
+</div>

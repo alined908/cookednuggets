@@ -10,14 +10,14 @@
 
 # Create Users
 users = [
-  ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password'],
-  ['Billy', 'Bob', 'bigmacgal', 'billy@gmail.com', 'password'],
-  ['Tiffany', 'Tsay', 'merci', 'tiff@berkeley.edu', 'password'],
-  ['Joseph', 'Kim', 'campingfatkid', 'kyungrok@berkeley.edu', 'password']
+  ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password', 'us'],
+  ['Billy', 'Bob', 'bigmacgal', 'billy@gmail.com', 'password', 'us'],
+  ['Tiffany', 'Tsay', 'merci', 'tiff@berkeley.edu', 'password', 'cn'],
+  ['Joseph', 'Kim', 'campingfatkid', 'kyungrok@berkeley.edu', 'password', 'kr']
 ]
 
-users.each do |first, last, username, email, password|
-  User.create(firstname: first, lastname: last, username: username,
+users.each do |first, last, username, email, password, country|
+  User.create(firstname: first, lastname: last, username: username, country: country,
               email: email, password: password, password_confirmation: password)
 end
 
@@ -30,22 +30,6 @@ forum_threads = [
 
 forum_threads.each do |user_id, subject, description|
   ForumThread.create(user_id: user_id, subject: subject, description: description)
-end
-
-forum_posts = [
-  [2, 1, "ForumThread", 1, 'The Fusion should pick up Alarm.'],
-  [3, 1, "ForumThread", 1, 'Washington Justice need to replace Sansam.'],
-  [4, 2, "ForumPost", 1, 'I agree with this statement'],
-  [1, 3, "ForumPost", 1, 'I also agree with this statement'],
-  [4, 1, "ForumPost", 1, "Alarm is a beast."],
-  [3, 2, "ForumThread", 2, 'Best gaming mice I have used is Logitech G Pro Wireless'],
-  [4, 6, "ForumPost", 2, 'I also use this mouse and its wireless feature is really good.'],
-  [1, 3, "ForumThread", 3, 'Dont watch this streamer']
-]
-
-forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|
-  ForumPost.create(user_id: user_id, commentable_id: parent_id,
-    commentable_type: parent_type, thread_id: thread_id, body: body)
 end
 
 #Create Events
@@ -174,4 +158,21 @@ response.each do |match|
       map_db.performances << perf
     end
   end
+end
+
+forum_posts = [
+  [2, 1, "ForumThread", 1, 'The Fusion should pick up Alarm.'],
+  [3, 1, "ForumThread", 1, 'Washington Justice need to replace Sansam.'],
+  [4, 2, "ForumPost", 1, 'I agree with this statement'],
+  [1, 3, "ForumPost", 1, 'I also agree with this statement'],
+  [4, 1, "ForumPost", 1, "Alarm is a beast."],
+  [3, 2, "ForumThread", 2, 'Best gaming mice I have used is Logitech G Pro Wireless'],
+  [4, 6, "ForumPost", 2, 'I also use this mouse and its wireless feature is really good.'],
+  [1, 3, "ForumThread", 3, 'Dont watch this streamer'],
+  [1, 1, "Official", nil , "Wow Carpe popped off"]
+]
+
+forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|
+  ForumPost.create(user_id: user_id, commentable_id: parent_id,
+    commentable_type: parent_type, thread_id: thread_id, body: body)
 end

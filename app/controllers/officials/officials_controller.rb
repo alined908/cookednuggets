@@ -10,6 +10,8 @@ class Officials::OfficialsController < ApplicationController
     @event, @maps = Event.find(@section.event_id), @match.maps
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
     @maps_json = Map.get_perfs(@maps, @teams)
+
+    @forum_post = ForumPost.new
   end
 
   def create

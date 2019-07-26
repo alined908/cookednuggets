@@ -1,7 +1,7 @@
 <%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}, class: "jumbotron shadow") %>
 
 <% if user_signed_in? %>
-  <%= form_for(@forum_thread, url: forum_threads_path) do |f| %>
+  <%= form_for(@forum_thread, url: threads_path) do |f| %>
     <div class="jumbotron shadow">
       <h2>Create New Thread</h2>
       <%= f.text_field :subject, placeholder: "Subject", class:"form-control" %>

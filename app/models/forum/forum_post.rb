@@ -3,5 +3,5 @@ class ForumPost < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   has_many :forum_posts, as: :commentable
   validates :body, presence: true
-  validates :thread_id, presence: true
+  #validates :thread_id, presence: true
 end

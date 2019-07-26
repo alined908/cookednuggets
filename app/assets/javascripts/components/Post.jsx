@@ -26,7 +26,7 @@ class Post extends React.Component {
       <div className="forum-post-wrapper">
         <div className="forum-post">
           <div className="post-header">
-            {this.props.user}
+            <img className="flag-logo" src={"/assets/flags/" + this.props.user.country + '.svg'}/> {this.props.user.username}
           </div>
           <div className="post-body">
             {this.state.editForm && <EditForm post={this.props.post} authenticity_token={this.props.authenticity_token}/>}

@@ -10,11 +10,14 @@ Rails.application.routes.draw do
   end
 
   scope module: 'forums' do
-    resources :forum_threads, :path => 'forums/threads' do
-      resources :forum_posts, :path => 'posts'
+    resources :forum_threads, :path => 'forums/th', :as => 'threads' do
+      resources :forum_posts, :path => 'p', :as => 'posts'
     end
-    resources :forum_posts, :path => 'forums/posts' do
-      resources :forum_posts, :path => 'posts'
+    resources :forum_posts, :path => 'forums/p', :as => 'posts' do
+      resources :forum_posts, :path => 'p', :as => 'posts'
+    end
+    resources :officials, :path => 'matches', :as => 'matches', :only => [] do
+      resources :forum_posts, :path => 'p', :as => 'posts'
     end
   end
 

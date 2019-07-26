@@ -64,19 +64,21 @@ class MatchMaps extends React.Component {
                 <div className="map-rosters">
                   <div className="map-roster">
                     {map.players[0].map((player) => (
-                      <div className="map-player">
-                        <div style={{marginRight: "10px"}} className="map-player-logo">
-                          <img className="team-logo" src={this.props.teams[0].logo}/>
-                        </div>
-                        <div className="map-player-info">
-                          <div className="map-player-info-top">
-                            {player.handle} <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/>
+                      <a className="link-nodec color" href={"/players/" + player.id}>
+                        <div className="map-player">
+                          <div style={{marginRight: "10px"}} className="map-player-logo">
+                            <img className="team-logo" src={this.props.teams[0].logo}/>
                           </div>
-                          <div className="map-player-info-bot">
-                            {player.roles[0]}
+                          <div className="map-player-info">
+                            <div className="map-player-info-top">
+                              {player.handle} <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/>
+                            </div>
+                            <div className="map-player-info-bot">
+                              {player.roles[0]}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                   <div className="map-scoreboard">
@@ -84,19 +86,21 @@ class MatchMaps extends React.Component {
                   </div>
                   <div className="map-roster-right">
                   {map.players[1].map((player) => (
-                    <div className="map-player">
-                      <div className="map-player-info">
-                        <div className="map-player-info-top">
-                          <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/> {player.handle}
+                    <a className="link-nodec color" href={"/players/" + player.id}>
+                      <div className="map-player">
+                        <div className="map-player-info">
+                          <div className="map-player-info-top">
+                            <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/> {player.handle}
+                          </div>
+                          <div style={{textAlign: "right"}} className="map-player-info-bot">
+                            {player.roles[0]}
+                          </div>
                         </div>
-                        <div style={{textAlign: "right"}} className="map-player-info-bot">
-                          {player.roles[0]}
+                        <div style={{marginLeft: "10px"}} className="map-player-logo">
+                          <img className="team-logo" src={this.props.teams[1].logo}/>
                         </div>
                       </div>
-                      <div style={{marginLeft: "10px"}} className="map-player-logo">
-                        <img className="team-logo" src={this.props.teams[1].logo}/>
-                      </div>
-                    </div>
+                    </a>
                   ))}
                   </div>
                 </div>

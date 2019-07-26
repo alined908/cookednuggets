@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :firstname, presence: true, length: {maximum: 20}
   validates :lastname, presence: true, length: {maximum: 20}
   validates :username, presence: true, uniqueness: {case_sensitive: false}, length: {minimum: 3, maximum: 20}
+  validates :country, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end

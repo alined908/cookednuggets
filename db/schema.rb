@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country"
     t.string "username"
     t.string "firstname"
     t.string "lastname"

@@ -332,9 +332,13 @@
     }
 
     .post-header{
-      justify-content: space-between;
       font-size: 13px;
       background-color: #eee;
+      text-transform: capitalize;
+
+      img {
+        margin-right: 5px;
+      }
 
       .post-title{
         font-size: 15px;
@@ -805,6 +809,7 @@
   grid-template-rows: 30% 70%;
   background-color: white;
   padding: 1rem;
+  font-size: 13px;
 
   .match-header-info{
     display: flex;
@@ -829,6 +834,9 @@
     .match-header-score{
       text-align: center;
       margin: 0 10px;
+    }
+    a{
+      font-size: 15px;
     }
   }
 }
@@ -961,6 +969,10 @@
 
             .map-player-info-top{
               color: $link-color;
+            }
+
+            .map-player-info-bot{
+              color: #bbb;
             }
           }
         }

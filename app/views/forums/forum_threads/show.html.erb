@@ -6,7 +6,7 @@
   <div class="post-reply bottom-reply">
     <% if user_signed_in? %>
       <div class="post-reply-topbar"></div>
-      <%= form_for(ForumPost.new, url: forum_thread_forum_posts_path(@forum_thread)) do |f| %>
+      <%= form_for(ForumPost.new, url: thread_posts_path(@forum_thread)) do |f| %>
         <%= f.text_area :body, placeholder: "Add a comment", rows: 4, class: "reply-form" %>
         <%= f.submit "Submit Post", class: "submit-post-button" %>
       <% end %>

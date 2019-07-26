@@ -18,10 +18,10 @@ class Forums::ForumThreadsController < ApplicationController
 
     if @forum_thread.save
       flash[:success] = "Thread successfully created"
-      redirect_to forum_thread_path(@forum_thread)
+      redirect_to thread_path(@forum_thread)
     else
       flash[:danger] = @forum_thread.errors.full_messages
-      redirect_to forum_threads_path
+      redirect_to threads_path
     end
   end
 
