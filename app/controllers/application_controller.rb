@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def index
-
+    @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
+    @completed = Official.limit(15).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
+    @upcoming = Official.limit(15).where("end >= ?", DateTime.now).includes(:team1, :team2)
+    @threads = ForumThread.limit(10)
   end
 
   protected

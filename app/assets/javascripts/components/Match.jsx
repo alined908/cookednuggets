@@ -55,17 +55,17 @@ class Match extends React.Component {
 
     var time_formats = [
       [60, 'seconds', 1], // 60
-      [120, '1 minute ago', '1 minute from now'], // 60*2
+      [120, '1 min ago', '1 min'], // 60*2
       [3600, 'minutes', 60], // 60*60, 60
-      [7200, '1 hour ago', '1 hour from now'], // 60*60*2
+      [7200, '1 hour ago', '1 hour'], // 60*60*2
       [86400, 'hours', 3600], // 60*60*24, 60*60
-      [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
+      [172800, '1 day ago', '1 day'], // 60*60*24*2
       [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-      [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
+      [1209600, '1 week ago', '1 week'], // 60*60*24*7*4*2
       [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-      [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
+      [4838400, '1 month ago', '1 month'], // 60*60*24*7*4*2
       [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-      [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
+      [58060800, '1 year ago', '1 year'], // 60*60*24*7*4*12*2
       [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
     ];
     var seconds = (+new Date() - time) / 1000,
@@ -77,7 +77,7 @@ class Match extends React.Component {
     }
     if (seconds < 0) {
       seconds = Math.abs(seconds);
-      token = 'Starts in ';
+      token = 'from now';
       list_choice = 2;
     }
     var i = 0,
@@ -86,8 +86,8 @@ class Match extends React.Component {
       if (seconds < format[0]) {
         if (typeof format[2] == 'string')
           return format[list_choice];
-        else if (token == "Starts in ")
-          return token + Math.floor(seconds / format[2]) + ' ' + format[1];
+        else if (token == "from now")
+          return Math.floor(seconds / format[2]) + ' ' + format[1];
         else
           return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
       }
@@ -95,41 +95,70 @@ class Match extends React.Component {
   }
 
   render () {
-    return (
-      <a href={"/matches/" + this.props.match.id} className="match-horz link">
-        <div className="match-horz-time">
-          <div className="match-horz-day">
-            {this.state.date}
+    if (!this.props.compact) {
+      return (
+        <a href={"/matches/" + this.props.match.id} className="match-horz link">
+          <div className="match-horz-time">
+            <div className="match-horz-day">
+              {this.state.date}
+            </div>
+            <div className="match-horz-hour">
+              {this.state.hour}
+            </div>
           </div>
-          <div className="match-horz-hour">
-            {this.state.hour}
-          </div>
-        </div>
-        <div className="match-horz-vs">
-          {this.props.teams.map((team, index) => {
-            return (
-              <div className="match-horz-vs-scores">
-                <div style={this.setWeight(team)} className="match-horz-vs-team">
-                  <img className="flag-logo" src={team.logo}/> {team.name}
+          <div className="match-horz-vs">
+            {this.props.teams.map((team, index) => {
+              return (
+                <div className="match-horz-vs-scores">
+                  <div style={this.setWeight(team)} className="match-horz-vs-team">
+                    <img className="flag-logo" src={team.logo}/> {team.name}
+                  </div>
+                  {this.state.score ?
+                    (<div style={this.setColor(team)}>
+                      {this.props.match.score[index]}
+                    </div>) :
+                    (<div>-</div>)
+                  }
                 </div>
-                {this.state.score ?
-                  (<div style={this.setColor(team)}>
-                    {this.props.match.score[index]}
-                  </div>) :
-                  (<div>-</div>)
-                }
-              </div>
-            )
-          })}
-        </div>
-        <div className="match-horz-rel-time">
-          {this.time_ago(this.props.match.start)}
-        </div>
-        <div className="match-horz-type">
-          {this.formatMatch(this.props.match.match_type)}
-        </div>
-      </a>
-    )
+              )
+            })}
+          </div>
+          <div className="match-horz-rel-time">
+            {this.time_ago(this.props.match.start)}
+          </div>
+          <div className="match-horz-type">
+            {this.formatMatch(this.props.match.match_type)}
+          </div>
+        </a>
+      )
+    }
+    else {
+      return (
+        <a href={"/matches/" + this.props.match.id} className="match-compact link">
+          <div className="match-comp">
+            <div className="match-comp-time">
+              <div>{this.time_ago(this.props.match.start)}</div>
+            </div>
+            <div className="match-comp-vs">
+              {this.props.teams.map((team, index) => {
+                return (
+                  <div className="match-comp-scores">
+                    <div style={this.setWeight(team)} className="match-comp-team">
+                      <img className="flag-logo" src={team.logo}/> {team.name}
+                    </div>
+                    {this.state.score ?
+                      (<div style={this.setColor(team)}>
+                        {this.props.match.score[index]}
+                      </div>) : (<div>-</div>)
+                    }
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </a>
+      )
+    }
   }
 }
 

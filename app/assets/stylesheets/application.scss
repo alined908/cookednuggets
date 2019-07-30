@@ -23,6 +23,61 @@
    height: 100%;
  }
 
+ header{
+   background-color: #363636;
+   .active{
+     border-bottom: 2px solid yellow;
+   }
+
+   a {
+     color: white;
+     display: block;
+
+     &:hover{
+       text-decoration: none;
+       color: white;
+     }
+   }
+
+   .header-inner{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 5rem;
+
+     .header-home{
+       padding: .75rem;
+       border-left: 1px solid #262626;
+     }
+     .header-link{
+       padding: .75rem;
+       font-size: 14px;
+       border-left: 1px solid #262626;
+
+       &:hover{
+         border-bottom: 2px solid white;
+       }
+     }
+     .header-actions{
+       display: flex;
+       align-items: center;
+     }
+     .header-user{
+       padding: .75rem;
+       display: flex;
+       font-size: 14px;
+       align-items: center;
+       border-left: 1px solid #262626;
+       border-right: 1px solid #262626;
+     }
+     .username{
+       color: white;
+       text-align: center;
+
+     }
+   }
+ }
+
  body {
    height: 100vh;
    display: flex;
@@ -46,7 +101,7 @@
  footer {
   color: white;
   flex-shrink: 0;
-  padding: .75rem 1.5rem;
+  padding: .5rem 1.5rem;
  }
 
  table{
@@ -55,6 +110,23 @@
    }
    tbody {
      font-size: 14px;
+   }
+ }
+
+ .dropdown{
+   background-color: #363636;
+   color: white;
+   .dropdown-menu{
+     font-size: 13px;
+     margin-top: 20px;
+     background-color: #363636;
+     .dropdown-item{
+       padding: 0.25rem 1rem;
+       color: white;
+       &:hover{
+         color: black;
+       }
+     }
    }
  }
 
@@ -93,6 +165,14 @@
   }
 }
 
+.descriptor {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 10px;
+  color: #666;
+  padding: 10px;
+}
+
 .actions {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -104,13 +184,6 @@
   color: #aaa;
 }
 
-.username{
-  color: white;
-  text-align: center;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
 .match-score-nice{
   margin-right: 10px;
 }
@@ -202,6 +275,83 @@
     }
   }
 }
+/* Homepage */
+.landing-page-wrapper{
+  margin: 0 auto;
+  background-color: #c6c6c6;
+  height: 100%;
+  .landing-page{
+    height: 100%;
+    margin: 0 5rem;
+    background-color: #dadadc;
+    .columns{
+      display: flex;
+      .column-1,.column-3, .column-4{
+        flex: 0 0 200px;
+        margin-left: 2rem;
+      }
+      .column-2 {
+        flex-basis: 0;
+        flex-grow: 0;
+      }
+    }
+  }
+}
+
+.upcoming-matches, .completed-matches, .events-comp{
+  font-size: 10px;
+  background-color: #fafafa;
+  margin-bottom: 1rem;
+}
+
+.match-comp{
+  padding: .25rem .5rem;
+  border-bottom: 1px solid #ccc;
+  &:hover{
+    background-color: $hover-color;
+  }
+  .match-comp-time{
+    font-weight: lighter;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+  .match-comp-scores{
+    display: flex;
+    justify-content: space-between;
+    .match-comp-team{
+      font-weight: 500 !important;
+    }
+  }
+}
+
+.event-comp{
+  display: flex;
+  padding: .25rem .5rem;
+  border-bottom: 1px solid #ccc;
+  &:hover{
+    background-color: $hover-color;
+  }
+  div{
+    display: flex;
+    align-items: center;
+  }
+
+  .event-comp-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .event-comp-name {
+      font-weight: bold;
+    }
+
+    .event-comp-date{
+      font-size: 11px;
+      color: #aaa;
+    }
+  }
+}
 
 /* Matches */
 .import-csv-form{
@@ -225,15 +375,15 @@
 
 /* Streams */
 .streamer-list{
-  width: 50%;
-  padding: 1rem;
+  width: 100%;
+  background-color: #fafafa;
 
   a {
     color: black;
 
     &:hover{
       text-decoration: none;
-      background-color: #F0F0F0;
+      background-color: white;
     }
 
     &:active{
@@ -244,8 +394,8 @@
   .streamer-row{
     display: grid;
     grid-template-columns: 3fr 1fr;
-    border-bottom: .5px solid grey;
-    font-size: 12px;
+    border-bottom: 1px solid #ccc;
+    font-size: 10px;
     font-weight: bold;
     padding: 5px;
 

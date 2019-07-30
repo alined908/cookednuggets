@@ -2,7 +2,11 @@ class Officials::OfficialsController < ApplicationController
   before_action :set_match, only: [:show, :new, :destroy, :edit]
 
   def index
-
+    if params[:f] == "results"
+      @officials = Official.limit(40).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2, section: :event)
+    else
+      @officials = Official.limit(40).where("end >= ?", DateTime.now).includes(:team1, :team2, section: :event)
+    end
   end
 
   def show

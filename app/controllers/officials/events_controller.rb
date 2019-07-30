@@ -2,7 +2,12 @@ class Officials::EventsController < ApplicationController
   before_action :set_event, only: [:show, :destroy, :edit]
 
   def index
-    @events = Event.all
+    if params[:s] == 'completed'
+      @events = Event.where('? > end_date', Date.today)
+    else
+      @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
+    end
+    @length = @events.length
   end
 
   def show

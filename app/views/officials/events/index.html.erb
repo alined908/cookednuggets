@@ -1,14 +1,14 @@
 <div class="header-nav shadow-sm">
-  <a href="/events">
-    <div class="header-nav-entry header-nav-first">
+  <%= link_to events_path do%>
+    <div class="header-nav-entry">
       Ongoing
     </div>
-  </a>
-  <a>
+  <% end %>
+  <%= link_to events_path(:s => "completed") do%>
     <div class="header-nav-entry">
       Completed
     </div>
-  </a>
+  <% end %>
 </div>
 
 <div class="events-container shadow">

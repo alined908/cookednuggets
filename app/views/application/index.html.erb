@@ -1,7 +1,49 @@
-<div class="jumbotron shadow">
-  Welcome to the home page.
-</div>
-<div class="jumbotron shadow streamer-list">
-  <h3>Live Streams</h3>
-  <%= react_component("LiveStreams") %>
+<div class="landing-page-wrapper">
+  <div class="landing-page">
+    <div class="columns">
+      <div class="column-1">
+        <div class="descriptor">Discussions</div>
+      </div>
+      <div class="column-2">
+        <div class="descriptor">News</div>
+      </div>
+      <div class="column-3">
+        <div class="descriptor">Upcoming Matches</div>
+        <div class="upcoming-matches shadow-sm">
+          <% @upcoming.each do |match| %>
+            <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true}) %>
+          <% end %>
+        </div>
+        <div class="descriptor">Completed Matches</div>
+        <div class="completed-matches shadow-sm">
+          <% @completed.each do |match| %>
+            <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true}) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="column-4">
+        <div class="descriptor">Events</div>
+        <div class="events-comp shadow-sm">
+          <% @events.each do |event| %>
+            <%= link_to event_path(event), class: "link-nodec" do %>
+              <div class="event-comp">
+                <div class="event-comp-img">
+                  <%= image_tag("/assets/events/" + event.name.split(" ").slice(0, 2).join("-")+".png", class: "team-img-md") %>
+                </div>
+                <div class="event-comp-info">
+                  <div class="event-comp-name"><%= event.name %></div>
+                  <div class="event-comp-date"><%= event.start_date.strftime("%b %d")%> - <%=event.end_date.strftime("%b %d") %></div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="descriptor">Streams</div>
+        <div class="shadow-sm streamer-list">
+          <%= react_component("LiveStreams") %>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
