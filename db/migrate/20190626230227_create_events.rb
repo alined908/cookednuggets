@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :desc
       t.string :location
-      t.string :country
+      t.string :country, :null => false, :default => "un"
       t.integer :prize
       t.date :start_date
       t.date :end_date
@@ -14,7 +14,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :shortname
       t.string :logo
-      t.string :country
+      t.string :country, :null => false, :default => "un"
       t.string :socials
       t.string :website
     end
@@ -56,7 +56,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :nat_name
       t.string :nicknames
       t.string :handle
-      t.string :country
+      t.string :country, :null => false, :default => "un"
       t.integer :age
       t.string :roles
       t.string :socials

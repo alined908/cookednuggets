@@ -1,26 +1,22 @@
 <div class="landing-page">
   <div class="columns">
     <div class="column-1">
-      <div class="descriptor">Recent Discussion</div>
-      <div class="discussions">
-        <% @discs.each do |disc| %>
-          <%= link_to disc_path?(disc), class: "link-nodec" do%>
-            <div class="disc">
-              <div class="disc-title">
-                <span class="disc-subject"><%= disc.subject %></span>
-              </div>
-              <div class="disc-count post-entry">
-                <%= disc.comments_count %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
+      <%= render "layouts/discs", :discs => @discs %>
     </div>
     <div class="column-2">
       <div class="descriptor">News</div>
       <div class="news">
-
+        <% @news.each do |article| %>
+          <%= link_to news_path(article), class: "link-nodec" do %>
+            <div class="article">
+              <div>
+                <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+                <span><%= article.subject %></span>
+              </div>
+              <div class="article-comment"><%= article.comments_count %></div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
     <div class="column-3">

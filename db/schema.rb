@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.string "name"
     t.string "desc"
     t.string "location"
-    t.string "country"
+    t.string "country", default: "un", null: false
     t.integer "prize"
     t.date "start_date"
     t.date "end_date"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
+  create_table "news", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "country", default: "un", null: false
+    t.text "subject"
+    t.text "article"
+    t.integer "comments_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_news_on_user_id"
+  end
+
   create_table "officials", force: :cascade do |t|
     t.integer "team1_id"
     t.integer "team2_id"
@@ -163,7 +174,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.string "nat_name"
     t.string "nicknames"
     t.string "handle"
-    t.string "country"
+    t.string "country", default: "un", null: false
     t.integer "age"
     t.string "roles"
     t.string "socials"
@@ -185,7 +196,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.string "name"
     t.string "shortname"
     t.string "logo"
-    t.string "country"
+    t.string "country", default: "un", null: false
     t.string "socials"
     t.string "website"
   end

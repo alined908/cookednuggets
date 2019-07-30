@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
 
   def index
     @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
-    @completed = Official.limit(15).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
-    @upcoming = Official.limit(15).where("end >= ?", DateTime.now).includes(:team1, :team2)
-    @discs = (ForumThread.order(updated_at: :desc).limit(15) + Official.order(updated_at: :desc).limit(10)).sort_by(&:updated_at).reverse
+    @completed = Official.limit(12).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
+    @upcoming = Official.limit(12).where("end >= ?", DateTime.now).includes(:team1, :team2)
+    @news = New.order(created_at: :desc).limit(15)
+    @discs = (ForumThread.order(updated_at: :desc).limit(10) + Official.order(updated_at: :desc).limit(10) + New.order(updated_at: :desc).limit(10)).sort_by(&:updated_at).reverse[0..15]
   end
 
   protected

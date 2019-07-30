@@ -1,0 +1,15 @@
+<div class="descriptor">Recent Discussion</div>
+<div class="discussions shadow-sm">
+  <% @discs.each do |disc| %>
+    <%= link_to disc_path?(disc), class: "link-nodec" do%>
+      <div class="disc">
+        <div class="disc-title">
+          <span class="disc-subject"><%= disc.subject %></span>
+        </div>
+        <div class="disc-count post-entry">
+          <%= disc.comments_count %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

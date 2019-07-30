@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     resources :officials, :path => 'matches', :as => 'matches', :only => [] do
       resources :forum_posts, :path => 'p', :as => 'posts'
     end
+    resources :news, :path => 'news', :as => 'news', :only => [] do
+      resources :forum_posts, :path => 'p', :as => 'posts'
+    end
   end
+  resources :news, :path => 'news', :as => 'news'
 
   scope module: 'officials' do
     resources :events do

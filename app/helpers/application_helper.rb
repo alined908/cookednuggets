@@ -5,11 +5,13 @@ module ApplicationHelper
   end
 
   def disc_path?(disc)
-    puts disc.class
-    if disc.class != Official
-      return thread_path(disc)
-    else
+    type = disc.class
+    if type == Official
       return match_path(disc)
+    elsif type == New
+      return news_path(disc)
+    else
+      return thread_path(disc)
     end
   end
 end

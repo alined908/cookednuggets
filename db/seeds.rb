@@ -160,6 +160,23 @@ response.each do |match|
   end
 end
 
+news = [
+  [1, "Coach815 leaves the Spitfire", "kr"],
+  [4, "Munchkin departs from Seoul Dynasty", "kr"],
+  [1, "Blizzard announces 2-2-2 role lock", "un"],
+  [3, "New Hero: Sigma", "un"],
+  [4, "Alarm promoted to Fusion main roster", "kr"],
+  [2, "Defiant pick up Mangachu", "ca"],
+  [1, "CampingFatKid: An Inside Look", "us"],
+  [1, "Alined and Mercy leave Shock", "us"],
+  [3, "Leave joins Hunters as contracted talent", "cn"]
+]
+
+news.each do |author, subject, country, article|
+  New.create(user_id: author, subject: subject, country: country,
+    article: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
+end
+
 forum_posts = [
   [2, 1, "ForumThread", 1, 'The Fusion should pick up Alarm.'],
   [3, 1, "ForumThread", 1, 'Washington Justice need to replace Sansam.'],
@@ -169,7 +186,13 @@ forum_posts = [
   [3, 2, "ForumThread", 2, 'Best gaming mice I have used is Logitech G Pro Wireless'],
   [4, 6, "ForumPost", 2, 'I also use this mouse and its wireless feature is really good.'],
   [1, 3, "ForumThread", 3, 'Dont watch this streamer'],
-  [1, 1, "Official", nil , "Wow Carpe popped off"]
+  [1, 1, "Official", nil , "Wow Carpe popped off"],
+  [1, 1, "New", nil , "Sad that he has to go"],
+  [3, 2, "New", nil , "His widow was the best in comp"],
+  [1, 3, "New", nil , "Finally some exciting games"],
+  [2, 3, "New", nil , "LUL FINALLY"],
+  [4, 6, "New", nil , "Mangachu is he good?"],
+  [1, 7, "New", nil , "TRASH MASTERS PLAYER"]
 ]
 
 forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|

@@ -16,5 +16,14 @@ class CreateForumThreads < ActiveRecord::Migration[5.2]
       t.text :body
       t.timestamps
     end
+
+    create_table :news do |t|
+      t.references :user
+      t.string :country, :null => false, :default => "un"
+      t.text :subject
+      t.text :article
+      t.integer :comments_count, :null => false, :default => 0
+      t.timestamps
+    end
   end
 end

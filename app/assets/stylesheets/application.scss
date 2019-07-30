@@ -293,24 +293,27 @@
       display: flex;
       .column-1,.column-3, .column-4{
         max-width: 200px;
-        flex: 0 0 200px;
-        margin-left: 2rem;
+        flex: 0 0 190px;
+        margin-left: 1rem;
       }
       .column-2 {
         flex-basis: 0;
-        flex-grow: 0;
+        flex-grow: 1;
+      }
+      .column-4 {
+        margin-right: 1rem;
       }
     }
   }
 }
 
-.upcoming-matches, .completed-matches, .events-comp, .discussions{
+.upcoming-matches, .completed-matches, .events-comp, .discussions, .news{
   font-size: 10px;
   background-color: #fafafa;
   margin-bottom: 1rem;
 }
 
-.match-comp, .disc{
+.match-comp, .disc, .article{
   padding: .25rem .5rem;
   border-bottom: 1px solid #ccc;
   &:hover{
@@ -331,6 +334,24 @@
   }
 }
 
+.news {
+  .article{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    .article-comment {
+      color: #888;
+      font-size: 11px;
+    }
+    span{
+      margin-right: 5px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
 .discussions{
   margin-right: 20px;
   .disc {
@@ -344,17 +365,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin-right: 10px;
-
-      .disc-subject{
-
-      }
     }
   }
 }
 
 .event-comp{
   display: flex;
-  padding: .25rem .5rem;
+  padding: .25rem .5rem .25rem 0;
   border-bottom: 1px solid #ccc;
   &:hover{
     background-color: $hover-color;
@@ -742,8 +759,8 @@
 }
 
 .flag-logo{
-  width: 24px;
-  height: 15px;
+  width: 20px;
+  height: 12.5px;
 }
 
 
