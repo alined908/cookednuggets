@@ -14,7 +14,9 @@
     <div class="main-content">
       <%= render "layouts/navbar" %>
       <%= render "layouts/alerts" %>
-      <%= yield %>
+      <div class="landing-page-wrapper">
+        <%= yield %>
+      </div>
     </div>
     <footer class="bg-dark">Alined</footer>
   </body>

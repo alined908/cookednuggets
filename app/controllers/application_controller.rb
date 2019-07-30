@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
     @completed = Official.limit(15).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
     @upcoming = Official.limit(15).where("end >= ?", DateTime.now).includes(:team1, :team2)
-    @threads = ForumThread.limit(10)
+    @discs = (ForumThread.order(updated_at: :desc).limit(15) + Official.order(updated_at: :desc).limit(10)).sort_by(&:updated_at).reverse
   end
 
   protected

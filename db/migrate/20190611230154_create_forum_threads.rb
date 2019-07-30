@@ -4,6 +4,7 @@ class CreateForumThreads < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.text :subject
       t.text :description
+      t.integer :comments_count, :null => false, :default => 0
       t.timestamps
     end
 

@@ -7,7 +7,7 @@ class Thread extends React.Component {
       return (
         <tr>
           <td>
-            <a href={"/forums/threads/" + this.props.id}>
+            <a href={"/forums/th/" + this.props.id}>
               {this.props.title}
             </a>
           </td>

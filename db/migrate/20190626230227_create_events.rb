@@ -38,12 +38,15 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.references :team2, index: true, foreign_key: {to_table: :teams}
       t.references :winner, index: true, foreign_key: {to_table: :teams}
       t.integer :identifier
+      t.integer :comments_count, :null => false, :default => 0
       t.string :label
       t.string :score
       t.string :match_type
       t.datetime :start
       t.datetime :end
       t.references :section
+      t.references :event
+      t.string :subject
       t.timestamps
     end
 

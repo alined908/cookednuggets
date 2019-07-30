@@ -34,7 +34,7 @@ end
 
 #Create Events
 events = [
-  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,7,15)],
+  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29)],
   ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
   ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
   ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)]
@@ -114,7 +114,7 @@ response['stages'].each do |stage|
     (match['tournament']['type'] == "OPEN_MATCHES") ? (match_type = "regular") : (match_type = "playoff")
 
     official = Official.create(match_type: match_type, section_id: i, team1_id: team1, team2_id: team2,
-        winner_id: winner, start: start, end: ends, score: score, identifier: match['id'])
+        winner_id: winner, start: start, end: ends, score: score, identifier: match['id'], event_id: @event.id)
     # Maps
     match['games'].each do |map|
       if !map.key?('points')

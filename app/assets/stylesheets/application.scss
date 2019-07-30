@@ -63,12 +63,10 @@
        align-items: center;
      }
      .header-user{
-       padding: .75rem;
+       padding: 0 .75rem;
        display: flex;
        font-size: 14px;
        align-items: center;
-       border-left: 1px solid #262626;
-       border-right: 1px solid #262626;
      }
      .username{
        color: white;
@@ -195,6 +193,13 @@
   border-radius: 2px;
 }
 
+.post-entry{
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 3px;
+  border-radius: 2px;
+}
+
 .font-light{
   text-transform: uppercase;
   font-weight: 500;
@@ -287,6 +292,7 @@
     .columns{
       display: flex;
       .column-1,.column-3, .column-4{
+        max-width: 200px;
         flex: 0 0 200px;
         margin-left: 2rem;
       }
@@ -298,13 +304,13 @@
   }
 }
 
-.upcoming-matches, .completed-matches, .events-comp{
+.upcoming-matches, .completed-matches, .events-comp, .discussions{
   font-size: 10px;
   background-color: #fafafa;
   margin-bottom: 1rem;
 }
 
-.match-comp{
+.match-comp, .disc{
   padding: .25rem .5rem;
   border-bottom: 1px solid #ccc;
   &:hover{
@@ -321,6 +327,27 @@
     justify-content: space-between;
     .match-comp-team{
       font-weight: 500 !important;
+    }
+  }
+}
+
+.discussions{
+  margin-right: 20px;
+  .disc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    .disc-title{
+      color: $link-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+
+      .disc-subject{
+
+      }
     }
   }
 }
@@ -381,13 +408,9 @@
   a {
     color: black;
 
-    &:hover{
+    &:hover, &:active{
       text-decoration: none;
-      background-color: white;
-    }
-
-    &:active{
-      background-color: white;
+      background-color: $hover-color;
     }
   }
 

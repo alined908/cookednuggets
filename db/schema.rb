@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.integer "user_id"
     t.text "subject"
     t.text "description"
+    t.integer "comments_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -127,14 +128,18 @@ ActiveRecord::Schema.define(version: 2019_06_26_230227) do
     t.integer "team2_id"
     t.integer "winner_id"
     t.integer "identifier"
+    t.integer "comments_count", default: 0, null: false
     t.string "label"
     t.string "score"
     t.string "match_type"
     t.datetime "start"
     t.datetime "end"
     t.integer "section_id"
+    t.integer "event_id"
+    t.string "subject"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_officials_on_event_id"
     t.index ["section_id"], name: "index_officials_on_section_id"
     t.index ["team1_id"], name: "index_officials_on_team1_id"
     t.index ["team2_id"], name: "index_officials_on_team2_id"

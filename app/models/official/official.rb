@@ -4,6 +4,7 @@ class Official < ApplicationRecord
   belongs_to :team1, class_name: 'Team', foreign_key: 'team1_id'
   belongs_to :team2, class_name: 'Team', foreign_key: 'team2_id'
   belongs_to :winner, class_name: 'Team', foreign_key: 'winner_id', optional: true
+  after_create :give_title
   has_many :forum_posts, as: :commentable
   serialize :score
   has_many :maps
@@ -37,5 +38,11 @@ class Official < ApplicationRecord
       end
     end
     return recents
+  end
+
+  def give_title
+    title = self.team1.shortname + " vs " + self.team2.shortname + " - " + self.event.name + " " + self.section.name
+    self.subject = title
+    self.save!
   end
 end

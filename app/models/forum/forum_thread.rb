@@ -15,18 +15,11 @@ class ForumThread < ApplicationRecord
       entry.push(time_ago_in_words(last_activity.to_time).gsub("about", "").gsub("less than a", "1"))
       entry.push(thread.user.username.capitalize)
       if count
-        post_count = total_post_count(thread)
+        post_count = thread.comments_count
         entry.push(post_count)
       end
       thread_info.push(entry)
     }
     return thread_info
   end
-end
-
-def total_post_count(thread)
-  commentable = ForumPost.where(commentable: thread)
-  count = commentable.length
-  commentable.each {|post| count += total_post_count(post)}
-  return count
 end
