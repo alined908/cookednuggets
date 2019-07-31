@@ -1,37 +1,32 @@
-<div class="jumbotron shadow">
+<h1>Matches</h1>
 
-  <h1>Matches</h1>
+<table class="table matches">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th>Date</th>
+      <th>Map</th>
+      <th>Left Team</th>
+      <th>Right Team</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
 
-  <table class="table matches">
-    <thead>
+  <tbody>
+    <% @matches.each.with_index do |match, index| %>
       <tr>
-        <th scope="col">#</th>
-        <th>Date</th>
-        <th>Map</th>
-        <th>Left Team</th>
-        <th>Right Team</th>
-        <th colspan="5"></th>
+        <td><%= index + 1 %></td>
+        <td><%= match.date %></td>
+        <td><%= match.map %></td>
+        <td><%= match.left_team %></td>
+        <td><%= match.right_team %></td>
+        <td><%= link_to 'Match Details', user_match_path(current_user, match), class: 'btn btn-primary btn-sm' %></td>
+        <td><%= link_to 'Edit Match', edit_user_match_path(current_user, match), class: 'btn btn-info btn-sm' %></td>
+        <td><%= link_to 'Delete Match', user_match_path(current_user, match), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %></td>
       </tr>
-    </thead>
-
-    <tbody>
-      <% @matches.each.with_index do |match, index| %>
-        <tr>
-          <td><%= index + 1 %></td>
-          <td><%= match.date %></td>
-          <td><%= match.map %></td>
-          <td><%= match.left_team %></td>
-          <td><%= match.right_team %></td>
-          <td><%= link_to 'Match Details', user_match_path(current_user, match), class: 'btn btn-primary btn-sm' %></td>
-          <td><%= link_to 'Edit Match', edit_user_match_path(current_user, match), class: 'btn btn-info btn-sm' %></td>
-          <td><%= link_to 'Delete Match', user_match_path(current_user, match), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-</div>
-
-<div class="jumbotron shadow actions">
+    <% end %>
+  </tbody>
+</table>
+<div class="shadow actions">
   <%= link_to 'New Match', new_user_match_path(current_user), class: 'btn btn-primary' %>
 </div>

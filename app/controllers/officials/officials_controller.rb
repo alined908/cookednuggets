@@ -14,8 +14,10 @@ class Officials::OfficialsController < ApplicationController
     @event, @maps = Event.find(@section.event_id), @match.maps
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
     @maps_json = Map.get_perfs(@maps, @teams)
-
+    @discs = (ForumThread.order(updated_at: :desc).limit(10) + Official.order(updated_at: :desc).limit(10) + New.order(updated_at: :desc).limit(10)).sort_by(&:updated_at).reverse[0..15]
     @forum_post = ForumPost.new
+    @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2)
+    @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2)
   end
 
   def create

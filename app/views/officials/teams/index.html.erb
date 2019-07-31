@@ -1,9 +1,9 @@
-<div class="jumbotron shadow">
-  <%= react_component("TeamsTable", {teams: @teams}) %>
-</div>
+
+<%= react_component("TeamsTable", {teams: @teams}) %>
+
 
 <%= form_for(@team, url: teams_path) do |f| %>
-  <div class="jumbotron shadow">
+  <div class="">
     <h2>Create New Team</h2>
     <%= f.text_field :name, placeholder: "Team Name", class:"form-control", :required => true %>
     <%= f.text_field :shortname, placeholder: "Initials (ex. SFS)", class:"form-control" %>
