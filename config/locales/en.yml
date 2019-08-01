@@ -31,3 +31,19 @@
 
 en:
   hello: "Hello world"
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "No %{model} found"
+        one:   "Displaying 1 %{model}"
+        other: "Displaying all %{count} %{model}"
+      single_page_html:
+        zero:  "No %{model} found"
+        one:   "Displaying 1 %{model}"
+        other: "Displaying all&nbsp;%{count} %{model}"
+
+      multi_page: "%{from} - %{to} of %{count} entries"
+      multi_page_html: "%{from}&nbsp;-&nbsp;%{to} of %{count} entries"

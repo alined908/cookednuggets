@@ -1,4 +1,6 @@
-<%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}) %>
+<div class="column-2">
+  <%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}) %>
+</div>
 
 <% if user_signed_in? %>
   <%= form_for(@forum_thread, url: threads_path) do |f| %>

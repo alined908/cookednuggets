@@ -16,7 +16,12 @@
       <%= render "layouts/alerts" %>
       <div class="landing-page-wrapper">
         <div class="landing-page">
-          <%= yield %>
+          <div class="columns">
+            <div class="column-1">
+              <%= render "layouts/discs", :discs => @discs %>
+            </div>
+            <%= yield %>
+          </div>
         </div>
       </div>
     </div>

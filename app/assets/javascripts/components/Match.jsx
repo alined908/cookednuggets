@@ -41,8 +41,15 @@ class Match extends React.Component {
   }
 
   setWeight(team){
-    var weight = (team.id == this.props.match.winner_id) ? "600" : "300"
+    var weight = ""
+    if (this.props.match.winner_id == null) {
+      weight = "500"
+    }
+    else {
+      weight = (team.id == this.props.match.winner_id) ? "600" : "300"
+    }
     return {fontWeight: weight}
+
   }
 
   formatMatch(type){
@@ -98,6 +105,16 @@ class Match extends React.Component {
     if (!this.props.compact) {
       return (
         <a href={"/matches/" + this.props.match.id} className="match-horz link">
+          {this.props.event &&
+            <div className="match-event">
+              <div className='match-event-name'>
+                {this.props.event.name}
+              </div>
+              <div className='match-event-info'>
+                {this.props.section.name} - {this.formatMatch(this.props.match.match_type)}
+              </div>
+            </div>
+          }
           <div className="match-horz-time">
             <div className="match-horz-day">
               {this.state.date}
@@ -126,9 +143,12 @@ class Match extends React.Component {
           <div className="match-horz-rel-time">
             {this.time_ago(this.props.match.start)}
           </div>
-          <div className="match-horz-type">
-            {this.formatMatch(this.props.match.match_type)}
-          </div>
+
+          {!this.props.event &&
+            <div className="match-horz-type">
+              {this.formatMatch(this.props.match.match_type)}
+            </div>
+          }
         </a>
       )
     }

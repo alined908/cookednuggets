@@ -7,11 +7,11 @@ module ApplicationHelper
   def disc_path?(disc)
     type = disc.class
     if type == Official
-      return match_path(disc)
+      return [match_path(disc), "type-match"]
     elsif type == New
-      return news_path(disc)
+      return [news_path(disc), "type-news"]
     else
-      return thread_path(disc)
+      return [thread_path(disc), "type-forum"]
     end
   end
 end
