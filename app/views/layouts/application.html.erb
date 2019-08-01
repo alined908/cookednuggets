@@ -17,9 +17,11 @@
       <div class="landing-page-wrapper">
         <div class="landing-page">
           <div class="columns">
-            <div class="column-1">
-              <%= render "layouts/discs", :discs => @discs %>
-            </div>
+            <% unless @disable_1 %>
+              <div class="column-1">
+                <%= render "layouts/discs", :discs => @discs %>
+              </div>
+            <% end %>
             <%= yield %>
           </div>
         </div>

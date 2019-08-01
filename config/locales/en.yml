@@ -37,13 +37,13 @@ en:
     page_gap: "&hellip;"
     page_entries_info:
       single_page:
-        zero:  "No %{model} found"
-        one:   "Displaying 1 %{model}"
-        other: "Displaying all %{count} %{model}"
+        zero:  "No entries"
+        one:   "1 entry"
+        other: "1 - %{count} of %{count} entries"
       single_page_html:
-        zero:  "No %{model} found"
-        one:   "Displaying 1 %{model}"
-        other: "Displaying all&nbsp;%{count} %{model}"
+        zero:  "No entries"
+        one:   "1 entry"
+        other: "1&nbsp;-&nbsp;%{count} of %{count} entries"
 
       multi_page: "%{from} - %{to} of %{count} entries"
       multi_page_html: "%{from}&nbsp;-&nbsp;%{to} of %{count} entries"

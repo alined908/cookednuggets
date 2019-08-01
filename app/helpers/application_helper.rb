@@ -14,4 +14,13 @@ module ApplicationHelper
       return [thread_path(disc), "type-forum"]
     end
   end
+
+  def get_author(thread)
+    type = thread.class
+    if type == ForumThread or type == New
+      return thread.user.username.capitalize
+    elsif type == Official
+      return ""
+    end
+  end
 end

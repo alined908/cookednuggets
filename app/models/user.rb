@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  has_many :threads
+  has_many :forum_threads
   has_many :posts
   has_many :matches
   validates :firstname, presence: true, length: {maximum: 20}

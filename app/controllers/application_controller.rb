@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_sidebars
-    @discs = (ForumThread.order(updated_at: :desc).limit(10) + Official.order(updated_at: :desc).limit(10) + New.order(updated_at: :desc).limit(10)).sort_by(&:updated_at).reverse[0..15]
+    @disable_1 = false
+    @threads_sb = ForumThread.order(updated_at: :desc).limit(10)
+    @matches_sb = Official.order(updated_at: :desc).limit(10)
+    @news_sb = New.order(updated_at: :desc).limit(10)
+    @discs = (@threads_sb + @matches_sb + @news_sb).sort_by(&:updated_at).reverse[0..15]
   end
 end

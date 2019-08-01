@@ -1,14 +1,40 @@
 <div class="column-2">
-  <%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}) %>
+  <div class="descriptor">
+    <span><%= link_to "All", threads_path %></span>
+    <span><%= link_to "News", threads_path(:f => "news")%></span>
+    <span><%= link_to "Matches", threads_path(:f => "matches")%></span>
+    <span><%= link_to "General", threads_path(:f => "threads")%></span>
+  </div>
+  <div class="forum-index">
+    <div class="forum-index-header">
+      <div>Topic</div>
+      <div>Author</div>
+      <div>Activity</div>
+      <div>Comments</div>
+    </div>
+    <% @discs.each do |thread| %>
+      <%= react_component("Thread", {thread: thread, compact: true, author: get_author(thread), path: disc_path?(thread)}) %>
+    <% end %>
+    <% if user_signed_in? %>
+      <%= form_for(@forum_thread, url: threads_path) do |f| %>
+        <div class="">
+          <h2>Create New Thread</h2>
+          <%= f.text_field :subject, placeholder: "Subject", class:"form-control" %>
+          <%= f.text_area :description, placeholder: "Description", rows: 5, class:"form-control" %>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @discs %>
+    </div>
+    <%= will_paginate @discs, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
 </div>
 
-<% if user_signed_in? %>
-  <%= form_for(@forum_thread, url: threads_path) do |f| %>
-    <div class="">
-      <h2>Create New Thread</h2>
-      <%= f.text_field :subject, placeholder: "Subject", class:"form-control" %>
-      <%= f.text_area :description, placeholder: "Description", rows: 5, class:"form-control" %>
-      <%= f.submit "Submit", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-<% end %>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

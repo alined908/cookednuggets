@@ -1,15 +1,32 @@
+require 'will_paginate/array'
+
 class Forums::ForumThreadsController < ApplicationController
+  skip_before_action :get_sidebars
   before_action :authenticate_user!, only: [:create]
   before_action :set_forum_thread, except: [:index, :new, :create]
+  before_action :get_matches
 
   def index
     @forum_thread = ForumThread.new
-    @forum_threads = ForumThread.all.includes(:user)
-    @thread_info = ForumThread.info(@forum_threads, true)
+
+    if params[:f] == "threads"
+      @discs = ForumThread.order(updated_at: :desc).includes(:user).paginate(:page => params[:page], :per_page => 20)
+    elsif params[:f] == "news"
+      @discs = New.order(updated_at: :desc).includes(:user).paginate(:page => params[:page], :per_page => 20)
+    elsif params[:f] == "matches"
+      @discs = Official.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 20)
+    else
+      @threads_sb = ForumThread.order(updated_at: :desc).includes(:user)
+      @matches_sb = Official.order(updated_at: :desc)
+      @news_sb = New.order(updated_at: :desc).includes(:user)
+      @discs = (@threads_sb + @matches_sb + @news_sb).sort_by(&:updated_at).reverse.paginate(:page => params[:page], :per_page => 20)
+    end
+
+    @discs
   end
 
   def show
-    @thread_info = ForumThread.info([@forum_thread], false)
+
   end
 
   def create
@@ -36,5 +53,11 @@ class Forums::ForumThreadsController < ApplicationController
 
     def forum_thread_params
       params.require(:forum_thread).permit(:subject, :description)
+    end
+
+    def get_matches
+      @disable_1 = true
+      @completed = Official.limit(7).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
+      @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2)
     end
 end

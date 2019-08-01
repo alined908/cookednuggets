@@ -88,6 +88,7 @@
    }
 
    .alert {
+     margin-bottom: 0;
      width: 100%;
    }
    .main-content{
@@ -143,15 +144,15 @@
   color: blue;
 }
 .type-match{
-  border-right: 2px solid #e63865;
+  border-left: 2px solid #e63865;
 }
 
 .type-news{
-  border-right: 2px solid #55a528;
+  border-left: 2px solid #55a528;
 }
 
 .type-forum{
-  border-right: 2px solid #ffae00;
+  border-left: 2px solid #ffae00;
 }
 
 .capitalize {
@@ -322,10 +323,9 @@
   }
 }
 
-.upcoming-matches, .completed-matches, .events-comp, .discussions, .news{
+.upcoming-matches, .completed-matches, .events-comp, .discussions, .news, .forum-index{
   font-size: 10px;
   background-color: #fafafa;
-  margin-bottom: 1rem;
 }
 
 .match-comp, .disc, .article{
@@ -486,12 +486,38 @@
 }
 
 /* Forum */
+.forum-index{
+  margin-bottom: 1rem;
+  .forum-index-header{
+    display: grid;
+    grid-template-columns: 60% 15% 15% 10%;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+.thread-comp{
+  display: grid;
+  grid-template-columns: 60% 15% 15% 10%;
+  padding: .75rem 1rem;
+  border-bottom: 1px solid #ccc;
+
+  .thread-comp-sub, .thread-comp-author{
+    font-weight: 500;
+  }
+
+  &:hover{
+    background-color: $hover-color;
+  }
+}
+
 .thread{
   margin: 0 auto;
   width: 80%;
 }
 .forum-post-wrapper {
-
   margin: 10px 0;
 
   .forum-post {
@@ -984,7 +1010,7 @@
 }
 
 /* Match Page */
-.match-extras{
+.indent-right{
   margin-right: 1rem;
 }
 .match-page{
@@ -1270,6 +1296,6 @@
 }
 .pagination a:hover, .pagination a:focus {
   border-color: #003366;
-  background: #0063dc;
+  background: #007bff;
   color: white;
 }

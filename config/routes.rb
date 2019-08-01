@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'forums' do
-    resources :forum_threads, :path => 'forums/th', :as => 'threads' do
+    resources :forum_threads, :path => 'forums', :as => 'threads' do
       resources :forum_posts, :path => 'p', :as => 'posts'
     end
     resources :forum_posts, :path => 'forums/p', :as => 'posts' do

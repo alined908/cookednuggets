@@ -133,17 +133,6 @@
     <% end %>
   </div>
 </div>
-<div class="column-3 match-extras">
-  <div class="descriptor">Upcoming Matches</div>
-  <div class="upcoming-matches shadow-sm">
-    <% @upcoming.each do |match| %>
-      <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true}) %>
-    <% end %>
-  </div>
-  <div class="descriptor">Completed Matches</div>
-  <div class="completed-matches shadow-sm">
-    <% @completed.each do |match| %>
-      <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true}) %>
-    <% end %>
-  </div>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>
