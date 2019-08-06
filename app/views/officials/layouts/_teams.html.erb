@@ -1,5 +1,5 @@
-<div class="jumbotron shadow">
-  <h2>Teams</h2>
+<div class="descriptor">Teams</div>
+<div class="shadow-sm team-table-wrapper">
   <div class="team-table">
     <% @event.teams.each do |team| %>
       <%= link_to team_path(team), class: "team-table-link" do %>

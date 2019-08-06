@@ -7,22 +7,22 @@ class Team extends React.Component {
   render () {
     if (this.props.compact) {
       return (
-        <tr className='team-table-row'>
-          <td>
+        <React.Fragment>
+          <div className="teamstable-ttr">
             <span><img className="team-logo" src={this.props.team.logo}/></span>
             <span className="team-name"><a href={"/teams/" +this.props.id}>{this.props.team.name}</a></span>
-          </td>
-          <td>
+          </div>
+          <div>
             <span><img className="flag-logo" src={"/assets/flags/" + this.props.team.country + '.svg'}/></span>
             <span>{countries[this.props.team.country]}</span>
-          </td>
-        </tr>
+          </div>
+        </React.Fragment>
       )
     }
     else {
       return (
         <div>
-          <div className="team-header shadow">
+          <div className="team-header shadow-sm">
             <div>
               <img className="team-header-logo" src={this.props.team.logo}/>
             </div>
@@ -69,22 +69,12 @@ class Team extends React.Component {
             </div>
           </div>
           <div className="team-information">
-            <div className="team-matches shadow">
-              <div className="card-header">
-                Matches
-              </div>
-              <div>
-                {this.props.matches.map((match, index) => (
-                  <Match match={match} compact={false} teams={[this.props.teams1[index], this.props.teams2[index]]}/>
-                ))}
-              </div>
+            <div className="descriptor">
+              Matches
             </div>
-            <div className="team-roster shadow">
-              <div className="card-header">
-                Roster
-              </div>
-              {this.props.players.map((player) => (
-                <Player key={player.id} player={player}/>
+            <div className="team-matches shadow-sm">
+              {this.props.matches.map((match, index) => (
+                <Match match={match} compact={false} teams={[this.props.teams1[index], this.props.teams2[index]]}/>
               ))}
             </div>
           </div>

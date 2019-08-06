@@ -1,10 +1,10 @@
 require 'will_paginate/array'
 
 class Forums::ForumThreadsController < ApplicationController
-  skip_before_action :get_sidebars
+  skip_before_action :get_discs
+  before_action :disable_discs
   before_action :authenticate_user!, only: [:create]
   before_action :set_forum_thread, except: [:index, :new, :create]
-  before_action :get_matches
 
   def index
     @forum_thread = ForumThread.new
@@ -22,11 +22,9 @@ class Forums::ForumThreadsController < ApplicationController
       @discs = (@threads_sb + @matches_sb + @news_sb).sort_by(&:updated_at).reverse.paginate(:page => params[:page], :per_page => 20)
     end
 
-    @discs
   end
 
   def show
-
   end
 
   def create
@@ -47,17 +45,15 @@ class Forums::ForumThreadsController < ApplicationController
   end
 
   private
+    def disable_discs
+      @disable_1 = true
+    end
+
     def set_forum_thread
       @forum_thread = ForumThread.find(params[:id])
     end
 
     def forum_thread_params
       params.require(:forum_thread).permit(:subject, :description)
-    end
-
-    def get_matches
-      @disable_1 = true
-      @completed = Official.limit(7).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
-      @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2)
     end
 end

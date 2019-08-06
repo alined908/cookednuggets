@@ -1,5 +1,6 @@
 class Officials::EventsController < ApplicationController
   before_action :set_event, only: [:show, :destroy, :edit]
+  before_action :get_event_matches, except: [:index]
 
   def index
     if params[:s] == 'completed'
@@ -61,5 +62,10 @@ class Officials::EventsController < ApplicationController
 
     def event_params
       params.require(:event).permit(:name, :location, :country, :prize, :start_date, :end_date, :desc)
+    end
+
+    def get_event_matches
+      @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2)
+      @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2)
     end
 end

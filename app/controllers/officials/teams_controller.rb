@@ -2,13 +2,13 @@ class Officials::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :new, :destroy, :edit]
 
   def index
-    @teams = Team.all
-    @team = Team.new
+    @teams, @team = Team.all, Team.new
+    @events = Event.all
   end
 
   def show
     @players = @team.players
-    @officials = Official.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).includes(:team1, :team2).order(:start)
+    @officials = Official.where("team1_id = ? OR team2_id = ?", @team.id, @team.id).includes(:team1, :team2).order(start: :desc)
     @teams = [@officials.collect{|match| match.team1}, @officials.collect{|match| match.team2}]
   end
 

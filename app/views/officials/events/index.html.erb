@@ -1,22 +1,21 @@
-<div class="header-nav shadow-sm">
-  <%= link_to events_path do%>
-    <div class="header-nav-entry">
-      Ongoing
-    </div>
-  <% end %>
-  <%= link_to events_path(:s => "completed") do%>
-    <div class="header-nav-entry">
-      Completed
+<div class="column-2">
+  <div class="descriptor">
+    <span><%= link_to "Ongoing", events_path%></span>
+    <span><%= link_to "Completed", events_path(:s => "completed")%></span>
+  </div>
+
+  <div class="events-container shadow">
+    <% @events.each do |event| %>
+      <%= react_component("Event", {event: event, compact: true}, {class: "event-entry"}) %>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="shadow">
+      <%= link_to "Create New Event", new_event_path, class: "btn btn-primary"%>
     </div>
   <% end %>
 </div>
-
-<div class="events-container shadow">
-  <% @events.each do |event| %>
-    <%= react_component("Event", {event: event, compact: true}, {class: "event-entry"}) %>
-  <% end %>
-</div>
-
-<div class="shadow">
-  <%= link_to "Create New Event", new_event_path, class: "btn btn-primary"%>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

@@ -112,6 +112,14 @@
    }
  }
 
+ .table{
+   td{
+     text-align: left !important;
+     padding: .5rem;
+     vertical-align: middle;
+   }
+ }
+
  .dropdown{
    background-color: #363636;
    color: white;
@@ -143,6 +151,14 @@
 .draw{
   color: blue;
 }
+.positive{
+  color: green;
+}
+
+.negative{
+  color: red;
+}
+
 .type-match{
   border-left: 2px solid #e63865;
 }
@@ -188,12 +204,14 @@
 }
 
 .actions {
+  font-size: 10px;
+  background-color: #fafafa;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
 
 .light-text {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: lighter;
   color: #aaa;
 }
@@ -260,7 +278,7 @@
   display: flex;
   text-transform: capitalize;
   font-weight: 300;
-  font-size: 13px;
+  font-size: 11px;
   .country-flag {
     margin: 0 5px;
   }
@@ -307,8 +325,8 @@
     .columns{
       display: flex;
       .column-1,.column-3, .column-4{
-        max-width: 180px;
-        flex: 0 0 180px;
+        max-width: 190px;
+        flex: 0 0 190px;
         margin-left: 1rem;
       }
       .column-2 {
@@ -382,6 +400,13 @@
       margin-right: 10px;
     }
   }
+}
+.event-stages, .team-table-wrapper, .standings, .section-schedule{
+  font-size: 10px;
+  background-color: #fafafa;
+}
+.team-table-wrapper{
+  padding: 1rem;
 }
 
 .event-comp{
@@ -627,11 +652,11 @@
 /* Events */
 .events-container {
   margin: auto;
-  background-color: rgb(253,253,253);
+  background-color: #fafafa;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  padding: 1rem;
+  padding: .25rem;
 
 
   .event-entry{
@@ -664,7 +689,7 @@
       background-color: rgb(245,245,245);
       display: grid;
       grid-template-rows: 55% 45%;
-      font-size: 13px;
+      font-size: 12px;
       color: black;
       border-radius: 5px;
     }
@@ -678,6 +703,7 @@
       .event-info-top{
         display: grid;
         grid-template-rows: 1fr 1fr;
+        padding: .5rem;
 
         .event-name{
           display: flex;
@@ -689,6 +715,7 @@
         .event-place {
           display: flex;
           justify-content: center;
+          font-size: 11px;
           .event-country{
             margin-right: 5px;
           }
@@ -699,7 +726,7 @@
         grid-template-columns: 1fr 1fr;
         align-items: center;
         font-weight: bold;
-        font-size: 12px;
+        font-size: 11px;
 
         .event-date{
           display: grid;
@@ -736,7 +763,7 @@
   }
 
   .event-stages-entry{
-    padding: 1rem;
+    padding: 1rem .75rem;
     border-left: 1px solid #ccc;
 
     &:hover{
@@ -746,12 +773,12 @@
   }
 
   .event-stages-dates{
-    font-size: 13px;
+    font-size: 11px;
     color: #aaa;
   }
 
   .event-stages-name{
-    font-size: 14px;
+    font-size: 12px;
     color: $link-color;
   }
 }
@@ -803,8 +830,7 @@
   .match-horz-vs{
     margin-left: 1rem;
     display: flex;
-    flex-basis: 0;
-    flex-grow: 1;
+    flex: 0 0 250px;
     flex-direction: column;
 
     .match-horz-vs-scores{
@@ -834,6 +860,30 @@
   width: 20px;
 }
 
+.teamstable{
+  background-color: #fafafa;
+  span {
+    font-size: 11px;
+  }
+  .team-table-row{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: .75rem;
+    font-size: 12px;
+    .teamstable-ttr{
+      flex: 0 0 200px;
+    }
+
+    span {
+      margin-right: 5px;
+    }
+
+    .team-shortname {
+      font-weight: lighter;
+    }
+  }
+}
+
 .team-table{
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -846,7 +896,7 @@
 
   .team-table-entry{
     width: 100%;
-    font-size: 13px;
+    font-size: 12px;
     color: $link-color;
     text-align: center;
 
@@ -858,6 +908,7 @@
       padding: 1rem;
       border-radius: 5px;
       margin-bottom: 5px;
+      background-color: rgb(235,235,235);
     }
     img {
       width: 100%;
@@ -865,26 +916,11 @@
   }
 }
 
-.team-table-row{
-  font-size: 13px;
-  td {
-    vertical-align: middle;
-  }
-  span {
-    margin-right: 5px;
-  }
-
-  .team-shortname {
-    font-weight: lighter;
-  }
-}
-
 .team-header{
   display: flex;
-  width: $info-heavy-width;
-  margin: 1.5em auto;
-  background: white;
-  padding: 1.5em;
+  margin: 0 auto;
+  background: #fafafa;
+  padding: 1rem;
 
   h2 {
     margin: 0;
@@ -916,78 +952,71 @@
   }
 }
 
-.team-information{
-  background-color: inherit;
-  display: grid;
-  width: $info-heavy-width;
-  margin: 1.5em auto;
-  grid-template-columns: 7.5fr 2.5fr;
-  grid-column-gap: 1.5em;
+.team-matches{
+  background: #fafafa;
+}
 
-  .team-matches{
-    background: white;
+.team-roster{
+  background: #fafafa;
+  a{
+    text-decoration: none;
   }
 
-  .team-roster{
-    background: white;
-    a{
-      text-decoration: none;
+  .team-player{
+    display: flex;
+    padding: .5rem;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: pointer;
+
+    .team-player-inner{
+      display: flex;
     }
 
-    .team-player{
+    &:hover{
+      background-color: $hover-color;
+    }
+
+    .team-player-info{
+      margin-left: 10px;
       display: flex;
-      padding: .5rem;
-      border-bottom: 1px solid #d4d4d4;
-      cursor: pointer;
+      flex-direction: column;
 
-      .team-player-inner{
-        display: flex;
+      .team-player-handle{
+        color: #444;
+        text-transform: none;
+        font-weight: 500;
+        font-size: 11px;
       }
 
-      &:hover{
-        background-color: $hover-color;
+      .team-player-name{
+        color: rgb(136, 136, 136);
+        font-weight: 300;
+        text-transform: none;
+        font-size: 10px;
       }
-
-      .team-player-info{
-        margin-left: 10px;
-        display: flex;
-        flex-direction: column;
-
-        .team-player-handle{
-          color: #444;
-          text-transform: none;
-          font-weight: 500;
-          font-size: 13px;
-        }
-
-        .team-player-name{
-          color: rgb(136, 136, 136);
-          font-weight: 300;
-          text-transform: none;
-        }
-        .team-player-roles{
-          font-size: 12px;
-          text-transform: capitalize;
-          color: black;
-        }
+      .team-player-roles{
+        font-size: 11px;
+        text-transform: capitalize;
+        color: black;
       }
+    }
 
-      .team-player-headshot-img{
-        width: 50px;
-        height: 50px;
-      }
+    .team-player-headshot-img{
+      width: 50px;
+      height: 50px;
     }
   }
 }
 
 /* Standings */
 .standings {
-  width: 45%;
-  margin: 2rem 0 0 5%;
+  width: 70%;
 
   .standings-header {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 400;
+    background-color: $hover-color;
+
   }
 
   .standings-team-logo{
@@ -995,7 +1024,7 @@
   }
 
   tbody{
-    font-size: 13px;
+    font-size: 11px;
 
     tr{
       a{
@@ -1039,7 +1068,7 @@
       }
 
       &.match-lose{
-        background-color: #efd9d7;;
+        background-color: #efd9d7;
       }
       .match-recent-entry-opp{
         flex: 1;

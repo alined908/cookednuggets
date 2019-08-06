@@ -1,8 +1,17 @@
-<%= react_component("Event", {event: @event, compact: false}) %>
-<%= render "officials/layouts/sections", :event => @event %>
-<%= render "officials/layouts/teams", :teams => @teams %>
-<%= render "officials/layouts/standings", :teams => @teams, :standings => @standings %>
-<div class="jumbotron shadow">
-  <%= link_to 'Edit', [:edit, @event] %>
-  <%= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<div class="column-2 event-wrapper">
+  <div class="descriptor">Event</div>
+  <%= react_component("Event", {event: @event, compact: false}) %>
+  <div class="descriptor">Sections</div>
+  <%= render "officials/layouts/sections", :event => @event %>
+  <%= render "officials/layouts/teams", :teams => @teams %>
+  <%= render "officials/layouts/standings", :teams => @teams, :standings => @standings %>
+  <% if user_signed_in? %>
+    <div class="shadow-sm actions">
+      <%= link_to 'Edit', [:edit, @event] %>
+      <%= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    </div>
+  <% end %>
+</div>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

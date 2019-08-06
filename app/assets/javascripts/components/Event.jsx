@@ -1,8 +1,8 @@
 import React from "react"
 import countries from "./countries"
 
-var months = ["January", "February", "March", "April", "May", "June", "July", "August",
-"September", "October", "November", "December"]
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+"Sep", "Oct", "Nov", "Dec"]
 
 class Event extends React.Component {
 
@@ -13,7 +13,7 @@ class Event extends React.Component {
 
   getDate(str){
     var formatted = str.split("-")
-    return months[parseInt(formatted[1]) - 1] + " " + formatted[2] + ", " + formatted[0]
+    return months[parseInt(formatted[1]) - 1] + " " + formatted[2]
   }
 
   render () {
@@ -58,7 +58,7 @@ class Event extends React.Component {
     else {
       return (
         <div>
-          <div className="team-header shadow">
+          <div className="team-header shadow-sm">
             <div className="header-img">
               <img src={"/assets/events/" + this.getImage(this.props.event.name)}/>
             </div>

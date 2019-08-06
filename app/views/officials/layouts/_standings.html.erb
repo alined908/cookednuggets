@@ -1,5 +1,5 @@
-<div class="jumbotron shadow standings skinny">
-  <div class="card-header">Standings</div>
+<div class="descriptor">Standings</div>
+<div class="shadow-sm standings">
   <table class="table">
     <thead class="standings-header">
       <tr>
@@ -24,7 +24,8 @@
         <td><%= @standings[team.name][:match][1]%></td>
         <td><%= @standings[team.name][:match][0] + @standings[team.name][:match][1] %></td>
         <td><%= @standings[team.name][:map][0]%>-<%=@standings[team.name][:map][1]%>-<%=@standings[team.name][:map][2]%></td>
-        <td><%= @standings[team.name][:map][0] - @standings[team.name][:map][1]%></td>
+        <% diff = @standings[team.name][:map][0] - @standings[team.name][:map][1] %>
+        <td class="<%=map_diff(diff)%>"><%=diff%></td>
       </tr>
     <% end %>
   </tbody>

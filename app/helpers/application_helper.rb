@@ -23,4 +23,14 @@ module ApplicationHelper
       return ""
     end
   end
+
+  def map_diff(diff)
+    if diff == 0
+      return ""
+    elsif diff < 0
+      return "negative"
+    else
+      return "positive"
+    end
+  end
 end

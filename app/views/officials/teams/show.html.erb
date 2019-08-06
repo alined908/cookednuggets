@@ -1,1 +1,14 @@
-<%= react_component("Team", {teams1: @teams[0], teams2: @teams[1], matches: @officials, team: @team, players: @players, compact: false})%>
+<div class="column-2">
+  <div class="descriptor">Team</div>
+  <%= react_component("Team", {teams1: @teams[0], teams2: @teams[1], matches: @officials, team: @team, compact: false})%>
+</div>
+<div class="column-3 indent-right">
+  <div class="descriptor">
+    Roster
+  </div>
+  <div class="team-roster shadow-sm">
+    <% @players.each do |player| %>
+      <%= react_component("Player", {player: player}) %>
+    <% end %>
+  </div>
+</div>
