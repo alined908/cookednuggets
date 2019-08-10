@@ -117,9 +117,8 @@
     <% end %>
   </div>
 
-  <hr>
+  <div class="descriptor">Comments</div>
   <%= render(partial: 'forums/forum_posts/post', collection: @match.forum_posts.includes(:user, :forum_posts)) %>
-  <hr>
 
   <div class="post-reply bottom-reply">
     <% if user_signed_in? %>

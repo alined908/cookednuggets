@@ -1,21 +1,28 @@
-<% devise_error_messages! %>
-<div class="jumbotron shadow">
-    <h1>Login</h1>
-
+<div class="column-2">
+  <% devise_error_messages! %>
+  <div class="descriptor">Login</div>
+  <div class="shadow-sm admin-form">
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-        <div class="form-group">
-            <%= f.email_field :email, placeholder: "Email", class: "form-control"%>
+      <div class="fields thin">
+        <div>
+          <div class="descriptor">Email</div>
+          <%= f.email_field :email%>
         </div>
-        <div class="form-group">
-            <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+        <div>
+          <div class="descriptor">Password</div>
+          <%= f.password_field :password%>
         </div>
         <% if devise_mapping.rememberable? %>
-          <div class="form-group">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+          <div class="descriptor">
+            <%= f.check_box :remember_me %> Remember Me
           </div>
         <% end %>
-        <div class="form-group">New user? <%= link_to "Sign up now!", new_user_registration_path %></div>
-        <%= f.submit "Login", class:"btn btn-primary" %>
+        <div class='descriptor'>New user? <%= link_to "Sign up now!", new_user_registration_path %></div>
+        <%= f.submit "Login" %>
+      </div>
     <% end %>
+  </div>
+</div>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

@@ -2,6 +2,8 @@ class CreateEvents < ActiveRecord::Migration[5.2]
   def change
     create_table :events do |t|
       t.string :name
+      t.string :shortname
+      t.string :color
       t.string :desc
       t.string :location
       t.string :country, :null => false, :default => "un"

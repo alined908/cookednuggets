@@ -12,6 +12,7 @@
  *
  */
  @import "bootstrap";
+
  $background: #dadadc;
  $body-width: 65%;
  $hover-color: rgb(240, 240, 240);
@@ -137,12 +138,112 @@
    }
  }
 
-.jumbotron {
-  width: 90%;
-  margin: 2rem auto;
-  background: white;
-  padding-top: 2.0rem;
-  padding-bottom: 2.0rem;
+.checkmark {
+  display: flex;
+  align-items: center;
+
+  .check {
+    width: 15px;
+  }
+}
+.admin-form {
+  background-color: #fafafa;
+  margin: 0 0 1rem 0;
+  .fields {
+    display: grid;
+    grid-row-gap: 1rem;
+    padding: 1rem;
+
+    .descriptor{
+      padding: 0 0 .5rem .25rem;
+    }
+    input, select {
+      width: 100%;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 12px;
+      border: none;
+
+      &:focus{
+        outline: none !important;
+        border-bottom: 1px solid green !important;
+      }
+    }
+
+    input[type="text"], input[type="email"], input[type="password"]{
+      background-color: inherit;
+      border-bottom: 1px solid #ccc;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+    }
+
+    input[type='submit']{
+      background-color: inherit;
+      border: 1px solid $link-color;
+      border-radius: 5px;
+    }
+  }
+  .thin{
+    grid-row-gap: 1rem !important;
+    .descriptor{
+      padding: 0 0 0 .25rem;
+    }
+  }
+
+  .split {
+    grid-template-columns: 49% 49%;
+    grid-column-gap: 2%;
+  }
+
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+
+  .page_info {
+    margin-right: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .gap{
+    margin-left: 5px;
+  }
+}
+
+.pagination .disabled {
+  color: #aaaaaa;
+  display: none;
+}
+.pagination .current {
+  font-style: normal;
+  margin-left: 5px;
+  font-size: 11px;
+  background: #bbb;
+  color: #f4f4f4;
+  padding: 10px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+.pagination a {
+  margin-left: 5px;
+  font-size: 11px;
+  background: #f4f4f4;
+  color: #666;
+  padding: 10px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+.pagination a:hover, .pagination a:focus {
+  border-color: #003366;
+  background: #007bff;
+  color: white;
 }
 
 .winner{
@@ -411,7 +512,7 @@
 
 .event-comp{
   display: flex;
-  padding: .25rem .5rem .25rem 0;
+  padding: .75rem .25rem;
   border-bottom: 1px solid #ccc;
   &:hover{
     background-color: $hover-color;
@@ -540,10 +641,8 @@
 
 .thread{
   margin: 0 auto;
-  width: 80%;
 }
 .forum-post-wrapper {
-  margin: 10px 0;
 
   .forum-post {
     display:grid;
@@ -553,13 +652,14 @@
 
     > div {
       display: flex;
-      padding: 0 20px;
+      padding: 0 15px;
       height: 30px;
       align-items: center;
     }
 
     .post-body {
-      padding: 10px 20px;
+      font-size: 13px;
+      padding: 10px 15px;
       height: 100%;
     }
 
@@ -573,6 +673,7 @@
       }
 
       .post-timestamp{
+        font-size: 11px;
         flex: 90;
         font-weight: lighter;
       }
@@ -597,16 +698,18 @@
     }
 
     .post-header{
-      font-size: 13px;
+      font-size: 12px;
       background-color: #eee;
       text-transform: capitalize;
+      display: flex;
+      justify-content: space-between;
 
       img {
         margin-right: 5px;
       }
 
       .post-title{
-        font-size: 15px;
+        font-size: 14px;
         font-weight: bold;
       }
     }
@@ -627,10 +730,10 @@
 
 .parent-post > .parent-post {
   margin-left: 10px;
+  margin-top: 10px;
 }
-
-.thread-wrapper{
-  margin: 1rem 0;
+.parent-post ~ .parent-post{
+  margin-top: 10px;
 }
 
 .edit_forum_post {
@@ -1138,7 +1241,6 @@
 
 .match-head-to-head{
   background-color: white;
-  margin-bottom: 1rem;
 
   .head-to-head-teams{
     display: flex;
@@ -1273,58 +1375,21 @@
   }
 }
 
-.checkmark {
-  display: flex;
-  align-items: center;
+/* News */
+.news-article{
+  background-color: #fafafa;
+  padding: 1.5rem;
 
-  .check {
-    width: 15px;
-  }
-
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-
-  .page_info {
-    margin-right: 1rem;
-    text-transform: uppercase;
+  .article-title{
+    font-size: 24px;
     font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .article-info{
     font-size: 12px;
-    color: #666;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
   }
-
-  .gap{
-    margin-left: 5px;
-  }
-}
-
-.pagination .disabled {
-  color: #aaaaaa;
-  display: none;
-}
-.pagination .current {
-  font-style: normal;
-  margin-left: 5px;
-  font-size: 11px;
-  background: #bbb;
-  color: #f4f4f4;
-  padding: 10px;
-  border-radius: 2px;
-  text-decoration: none;
-}
-.pagination a {
-  margin-left: 5px;
-  font-size: 11px;
-  background: #f4f4f4;
-  color: #666;
-  padding: 10px;
-  border-radius: 2px;
-  text-decoration: none;
-}
-.pagination a:hover, .pagination a:focus {
-  border-color: #003366;
-  background: #007bff;
-  color: white;
 }

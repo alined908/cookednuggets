@@ -1,0 +1,30 @@
+<div class="column-2">
+  <div class="descriptor">
+    <%= link_to "Forums", threads_path %> >
+    <%= link_to "News", threads_path(:f => "news")%> >
+    <span><%=@news.subject%></span>
+  </div>
+  <div class="news-article">
+    <div class="article-title">
+      <%=@news.subject%>
+    </div>
+    <div class="article-stuff">
+      <div class="article-headshot">
+      </div>
+      <div class="article-info">
+        <div class="article-author"><%=@news.user.username.capitalize%></div>
+        <div class="article-date"><%=time_ago_in_words(@news.created_at) + " ago"%></div>
+      </div>
+    </div>
+    <div class="article-body">
+      <%= sanitize @news.article %>
+    </div>
+  </div>
+
+  <div class="descriptor">Comments</div>
+  <%= render(partial: 'forums/forum_posts/post', collection: @news.forum_posts.includes(:user, :forum_posts)) %>
+</div>
+
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

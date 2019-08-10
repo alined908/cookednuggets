@@ -1,8 +1,8 @@
 require 'will_paginate/array'
 
 class Forums::ForumThreadsController < ApplicationController
-  skip_before_action :get_discs
-  before_action :disable_discs
+  skip_before_action :get_discs, except: [:show]
+  before_action :disable_discs, except: [:show]
   before_action :authenticate_user!, only: [:create]
   before_action :set_forum_thread, except: [:index, :new, :create]
 
@@ -13,6 +13,7 @@ class Forums::ForumThreadsController < ApplicationController
       @discs = ForumThread.order(updated_at: :desc).includes(:user).paginate(:page => params[:page], :per_page => 20)
     elsif params[:f] == "news"
       @discs = New.order(updated_at: :desc).includes(:user).paginate(:page => params[:page], :per_page => 20)
+      @new = New.new
     elsif params[:f] == "matches"
       @discs = Official.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 20)
     else

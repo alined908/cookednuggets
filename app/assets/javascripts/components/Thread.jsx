@@ -66,7 +66,8 @@ class Thread extends React.Component {
             <div className="forum-post">
               <div className="post-header">
                 <div>
-                  {this.props.info[0][1]}
+                  <img className="flag-logo" src={"/assets/flags/" + this.props.user.country + '.svg'}/>
+                  {this.props.user.username}
                 </div>
                 <div className="post-title">
                   {this.props.thread.subject}

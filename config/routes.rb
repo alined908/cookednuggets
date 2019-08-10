@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
 
   resources :users do
@@ -23,7 +24,10 @@ Rails.application.routes.draw do
       resources :forum_posts, :path => 'p', :as => 'posts'
     end
   end
-  resources :news, :path => 'news', :as => 'news'
+  scope module: 'news' do
+    resources :news, :path => 'news', :as => 'news'
+  end
+
 
   scope module: 'officials' do
     resources :events do

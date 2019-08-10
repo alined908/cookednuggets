@@ -11,14 +11,18 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # React rails
 gem 'react-rails'
-gem 'webpacker', '~> 3.2.2'
+gem 'webpacker', '~> 4.x'
 # Bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Paginate
 gem 'will_paginate', '~> 3.1.0'
+#Text editor
+gem 'ckeditor'
+gem "mini_magick"
+gem 'carrierwave'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 

@@ -34,14 +34,15 @@ end
 
 #Create Events
 events = [
-  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29)],
-  ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
-  ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)],
-  ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30)]
+  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29), "OWL 2019", "#f08242"],
+  ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:NA", "#13bf82"],
+  ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:KR", "#0bb8da"],
+  ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:CN", "#aa76b3"]
 ]
 
-events.each do |country, name, desc, location, prize, start, end_date|
-  Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start, end_date: end_date, country: country)
+events.each do |country, name, desc, location, prize, start, end_date, shortname, color|
+  Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start,
+    end_date: end_date, country: country, shortname: shortname, color: color)
 end
 
 @event = Event.first

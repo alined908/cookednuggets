@@ -23,12 +23,12 @@
   <div class="events-comp shadow-sm">
     <% @events.each do |event| %>
       <%= link_to event_path(event), class: "link-nodec" do %>
-        <div class="event-comp">
+        <div style='border-left: 2px solid <%=event.color%>' class="event-comp">
           <div class="event-comp-img">
             <%= image_tag("/assets/events/" + event.name.split(" ").slice(0, 2).join("-")+".png", class: "team-img-md") %>
           </div>
           <div class="event-comp-info">
-            <div class="event-comp-name"><%= event.name %></div>
+            <div class="event-comp-name"><%= event.shortname %></div>
             <div class="event-comp-date"><%= event.start_date.strftime("%b %d")%> - <%=event.end_date.strftime("%b %d") %></div>
           </div>
         </div>
