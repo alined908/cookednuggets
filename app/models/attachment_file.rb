@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Ckeditor::AttachmentFile < Ckeditor::Asset
+class AttachmentFile < Asset
   mount_uploader :data, CkeditorAttachmentFileUploader, mount_on: :data_file_name
 
   def url_thumb
