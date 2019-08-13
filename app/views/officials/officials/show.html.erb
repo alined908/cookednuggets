@@ -118,13 +118,13 @@
   </div>
 
   <div class="descriptor">Comments</div>
-  <%= render(partial: 'forums/forum_posts/post', collection: @match.forum_posts.includes(:user, :forum_posts)) %>
+  <%= render(partial: 'forums/forum_posts/post', collection: @match.forum_posts.includes(:user)) %>
 
   <div class="post-reply bottom-reply">
     <% if user_signed_in? %>
       <div class="post-reply-topbar"></div>
       <%= form_for(@forum_post, url: match_posts_path(@match)) do |f| %>
-        <%= f.text_area :body, placeholder: "Add a comment", rows: 6, class: "reply-form" %>
+        <%= f.cktext_area :body, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, class: "ckeditor"%>
         <%= f.submit "Submit Post", class: "submit-post-button" %>
       <% end %>
     <% else %>

@@ -1,6 +1,7 @@
 <div class="column-2">
   <div class="descriptor">Team</div>
-  <%= react_component("Team", {teams1: @teams[0], teams2: @teams[1], matches: @officials, team: @team, compact: false})%>
+  <%= react_component("Team", {teams1: @info[0], teams2: @info[1], matches: @officials, team: @team, events: @info[2], sections: @info[3], compact: false}, {style: "margin-bottom: 1rem"})%>
+  <%= will_paginate @officials %>
 </div>
 <div class="column-3 indent-right">
   <div class="descriptor">

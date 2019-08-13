@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
-
-  resources :users do
-    resources :matches, module: 'matches' do
-      resource :composition, :only => [:create]
-      resource :general, :only => [:create]
-      resource :fight, :only => [:create]
-    end
-  end
+  resources :users
 
   scope module: 'forums' do
     resources :forum_threads, :path => 'forums', :as => 'threads' do

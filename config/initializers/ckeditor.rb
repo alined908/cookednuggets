@@ -9,23 +9,7 @@ Ckeditor.setup do |config|
   require 'ckeditor/orm/active_record'
   config.cdn_url = "//cdn.ckeditor.com/4.12.1/full/ckeditor.js"
   config.image_file_types = %w(jpg jpeg png gif tiff)
-  # Allowed image file types for upload.
-  # Set to nil or [] (empty array) for all file types
-  # By default: %w(jpg jpeg png gif tiff)
-  # config.image_file_types = %w(jpg jpeg png gif tiff)
-
-  # Allowed flash file types for upload.
-  # Set to nil or [] (empty array) for all file types
-  # By default: %w(jpg jpeg png gif tiff)
-  # config.flash_file_types = %w(swf)
-
-  # Allowed attachment file types for upload.
-  # Set to nil or [] (empty array) for all file types
-  # By default: %w(doc docx xls odt ods pdf rar zip tar tar.gz swf)
   # config.attachment_file_types = %w(doc docx xls odt ods pdf rar zip tar tar.gz swf)
-
-  # Setup authorization to be run as a before filter
-  # By default: there is no authorization.
   # config.authorize_with :cancancan
 
   # Override parent controller CKEditor inherits from
@@ -44,13 +28,5 @@ Ckeditor.setup do |config|
   # By default: nil
   # config.asset_path = 'http://www.example.com/assets/ckeditor/'
 
-  # CKEditor CDN
-  # More info here http://cdn.ckeditor.com/
-  # By default: nil (CDN disabled)
-  # config.cdn_url = '//cdn.ckeditor.com/4.11.3/standard/ckeditor.js'
-
-  # JS config url
-  # Used when CKEditor CDN enabled
-  # By default: "ckeditor/config.js"
   # config.js_config_url = 'ckeditor/config.js'
 end

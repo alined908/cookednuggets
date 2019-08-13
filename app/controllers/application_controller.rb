@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :get_discs
+  before_action :get_discs, except: [:create, :update, :destroy]
   before_action :get_matches
 
   def index
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_matches
-    @completed = Official.limit(7).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
-    @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2)
+    @completed = Official.limit(7).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)
+    @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
   end
 end

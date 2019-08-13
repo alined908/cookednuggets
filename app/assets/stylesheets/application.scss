@@ -179,12 +179,6 @@
     input[type="checkbox"] {
       width: 20px;
     }
-
-    input[type='submit']{
-      background-color: inherit;
-      border: 1px solid $link-color;
-      border-radius: 5px;
-    }
   }
   .thin{
     grid-row-gap: 1rem !important;
@@ -197,7 +191,26 @@
     grid-template-columns: 49% 49%;
     grid-column-gap: 2%;
   }
+  input[type='submit']{
+    background-color: inherit;
+    border: 1px solid $link-color;
+    border-radius: 5px;
 
+    &:hover{
+      background-color: $hover-color;
+    }
+  }
+  .extra-actions{
+    display:flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+    font-size: 13px;
+  }
+
+}
+
+p{
+  margin-bottom: 0;
 }
 
 .pagination {
@@ -456,8 +469,9 @@
   .match-comp-time{
     font-weight: lighter;
     display: flex;
-    justify-content: flex-end;
-
+    justify-content: space-between;
+    color: grey;
+    margin-bottom: 4px;
   }
   .match-comp-scores{
     display: flex;
@@ -675,14 +689,18 @@
       .post-timestamp{
         font-size: 11px;
         flex: 90;
-        font-weight: lighter;
+        color: #888;
       }
 
       .post-footer-actions{
-        text-align: center;
+        color: #888;
+        font-size: 11px;
+        display: flex;
+        justify-content: flex-end;
         flex: 10;
-        display: grid;
-        grid-template-columns: 50% 50%;
+        .reply-button{
+          margin-left: 10px;
+        }
 
         > div {
           cursor: pointer;
@@ -690,15 +708,13 @@
             color: #3393FF;
           }
         }
-
-        .reply-button{
-          border-left: 1px solid #ccc;
-        }
       }
     }
 
     .post-header{
-      font-size: 12px;
+      color: #333;
+      font-weight: 500;
+      font-size: 11px;
       background-color: #eee;
       text-transform: capitalize;
       display: flex;
@@ -715,13 +731,20 @@
     }
   }
 }
-.post-reply {
+.post-reply, .child-post-reply {
   margin-top: 10px;
+}
 
-  .post-reply-topbar {
-    background-color: #eee;
-    height: 30px;
-  }
+.edit-reply{
+  width: 100%;
+}
+
+.child-post-reply, .edit-reply{
+  display: none;
+}
+
+.submit-post-button {
+  margin-top: 5px;
 }
 
 .bottom-reply {
@@ -736,11 +759,7 @@
   margin-top: 10px;
 }
 
-.edit_forum_post {
-  width: 100%;
-}
-
-.reply-form {
+.forum_post {
   width: 100%;
 }
 
@@ -1196,7 +1215,7 @@
 .match-header{
   display: grid;
   grid-template-rows: 30% 70%;
-  background-color: white;
+  background-color: #fafafa;
   padding: 1rem;
   font-size: 13px;
 
@@ -1240,7 +1259,8 @@
 }
 
 .match-head-to-head{
-  background-color: white;
+  background-color: #fafafa;
+  font-size: 13px;
 
   .head-to-head-teams{
     display: flex;
@@ -1248,6 +1268,7 @@
     border-bottom: 1px solid #ccc;
     padding: 10px 20px;
     align-items: center;
+
   }
 
   .match-h2hs{
@@ -1285,7 +1306,7 @@
 }
 
 .map-container{
-  background: white;
+  background: #fafafa;
   font-size: 12px;
 
   .map-container-navbar {
@@ -1299,7 +1320,10 @@
       flex:1 1 0;
 
       .map-entry-num{
+        color: #aaa;
+        font-size: 11px;
         font-weight: lighter;
+        margin-bottom: 3px;
       }
 
       &:hover{
@@ -1324,7 +1348,7 @@
           padding: 1rem;
 
           .map-team{
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
           }
         }

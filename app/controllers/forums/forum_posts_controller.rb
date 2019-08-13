@@ -16,10 +16,11 @@ class Forums::ForumPostsController < ApplicationController
   end
 
   def update
+    puts "hello"
     @post = ForumPost.find(params[:id])
     @post.body = forum_post_params[:body]
     if @post.save
-      flash[:success] = "Post successfully updated."
+      flash[:success] = "Post successfully edited."
     else
       flash[:danger] = @post.errors.full_messages
     end
@@ -39,6 +40,10 @@ class Forums::ForumPostsController < ApplicationController
       if params[:match_id]
         @commentable = Official.find(params[:match_id])
         @parent_id = params[:match_id]
+      end
+      if params[:news_id]
+        @commentable = New.find(params[:news_id])
+        @parent_id = params[:news_id]
       end
     end
 

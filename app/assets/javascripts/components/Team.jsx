@@ -74,7 +74,7 @@ class Team extends React.Component {
             </div>
             <div className="team-matches shadow-sm">
               {this.props.matches.map((match, index) => (
-                <Match match={match} compact={false} teams={[this.props.teams1[index], this.props.teams2[index]]}/>
+                <Match match={match} compact={false} event={this.props.events[index]} section={this.props.sections[index]}teams={[this.props.teams1[index], this.props.teams2[index]]}/>
               ))}
             </div>
           </div>

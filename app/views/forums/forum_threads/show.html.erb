@@ -7,13 +7,12 @@
     </div>
     <%= react_component("Thread", {timestamp: get_time_ago(@forum_thread.created_at), thread: @forum_thread, user: @forum_thread.user, compact: false}) %>
     <div class="descriptor">Comments</div>
-    <%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts.includes(:user, :forum_posts)) %>
+    <%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts.includes(:user)) %>
     <hr>
     <div class="post-reply bottom-reply">
       <% if user_signed_in? %>
-        <div class="post-reply-topbar"></div>
         <%= form_for(ForumPost.new, url: thread_posts_path(@forum_thread)) do |f| %>
-          <%= f.text_area :body, placeholder: "Add a comment", rows: 4, class: "reply-form" %>
+          <%= f.cktext_area :body, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, class: "ckeditor"%>
           <%= f.submit "Submit Post", class: "submit-post-button" %>
         <% end %>
       <% else %>

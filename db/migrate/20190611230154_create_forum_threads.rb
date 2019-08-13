@@ -1,6 +1,7 @@
 class CreateForumThreads < ActiveRecord::Migration[5.2]
   def change
     create_table :forum_threads do |t|
+      t.integer :score
       t.integer :user_id
       t.text :subject
       t.text :description
@@ -9,6 +10,7 @@ class CreateForumThreads < ActiveRecord::Migration[5.2]
     end
 
     create_table :forum_posts do |t|
+      t.integer :score
       t.integer :user_id
       t.integer :commentable_id
       t.string :commentable_type

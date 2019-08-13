@@ -6,7 +6,7 @@
 
   <div class="matches-page shadow-sm">
     <% @officials.each do |match| %>
-      <%= react_component("Match", {match: match, compact: false, teams: [match.team1, match.team2], event: match.event, section: match.section}) %>
+      <%= react_component("Match", {match: match, compact: false, teams: [match.team1, match.team2], events: match.event, sections: match.section}) %>
     <% end %>
   </div>
 

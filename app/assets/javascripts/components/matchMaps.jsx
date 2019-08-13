@@ -34,15 +34,24 @@ class MatchMaps extends React.Component {
     this.mapscore = mapscore;
   }
 
+  sanitizeMap(map){
+    if (map != null){
+      map = map.replace("-", " ")
+    }else {
+      map = "TBD"
+    }
+    return map
+  }
+
   render() {
     return (
       <div className="map-container shadow-sm">
         <div className="map-container-navbar shadow-sm">
           {this.props.maps_json.map((map, index) => (
-            <div style={{backgroundColor: this.state.status[index] ? 'white' : "rgb(240,240,240)"}}
+            <div style={{backgroundColor: this.state.status[index] ? '#fafafa' : "rgb(240,240,240)"}}
               onClick={this.setActive} className={"map-entry " + index.toString()}>
-              <div className="map-entry-num">MAP {index + 1}</div>
-              <div className="map-entry-name capitalize">{map.name}</div>
+              <div className="map-entry-num">Map {index + 1}</div>
+              <div style={{fontWeight: this.state.status[index] ? 'bold' : "normal"}} className="map-entry-name capitalize">{this.sanitizeMap(map.name)}</div>
             </div>
           ))}
         </div>

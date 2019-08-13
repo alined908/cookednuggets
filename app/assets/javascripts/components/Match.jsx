@@ -157,6 +157,7 @@ class Match extends React.Component {
         <a href={"/matches/" + this.props.match.id} className="match-compact link">
           <div className="match-comp">
             <div className="match-comp-time">
+              <div className="match-event">{this.props.event}</div>
               <div>{this.time_ago(this.props.match.start)}</div>
             </div>
             <div className="match-comp-vs">

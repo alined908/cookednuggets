@@ -4,7 +4,7 @@ class News::NewsController < ApplicationController
   before_action :news_params, except: [:show, :destroy]
 
   def show
-
+    @post = ForumPost.new
   end
 
   def create
@@ -12,7 +12,7 @@ class News::NewsController < ApplicationController
     @article.user = current_user
 
     if @article.save
-      flash[:success] = "Thread successfully created"
+      flash[:success] = "Article successfully created"
       redirect_to @article
     else
       flash[:danger] = @article.errors.full_messages
