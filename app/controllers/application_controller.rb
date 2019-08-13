@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   def index
     @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
-    @completed = Official.limit(12).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2)
-    @upcoming = Official.limit(12).where("end >= ?", DateTime.now).includes(:team1, :team2)
+    @completed = Official.limit(12).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)
+    @upcoming = Official.limit(12).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
     @news = New.order(created_at: :desc).limit(15)
   end
 
