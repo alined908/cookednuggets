@@ -3,6 +3,9 @@
     <div class="forum-post">
       <div class="post-header">
         <div><%= image_tag("/assets/flags/" + post.user.country, class: "flag-logo")%> <%=post.user.username%></div>
+        <div class="post-vote" id="post_<%= post.id %>_votes">
+          <%= render 'layouts/votes', :post => post%>
+        </div>
       </div>
       <div class="post-body">
         <%= sanitize post.body %>

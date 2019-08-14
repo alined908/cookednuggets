@@ -12,31 +12,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> -->
     <%= javascript_include_tag Ckeditor.cdn_url %>
-    <script>
-      $(document).ready(function() {
-          console.log('hello');
-          $(".reply-button").click(function(){
-              var num = $(this).attr('class').split(" ")[1];
-              if ($("#reply-" + num).css('display') == 'none'){
-                $("#reply-" + num).show();
-              }
-              else {
-                $("#reply-" + num).hide();
-              }
-          });
-          $(".edit-button").click(function(){
-              var num = $(this).attr('class').split(" ")[1];
-              if ($("#edit-" + num).css('display') == 'none'){
-                $("#edit-" + num).show();
-                $("#edit-" + num).prev().hide();
-              }
-              else {
-                $("#edit-" + num).hide();
-                $("#edit-" + num).prev().show();
-              }
-          });
-      });
-    </script>
   </head>
 
   <body>

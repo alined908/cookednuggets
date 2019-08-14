@@ -720,6 +720,14 @@ p{
       display: flex;
       justify-content: space-between;
 
+      .post-vote{
+        display: flex;
+        align-items: center;
+        div {
+          margin: 0 3px;
+        }
+      }
+
       img {
         margin-right: 5px;
       }

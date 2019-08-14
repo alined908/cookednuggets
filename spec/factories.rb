@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :vote do
+    user { nil }
+    forum_post { nil }
+  end
+
   factory :official do
     team1 { "MyString" }
     team2 { "MyString" }

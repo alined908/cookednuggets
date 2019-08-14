@@ -34,7 +34,7 @@
           </div>
           <div>
             <div class="descriptor">Content</div>
-            <%= f.text_area :description, rows: 5%>
+            <%= f.cktext_area :description, ckeditor: {toolbar: "mini", height: 300, toolbarCanCollapse: true}%>
           </div>
           <%= f.submit "Submit" %>
         </div>

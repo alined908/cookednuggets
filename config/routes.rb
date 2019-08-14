@@ -3,24 +3,31 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
 
+  def post_resource
+    resources :forum_posts, :path => 'p', :as => 'posts'
+  end
+
   scope module: 'forums' do
     resources :forum_threads, :path => 'forums', :as => 'threads' do
-      resources :forum_posts, :path => 'p', :as => 'posts'
+      post_resource
     end
-    resources :forum_posts, :path => 'forums/p', :as => 'posts' do
-      resources :forum_posts, :path => 'p', :as => 'posts'
+    resources :forum_posts, :path => 'forums/p', :as => 'posts', :only => [] do
+      member do
+        post 'vote'
+      end
+      post_resource
     end
     resources :officials, :path => 'matches', :as => 'matches', :only => [] do
-      resources :forum_posts, :path => 'p', :as => 'posts'
+      post_resource
     end
     resources :news, :path => 'news', :as => 'news', :only => [] do
-      resources :forum_posts, :path => 'p', :as => 'posts'
+      post_resource
     end
   end
+
   scope module: 'news' do
     resources :news, :path => 'news', :as => 'news'
   end
-
 
   scope module: 'officials' do
     resources :events do

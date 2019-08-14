@@ -33,4 +33,17 @@ module ApplicationHelper
       return "positive"
     end
   end
+
+  def active_vote?(post, current_user)
+    @prev_vote = post.votes.where(user_id: current_user.id)
+    if @prev_vote.any?
+      if @prev_vote[0].direction == 1
+        ["positive", ""]
+      else
+        ["", "negative"]
+      end
+    else
+      return ["", ""]
+    end
+  end
 end

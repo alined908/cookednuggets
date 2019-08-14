@@ -45,17 +45,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table "compositions", force: :cascade do |t|
-    t.string "player_roster"
-    t.string "hero_roster"
-    t.string "roundtype"
-    t.integer "duration"
-    t.integer "match_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_compositions_on_match_id"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.string "shortname"
@@ -77,32 +66,10 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.index ["team_id"], name: "index_eventteams_on_team_id"
   end
 
-  create_table "fights", force: :cascade do |t|
-    t.string "roundtype"
-    t.integer "duration"
-    t.string "left_players"
-    t.string "left_heroes"
-    t.string "right_players"
-    t.string "right_heroes"
-    t.string "winner"
-    t.string "first_blood"
-    t.integer "left_kill_num"
-    t.integer "right_kill_num"
-    t.integer "left_ults_used"
-    t.integer "right_ults_used"
-    t.string "left_ult_sequence"
-    t.string "right_ult_sequence"
-    t.string "total_kill_sequence"
-    t.string "total_death_sequence"
-    t.integer "match_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_fights_on_match_id"
-  end
-
   create_table "forum_posts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "commentable_id"
+    t.integer "score", default: 0, null: false
     t.string "commentable_type"
     t.integer "thread_id"
     t.text "body"
@@ -115,26 +82,9 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.text "subject"
     t.text "description"
     t.integer "comments_count", default: 0, null: false
+    t.integer "score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "generals", force: :cascade do |t|
-    t.string "player"
-    t.string "hero"
-    t.integer "kill"
-    t.integer "death"
-    t.string "ttcu"
-    t.string "ttuu"
-    t.integer "fight_total"
-    t.integer "fight_win"
-    t.integer "fight_lose"
-    t.integer "first_kill"
-    t.integer "first_death"
-    t.integer "match_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_generals_on_match_id"
   end
 
   create_table "maps", force: :cascade do |t|
@@ -145,17 +95,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "state"
     t.index ["official_id"], name: "index_maps_on_official_id"
     t.index ["winner_id"], name: "index_maps_on_winner_id"
-  end
-
-  create_table "matches", force: :cascade do |t|
-    t.date "date"
-    t.string "left_team"
-    t.string "right_team"
-    t.string "map"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
   create_table "news", force: :cascade do |t|
@@ -252,6 +191,16 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "votable_id"
+    t.string "votable_type"
+    t.integer "direction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end
