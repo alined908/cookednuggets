@@ -10,15 +10,15 @@
 
 # Create Users
 users = [
-  ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password', 'us'],
-  ['Billy', 'Bob', 'bigmacgal', 'billy@gmail.com', 'password', 'us'],
-  ['Tiffany', 'Tsay', 'merci', 'tiff@berkeley.edu', 'password', 'cn'],
-  ['Joseph', 'Kim', 'campingfatkid', 'kyungrok@berkeley.edu', 'password', 'kr']
+  ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password', 'us', 2],
+  ['Billy', 'Bob', 'bigmacgal', 'billy@gmail.com', 'password', 'us', 1],
+  ['Tiffany', 'Tsay', 'merci', 'tiff@berkeley.edu', 'password', 'cn', 0],
+  ['Joseph', 'Kim', 'campingfatkid', 'kyungrok@berkeley.edu', 'password', 'kr', 0]
 ]
 
-users.each do |first, last, username, email, password, country|
+users.each do |first, last, username, email, password, country, role|
   User.create(firstname: first, lastname: last, username: username, country: country,
-              email: email, password: password, password_confirmation: password)
+              email: email, password: password, password_confirmation: password, role: role)
 end
 
 #Create Forum

@@ -42,7 +42,7 @@
     </div>
   <% end %>
 
-  <% if params[:f] == "news" %>
+  <% if params[:f] == "news" && policy(@new).create? %>
     <div class="descriptor">Create News Article</div>
     <div class="admin-form shadow-sm">
       <%= form_for(@new, url: news_index_path) do |f| %>

@@ -294,6 +294,14 @@ p{
   padding: 0;
 }
 
+.button_to{
+  input {
+    border: none;
+    background-color: #eee;
+    padding: 3px;
+  }
+}
+
 .link{
   text-decoration: none;
   color: black;
@@ -360,7 +368,7 @@ p{
 
   &:hover {
     text-decoration: none;
-    color:black;
+    color: black;
   }
 
   &.color {
@@ -698,13 +706,20 @@ p{
         display: flex;
         justify-content: flex-end;
         flex: 10;
-        .reply-button{
-          margin-left: 10px;
-        }
 
         > div {
+          margin-left: 5px;
           cursor: pointer;
           &:hover {
+            color: #3393FF;
+          }
+        }
+
+        a{
+          text-decoration: none;
+          color: #888;
+          &:hover{
+            text-decoration: none;
             color: #3393FF;
           }
         }
@@ -723,8 +738,10 @@ p{
       .post-vote{
         display: flex;
         align-items: center;
-        div {
-          margin: 0 3px;
+        div{
+          font-size: 10px;
+          margin-right: 3px;
+          text-transform: none;
         }
       }
 
@@ -1424,4 +1441,28 @@ p{
     flex-direction: column;
     margin-bottom: 1rem;
   }
+}
+
+/* Admin */
+.admin-actions{
+  padding: 1rem;
+  background-color: #fafafa;
+  font-size: 12px;
+
+  a{
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+
+    &:hover {
+      text-decoration: none;
+      color: $link-color;
+      background-color: $hover-color;
+    }
+  }
+}
+#admin-action-edit{
+  display: none;
 }

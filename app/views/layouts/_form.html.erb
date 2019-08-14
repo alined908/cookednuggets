@@ -7,7 +7,7 @@
   </div>
 <% else %>
   <div class="edit-reply" id="edit-<%=post.id.to_s%>">
-    <%= form_for(forum_post, url: post_post_path(post_id: post.commentable.id, id: post.id),  method: :put) do |f| %>
+    <%= form_for(forum_post, url: find_post_route?(post),  method: :put) do |f| %>
       <%= f.cktext_area :body, value: content, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, id: "edit-zzz" + post.id.to_s%>
       <%= f.submit "Edit Post", class: "submit-post-button" %>
     <% end %>

@@ -34,7 +34,11 @@ module ApplicationHelper
     end
   end
 
-  def active_vote?(post, current_user)
+  def active_vote?(post)
+    if !user_signed_in?
+      return ["", ""]
+    end
+
     @prev_vote = post.votes.where(user_id: current_user.id)
     if @prev_vote.any?
       if @prev_vote[0].direction == 1
@@ -44,6 +48,21 @@ module ApplicationHelper
       end
     else
       return ["", ""]
+    end
+  end
+
+  def find_post_route?(post)
+    parent = post.commentable
+    type = parent.class
+
+    if type == ForumThread
+      return thread_post_path(thread_id: parent.id, id: post.id)
+    elsif type == ForumPost
+      return post_post_path(post_id: parent.id, id: post.id)
+    elsif type == Official
+      return match_post_path(match_id: parent.id, id: post.id)
+    elsif type == New
+      return news_post_path(news_id: parent.id, id: post.id)
     end
   end
 end

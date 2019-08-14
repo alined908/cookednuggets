@@ -1,10 +1,11 @@
 class Forums::ForumPostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_commentable
-  #before_action :require_permission, only: [:update]
+  before_action :find_commentable, except: [:update, :destroy]
+  before_action :set_post, only: [:update, :destroy]
 
   def create
     @post = @commentable.forum_posts.new(forum_post_params)
+    authorize @post
     @post.user = current_user
     @post.thread_id = @parent_id
     if @post.save
@@ -16,14 +17,20 @@ class Forums::ForumPostsController < ApplicationController
   end
 
   def update
-    puts "hello"
-    @post = ForumPost.find(params[:id])
+    authorize @post
     @post.body = forum_post_params[:body]
     if @post.save
       flash[:success] = "Post successfully edited."
     else
       flash[:danger] = @post.errors.full_messages
     end
+    redirect_to request.referrer
+  end
+
+  def destroy
+    authorize @post
+    @post.destroy
+    flash[:success] = "Post successfully deleted."
     redirect_to request.referrer
   end
 
@@ -65,4 +72,7 @@ class Forums::ForumPostsController < ApplicationController
       params.require(:forum_post).permit(:body)
     end
 
+    def set_post
+      @post = ForumPost.find(params[:id])
+    end
 end

@@ -1,2 +1,4 @@
-COUNTRIES = {'South Korea':'kr', 'United States': 'us', 'France': 'fr', 'United Kingdom': 'uk',
-            'China': 'cn', 'Canada': 'ca', 'Russia': 'ru'}
+COUNTRIES = {'kr' => 'South Korea', 'us'=> 'United States', 'gb'=> 'Great Britain', 'fr'=> 'France',
+'cn'=> 'China', 'ca'=> 'Canada', 'au'=> 'Australia', 'fi'=> 'Finland', 'th'=> 'Thailand', 'il'=> 'Israel',
+'se'=> 'Sweden', 'br'=>'Brazil', 'be'=> 'Belgium', 'tw'=> 'Taiwan', 'pl'=> 'Poland', 'dk'=> 'Denmark',
+'nz'=> 'New Zealand', 'is'=> 'Iceland'}.invert

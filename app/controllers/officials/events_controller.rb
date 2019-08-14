@@ -1,14 +1,14 @@
 class Officials::EventsController < ApplicationController
   before_action :set_event, only: [:show, :destroy, :edit]
-  before_action :get_event_matches, except: [:index]
+  before_action :get_event_matches, except: [:index, :create]
 
   def index
+    @event = Event.new
     if params[:s] == 'completed'
       @events = Event.where('? > end_date', Date.today)
     else
       @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
     end
-    @length = @events.length
   end
 
   def show
@@ -16,10 +16,6 @@ class Officials::EventsController < ApplicationController
     @event.sections.each {|stage|
        @regulars += stage.officials.where("match_type = ?", 'regular').includes(:winner, :team1, :team2, maps: :winner)}
     @teams, @standings = Section.standings(@event.teams, @regulars)
-  end
-
-  def new
-    @event = Event.new
   end
 
   def create
@@ -31,10 +27,6 @@ class Officials::EventsController < ApplicationController
       flash.now[:danger] = "Event information wrong."
       render :new
     end
-  end
-
-  def edit
-
   end
 
   def update

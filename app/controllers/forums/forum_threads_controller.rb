@@ -26,10 +26,12 @@ class Forums::ForumThreadsController < ApplicationController
   end
 
   def show
+
   end
 
   def create
     @forum_thread = ForumThread.new(forum_thread_params)
+    authorize @forum_thread
     @forum_thread.user = current_user
 
     if @forum_thread.save
@@ -41,8 +43,17 @@ class Forums::ForumThreadsController < ApplicationController
     end
   end
 
-  def destroy
+  def update
+    authorize @forum_thread
+    @forum_thread.update_attributes(forum_thread_params)
+    redirect_to thread_path(@forum_thread)
+  end
 
+  def destroy
+    authorize @forum_thread
+    @forum_thread.destroy
+    flash[:success] = "Thread successfully deleted."
+    redirect_to threads_path
   end
 
   private

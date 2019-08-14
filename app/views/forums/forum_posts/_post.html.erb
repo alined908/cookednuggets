@@ -14,7 +14,12 @@
       <div class="post-footer">
         <div class="post-timestamp">posted <%= get_time_ago(post.created_at) %> ago</div>
         <div class="post-footer-actions">
-          <% if post.user == current_user %>
+          <% if policy(post).destroy? %>
+            <div class='delete-button'>
+              <%= link_to "delete", find_post_route?(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
+          <% if policy(post).update? %>
             <div class='edit-button <%=post.id.to_s%>'>edit</div>
           <% end %>
           <% if user_signed_in? %>

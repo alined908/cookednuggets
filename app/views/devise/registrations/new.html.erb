@@ -28,7 +28,7 @@
           <div class="descriptor">Confirm Password</div>
           <%= f.password_field :password_confirmation, :required => true %>
         </div>
-        <%= f.select :country, options_for_select([COUNTRIES]), :required => true, prompt: "" %>
+        <%= f.select :country, options_for_select(COUNTRIES), :required => true, prompt: "" %>
         <%= f.submit "Sign Up!" %>
       </div>
     <% end %>

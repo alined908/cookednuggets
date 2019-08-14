@@ -21,4 +21,12 @@ $(document).ready(function() {
         $("#edit-" + num).prev().show();
       }
   });
+  $("#edit-thread").click(function(){
+    if ($("#admin-action-edit").css('display') == 'none'){
+      $("#admin-action-edit").show();
+    }
+    else {
+      $("#admin-action-edit").hide();
+    }
+  });
 });

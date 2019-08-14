@@ -19,6 +19,30 @@
         Login or register to add your comment to the discussion.
       <% end %>
     </div>
+    <% if policy(@forum_thread).destroy? %>
+      <div class="descriptor">Moderator Actions</div>
+      <div class="admin-actions">
+        <div>
+          <%= link_to 'Delete Thread', thread_path(@forum_thread), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Edit Thread', 'javascript:;', id: "edit-thread" %>
+        </div>
+        <div id="admin-action-edit" class="admin-form">
+          <%= form_for(@forum_thread, url: thread_path(@forum_thread), method: :patch) do |f| %>
+            <div class='fields'>
+              <div>
+                <div class="descriptor">Title</div>
+                <%= f.text_field :subject, :value => @forum_thread.subject %>
+              </div>
+              <div>
+                <div class="descriptor">Content</div>
+                <%= f.cktext_area :description, value: @forum_thread.description, ckeditor: {toolbar: "mini", height: 300, toolbarCanCollapse: true}%>
+              </div>
+              <%= f.submit "Submit" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="column-3 indent-right">

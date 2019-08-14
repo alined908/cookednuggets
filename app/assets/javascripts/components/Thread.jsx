@@ -73,9 +73,7 @@ class Thread extends React.Component {
                   {this.props.thread.subject}
                 </div>
               </div>
-              <div className="post-body">
-                {this.props.thread.description}
-              </div>
+              <div className="post-body" dangerouslySetInnerHTML={{__html: this.props.thread.description}} />
               <div className="post-footer">
                 <div className="post-footer-thread">
                   posted {this.props.timestamp} ago

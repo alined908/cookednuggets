@@ -1,6 +1,6 @@
 class News::NewsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  before_action :set_new, only: [:show]
+  before_action :set_new, only: [:show, :update, :destroy]
   before_action :news_params, except: [:show, :destroy]
 
   def show
@@ -21,11 +21,16 @@ class News::NewsController < ApplicationController
   end
 
   def update
-
+    authorize @news
+    @news.update_attributes(news_params)
+    redirect_to news_path(@news)
   end
 
   def destroy
-
+    authorize @news
+    flash[:success] = "Article titled: '" + @news.subject + "'   successfully destroyed"
+    @news.destroy
+    redirect_to threads_path(:f => "news")
   end
 
   private

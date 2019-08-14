@@ -33,6 +33,28 @@
       Login or register to add your comment to the discussion.
     <% end %>
   </div>
+  <% if policy(@news).destroy? %>
+    <div class="descriptor">Moderator Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Delete Article', news_path(@news), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Edit Article', 'javascript:;', id: "edit-thread" %>
+    </div>
+    <div id="admin-action-edit" class="admin-form">
+      <%= form_for(@news, url: news_path(@news), method: :patch) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Title</div>
+            <%= f.text_field :subject, :value => @news.subject %>
+          </div>
+          <div>
+            <div class="descriptor">Content</div>
+            <%= f.cktext_area :article, value: @news.article, ckeditor: {height: 300, toolbarCanCollapse: true}%>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <div class="column-3 indent-right">

@@ -11,4 +11,17 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  enum role: [:normal, :moderator, :admin]
+
+  def admin?
+    role == "admin"
+  end
+
+  def moderator?
+    role == "moderator"
+  end
+
+  def normal?
+    role == "normal"
+  end
 end
