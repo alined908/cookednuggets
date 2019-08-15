@@ -29,4 +29,12 @@ $(document).ready(function() {
       $("#admin-action-edit").hide();
     }
   });
+  $("#add-section").click(function(){
+    if ($("#admin-action-add").css('display') == 'none'){
+      $("#admin-action-add").show();
+    }
+    else {
+      $("#admin-action-add").hide();
+    }
+  });
 });

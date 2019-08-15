@@ -1,8 +1,11 @@
 import React from "react"
 import countries from "./countries"
 
-var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+var shortmonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
 "Sep", "Oct", "Nov", "Dec"]
+
+var months = ["January", "February", "March", "April", "May", "June", "July", "August",
+"September", "October", "November", "December"]
 
 class Event extends React.Component {
 
@@ -11,9 +14,14 @@ class Event extends React.Component {
     return words.join("-") + ".png";
   }
 
+  getShortDate(str){
+    var formatted = str.split("-");
+    return shortmonths[parseInt(formatted[1]) - 1] + " " + formatted[2]
+  }
+
   getDate(str){
-    var formatted = str.split("-")
-    return months[parseInt(formatted[1]) - 1] + " " + formatted[2]
+    var formatted = str.split("-");
+    return months[parseInt(formatted[1]) - 1] + " " + formatted[2] + ", " + formatted[0]
   }
 
   render () {
@@ -41,8 +49,8 @@ class Event extends React.Component {
                 </div>
                 <div className="event-info-bottom">
                   <div className="event-date">
-                    <div className="event-date-start"><span className="light-text">Start</span> {this.getDate(this.props.event.start_date)}</div>
-                    <div className="event-date-end"><span className="light-text">End</span> {this.getDate(this.props.event.end_date)}</div>
+                    <div className="event-date-start"><span className="light-text">Start</span> {this.getShortDate(this.props.event.start_date)}</div>
+                    <div className="event-date-end"><span className="light-text">End</span> {this.getShortDate(this.props.event.end_date)}</div>
                   </div>
                   <div className="event-prize">
                     <div className="event-prize-desc light-text">Prize</div>
@@ -69,16 +77,16 @@ class Event extends React.Component {
                 </a>
               </h3>
               <div className="country">
-                <b>Location:</b>
+                <span className="light-text">Location:</span>
                 <div className="country-flag"><img className="flag-logo" src={"/assets/flags/" + this.props.event.country + '.svg'}/></div>
                 {this.props.event.location}
               </div>
               <div className="event-overview-prize">
-                Prize: ${this.props.event.prize}
+                <span className="light-text">Prize:</span> ${this.props.event.prize}
               </div>
               <div>
-              <div className="event-date-start">Start: {this.getDate(this.props.event.start_date)}</div>
-              <div className="event-date-end">End: {this.getDate(this.props.event.end_date)}</div>
+              <div className="event-date-start"><span className="light-text">Start:</span> {this.getDate(this.props.event.start_date)}</div>
+              <div className="event-date-end"><span className="light-text">End: </span>{this.getDate(this.props.event.end_date)}</div>
               </div>
             </div>
           </div>

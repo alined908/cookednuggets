@@ -5,10 +5,74 @@
   <%= render "officials/layouts/sections", :event => @event %>
   <%= render "officials/layouts/teams", :teams => @teams %>
   <%= render "officials/layouts/standings", :teams => @teams, :standings => @standings %>
-  <% if user_signed_in? %>
-    <div class="shadow-sm actions">
-      <%= link_to 'Edit', [:edit, @event] %>
-      <%= link_to 'Delete', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+  <% if policy(@event).create? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Add Section', 'javascript:;', id: "add-section" %>
+      <%= link_to 'Edit Event', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Delete Event', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }%>
+    </div>
+    <div id="admin-action-add" class="admin-form">
+      <%= form_for(@section, url: event_sections_path(@event)) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Section Name</div>
+            <%= f.text_field :name %>
+          </div>
+          <div>
+            <div class="descriptor">Start Date</div>
+            <%= f.date_field :start %>
+          </div>
+          <div>
+            <div class="descriptor">End Date</div>
+            <%= f.date_field :end %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="admin-action-edit" class="admin-form">
+      <%= form_for(@event, url: event_path(@event), method: :patch) do |f| %>
+        <div class='fields split'>
+          <div>
+            <div class="descriptor">Name</div>
+            <%= f.text_field :name %>
+          </div>
+          <div>
+            <div class="descriptor">Short Name</div>
+            <%= f.text_field :shortname %>
+          </div>
+          <div>
+            <div class="descriptor">Color</div>
+            <%= f.color_field :color %>
+          </div>
+          <div>
+            <div class="descriptor">Description</div>
+            <%= f.text_field :desc %>
+          </div>
+          <div>
+            <div class="descriptor">Location</div>
+            <%= f.text_field :location %>
+          </div>
+          <div>
+            <div class="descriptor">Country</div>
+            <%= f.select :country, options_for_select(COUNTRIES.keys, COUNTRIES.invert[@event.country]), :required => true %>
+          </div>
+          <div>
+            <div class="descriptor">Prize</div>
+            <%= f.number_field :prize %>
+          </div>
+          <div>
+            <div class="descriptor">Start Date</div>
+            <%= f.date_field :start_date %>
+          </div>
+          <div>
+            <div class="descriptor">End Date</div>
+            <%= f.date_field :end_date %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

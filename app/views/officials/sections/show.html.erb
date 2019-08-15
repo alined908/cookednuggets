@@ -11,6 +11,13 @@
       <%= react_component("Match", {match: match, compact: false, teams: [match.team1, match.team2]}) %>
     <% end %>
   </div>
+  <% if policy(@section).admin? %>
+  <div class="descriptor">Admin Actions</div>
+  <div class="admin-actions">
+    <%= link_to 'Edit Section', 'javascript:;', id: "add-section" %>
+    <%= link_to 'Delete Section', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }%>
+  </div>
+  <% end %>
 </div>
 <div class="column-3 indent-right">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>

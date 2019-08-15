@@ -161,6 +161,10 @@
       width: 100%;
     }
 
+    select {
+      font-size: 12px;
+    }
+
     input {
       padding: 5px;
       font-size: 12px;
@@ -172,7 +176,7 @@
       }
     }
 
-    input[type="text"], input[type="email"], input[type="password"]{
+    input[type="text"], input[type="email"], input[type="password"], input[type="color"], input[type="number"], input[type="date"]{
       background-color: inherit;
       border-bottom: 1px solid #ccc;
     }
@@ -886,7 +890,7 @@ p{
 }
 
 .event-overview-prize{
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .event-picture{
@@ -1095,7 +1099,7 @@ p{
   }
 
   .event-date-end, .event-date-start{
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -1463,6 +1467,6 @@ p{
     }
   }
 }
-#admin-action-edit{
+#admin-action-edit, #admin-action-add{
   display: none;
 }

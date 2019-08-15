@@ -1,6 +1,6 @@
 class Officials::EventsController < ApplicationController
-  before_action :set_event, only: [:show, :destroy, :edit]
-  before_action :get_event_matches, except: [:index, :create]
+  before_action :set_event, only: [:show, :destroy, :update]
+  before_action :get_event_matches, except: [:index, :create, :update]
 
   def index
     @event = Event.new
@@ -12,6 +12,7 @@ class Officials::EventsController < ApplicationController
   end
 
   def show
+    @section = Section.new
     @regulars = []
     @event.sections.each {|stage|
        @regulars += stage.officials.where("match_type = ?", 'regular').includes(:winner, :team1, :team2, maps: :winner)}
@@ -22,25 +23,22 @@ class Officials::EventsController < ApplicationController
     @event = Event.new(event_params)
     if @event.save
       flash[:success] = "Event successfully created."
-      redirect_to events_path
+      redirect_to event_path(@event)
     else
-      flash.now[:danger] = "Event information wrong."
-      render :new
+      flash[:danger] = @event.erros.full_messages
+      redirect_to events_path
     end
   end
 
   def update
-    @event = Event.new(event_params)
-    if @event.save
-      flash[:success] = "Event successfully edited."
-      redirect_to events_path
-    else
-      flash.now[:danger] = "Event information wrong."
-      render :edit
-    end
+    authorize @event
+    @event.update_attributes(event_params)
+    flash[:success] = "Event successfully updated."
+    redirect_to @event
   end
 
   def destroy
+    authorize @event
     name = @event.name
     @event.destroy
     flash[:success] = "Event '#{name}' successfully deleted."
@@ -57,7 +55,7 @@ class Officials::EventsController < ApplicationController
     end
 
     def get_event_matches
-      @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2)
-      @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2)
+      @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
+      @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2, :event, :section)
     end
 end
