@@ -10,6 +10,9 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.integer :prize
       t.date :start_date
       t.date :end_date
+      t.boolean :display_ranking, :null => false, :default => false
+      t.boolean :primary_ranking, :null => false, :default => false
+      t.timestamps
     end
 
     create_table :teams do |t|
@@ -19,6 +22,11 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :country, :null => false, :default => "un"
       t.string :socials
       t.string :website
+      t.integer :winnings, :null => false, :default => 0
+      t.integer :rating, :null => false, :default => 1500
+      t.integer :streak, :null => false, :default => 0
+      t.integer :games_played, :null => false, :default => 0
+      t.timestamps
     end
 
     create_table :eventteams, id:false do |t|
@@ -32,6 +40,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :name
       t.date :start
       t.date :end
+      t.timestamps
     end
 
     #Matches
@@ -72,6 +81,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :score
       t.string :name
       t.string :state
+      t.timestamps
     end
 
     create_table :performances, id:false do |t|

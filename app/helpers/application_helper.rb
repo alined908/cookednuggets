@@ -65,4 +65,19 @@ module ApplicationHelper
       return news_post_path(news_id: parent.id, id: post.id)
     end
   end
+
+  def probability?(rating1, rating2)
+    return 1.0 / ( 1.0 + ( 10.0 ** ((rating1.to_f - rating2.to_f) / 400.0) ) )
+  end
+
+  def elo_rating?(rating1, rating2, k)
+    prob_1 = probability?(rating2, rating1)
+    prob_2 = probability?(rating1, rating2)
+
+    rating1 = rating1 + k * (1 - prob_2)
+    rating2 = rating2 + k * (0 - prob_1)
+
+    return rating1, rating2
+  end
+
 end

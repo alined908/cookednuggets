@@ -1,0 +1,39 @@
+<div class="column-2">
+  <div class="descriptor">
+    <% @events.each do |event| %>
+      <%= link_to event.shortname, rankings_path(:e => event.shortname) %>
+    <% end %>
+  </div>
+  <div class="rankings-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Team</th>
+          <th>Country</th>
+          <th>Rating</th>
+          <th>Last Played</th>
+          <th>Streak</th>
+          <th>Games</th>
+        </tr>
+      <thead>
+      <tbody>
+        <% @primary.each_with_index do |team, index| %>
+          <tr>
+            <td><%= index + 1%></td>
+            <td><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>
+            <td><%= image_tag("flags/"+team.country+".svg", class: "flag-logo")%><%= COUNTRIES.invert[team.country]%> </td>
+            <td><%= team.rating %></td>
+            <td><%= time_ago_in_words(team.last_played).gsub("about", "") %> ago</td>
+            <td><%= team.streak %></td>
+            <td><%= team.games_played %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

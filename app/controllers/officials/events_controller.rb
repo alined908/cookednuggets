@@ -3,6 +3,7 @@ class Officials::EventsController < ApplicationController
   before_action :get_event_matches, except: [:index, :create, :update]
 
   def index
+    @teams = Team.all
     @event = Event.new
     if params[:s] == 'completed'
       @events = Event.where('? > end_date', Date.today)
@@ -21,6 +22,16 @@ class Officials::EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    authorize(@event)
+    if params[:teams]
+      params[:teams].each do |team|
+        team = Team.find(team)
+        unless @event.teams.include?(team)
+          @event.teams << team
+        end
+      end
+    end
+
     if @event.save
       flash[:success] = "Event successfully created."
       redirect_to event_path(@event)
@@ -32,7 +43,15 @@ class Officials::EventsController < ApplicationController
 
   def update
     authorize @event
-    @event.update_attributes(event_params)
+    @event.update_attributes(event_params.except[:teams])
+    if params[:teams]
+      params[:teams].each do |team|
+        team = Team.find(team)
+        unless @event.teams.include?(team)
+          @event.teams << team
+        end
+      end
+    end
     flash[:success] = "Event successfully updated."
     redirect_to @event
   end
@@ -51,7 +70,7 @@ class Officials::EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:name, :location, :country, :prize, :start_date, :end_date, :desc)
+      params.require(:event).permit(:name, :location, :country, :prize, :start_date, :end_date, :desc, :teams)
     end
 
     def get_event_matches

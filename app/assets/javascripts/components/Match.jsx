@@ -104,7 +104,7 @@ class Match extends React.Component {
   render () {
     if (!this.props.compact) {
       return (
-        <a href={"/matches/" + this.props.match.id} className="match-horz link">
+        <a href={"/matches/" + this.props.match.id} style={{borderLeft: "2px solid " + (this.props.color || this.props.event.color)}} className="match-horz link">
           {this.props.event &&
             <div className="match-event">
               <div className='match-event-name'>

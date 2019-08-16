@@ -3,6 +3,7 @@ class Officials::SectionsController < ApplicationController
   before_action :set_event
 
   def show
+    @official = Official.new
     @sections = @event.sections
     @officials = @section.officials.includes(:team1, :team2)
     @regulars = @officials.where("match_type = ?", 'regular').includes(:winner, maps: :winner)
@@ -22,11 +23,17 @@ class Officials::SectionsController < ApplicationController
   end
 
   def update
-
+    authorize @section
+    @section.update_attributes(section_params)
+    flash[:success] = "Successfully updated section"
+    redirect_to event_section_path(@event, @section)
   end
 
   def destroy
-    
+    authorize @section
+    flash[:success] = "Successfully destroyed section"
+    @section.destroy
+    redirect_to event_path(@event)
   end
 
   private

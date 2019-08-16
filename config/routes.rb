@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :sections, :path => 's', :except => [:index]
     end
-    resources :rankings
+    resources :rankings, :only => [:index, :show]
     resources :officials, :path => 'matches', :as => 'matches'
     resources :teams
     resources :players

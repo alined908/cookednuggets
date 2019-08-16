@@ -8,15 +8,82 @@
   <div class="descriptor">Schedule</div>
   <div class="shadow-sm section-schedule">
     <% @officials.each do |match| %>
-      <%= react_component("Match", {match: match, compact: false, teams: [match.team1, match.team2]}) %>
+      <%= react_component("Match", {color: @event.color, match: match, compact: false, teams: [match.team1, match.team2]}, {:style => "margin: 1px 0;"}) %>
     <% end %>
   </div>
   <% if policy(@section).admin? %>
-  <div class="descriptor">Admin Actions</div>
-  <div class="admin-actions">
-    <%= link_to 'Edit Section', 'javascript:;', id: "add-section" %>
-    <%= link_to 'Delete Section', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' }%>
-  </div>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Edit Section', 'javascript:;', id: "add-section" %>
+      <%= link_to 'Delete Section', event_section_path(@event, @section), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= link_to 'Add Match', 'javascript:;', id: "add-match" %>
+    </div>
+    <div id="admin-action-add" class="admin-form">
+      <%= form_for(@section, url: event_section_path(@event, @section), method: :patch) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Section Name</div>
+            <%= f.text_field :name %>
+          </div>
+          <div>
+            <div class="descriptor">Start Date</div>
+            <%= f.date_field :start %>
+          </div>
+          <div>
+            <div class="descriptor">End Date</div>
+            <%= f.date_field :end %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="admin-action-edit" class="admin-form">
+      <%= form_for(@official, url: matches_path) do |f| %>
+      <div class='fields split'>
+        <div>
+          <div class="descriptor">Team 1</div>
+          <%= f.text_field :name %>
+        </div>
+        <div>
+          <div class="descriptor">Team 2</div>
+          <%= f.date_field :start %>
+        </div>
+        <div>
+          <div class="descriptor">Winner</div>
+          <%= f.date_field :end %>
+        </div>
+        <div>
+          <div class="descriptor">Score</div>
+          <%= f.date_field :end %>
+        </div>
+        <div>
+          <div class="descriptor">Match Type</div>
+          <%= f.text_field :match_type %>
+        </div>
+        <div>
+          <div class="descriptor">Start</div>
+          <%= f.datetime_field :start %>
+        </div>
+        <div>
+          <div class="descriptor">End</div>
+          <%= f.datetime_field :end %>
+        </div>
+        <div>
+          <div class="descriptor">Event</div>
+          <%= f.number_field :event_id, :value => @event.id, :disabled => true %>
+        </div>
+        <div>
+          <div class="descriptor">Section</div>
+          <%= f.number_field :section_id, :value => @section.id, :disabled => true %>
+        </div>
+        <div>
+          <div class="descriptor">Subject</div>
+          <%= f.text_field :subject %>
+        </div>
+        <%= f.submit "Submit" %>
+      </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
 <div class="column-3 indent-right">

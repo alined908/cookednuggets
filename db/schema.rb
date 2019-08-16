@@ -55,6 +55,10 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.integer "prize"
     t.date "start_date"
     t.date "end_date"
+    t.boolean "display_ranking", default: false, null: false
+    t.boolean "primary_ranking", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "eventteams", id: false, force: :cascade do |t|
@@ -93,6 +97,8 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "score"
     t.string "name"
     t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["official_id"], name: "index_maps_on_official_id"
     t.index ["winner_id"], name: "index_maps_on_winner_id"
   end
@@ -164,6 +170,8 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "name"
     t.date "start"
     t.date "end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_sections_on_event_id"
   end
 
@@ -174,6 +182,13 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "country", default: "un", null: false
     t.string "socials"
     t.string "website"
+    t.integer "winnings", default: 0, null: false
+    t.integer "rating", default: 1500, null: false
+    t.integer "streak", default: 0, null: false
+    t.integer "games_played", default: 0, null: false
+    t.datetime "last_played"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,6 +1,6 @@
 <div class="column-2 match-page">
   <div class="descriptor">Match Summary</div>
-  <div class="shadow-sm match-header">
+  <div class="shadow-sm match-header" style="border-top: 2px solid <%=@event.color%>">
     <div class="match-header-info">
       <div class="match-header-event">
         <div><%= link_to @event.name, event_path(@event), class: "link-nodec color"%></div>

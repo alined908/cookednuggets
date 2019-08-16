@@ -1,4 +1,5 @@
 import $ from 'jquery';
+var hello = "";
 
 $(document).ready(function() {
   $(".reply-button").click(function(){
@@ -36,5 +37,19 @@ $(document).ready(function() {
     else {
       $("#admin-action-add").hide();
     }
+  });
+  $("#add-team").click(function(){
+    if ($(".team-selector").length){
+      $("#event-add-teams").append(
+        "<div class='team-selector'>" +$(".team-selector").html() + "</div>"
+      );
+    }else {
+      $("#event-add-teams").append(hello);
+    }
+  });
+
+  $(document).on('click', '.remove-team', function(){
+    hello = $(this).parent()
+    $(this).parent().remove();
   });
 });

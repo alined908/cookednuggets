@@ -33,7 +33,7 @@
     </div>
     <div id="admin-action-edit" class="admin-form">
       <%= form_for(@event, url: event_path(@event), method: :patch) do |f| %>
-        <div class='fields split'>
+        <div class='fields'>
           <div>
             <div class="descriptor">Name</div>
             <%= f.text_field :name %>
@@ -69,6 +69,15 @@
           <div>
             <div class="descriptor">End Date</div>
             <%= f.date_field :end_date %>
+          </div>
+          <div id="event-add-teams">
+            <div class="descriptor">Teams</div>
+            <%= link_to 'Add Team', 'javascript:;', id: "add-team" %>
+            <%= f.fields_for :teams do |ff| %>
+              <% @event.teams.each do |team| %>
+                <%= render 'officials/layouts/team', :teams => Hash[@teams.pluck(:name, :id).collect{|tem| [tem[0], tem[1]]}], :default => true, :name => team.id, :locked_in => true %>
+              <% end %>
+            <% end %>
           </div>
           <%= f.submit "Submit" %>
         </div>

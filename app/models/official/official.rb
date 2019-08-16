@@ -4,6 +4,7 @@ class Official < ApplicationRecord
   belongs_to :team1, class_name: 'Team', foreign_key: 'team1_id'
   belongs_to :team2, class_name: 'Team', foreign_key: 'team2_id'
   belongs_to :winner, class_name: 'Team', foreign_key: 'winner_id', optional: true
+  before_save :callback_teams, if: :will_save_change_to_winner_id?
   after_create :give_title
   has_many :forum_posts, as: :commentable
   serialize :score
@@ -40,9 +41,17 @@ class Official < ApplicationRecord
     return recents
   end
 
+  private
+
   def give_title
     title = self.team1.shortname + " vs " + self.team2.shortname + " - " + self.event.name + " " + self.section.name
     self.subject = title
     self.save!
+  end
+
+  def callback_teams
+    winner = self.winner_id
+    loser = ((self.team1_id == winner) ? self.team2_id : self.team1_id)
+    Team.update_teams(winner, loser, self.end)
   end
 end

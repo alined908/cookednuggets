@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
   require 'open-uri'
   require 'json'
+{}
 
 # Create Users
 users = [
@@ -34,15 +35,15 @@ end
 
 #Create Events
 events = [
-  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29), "OWL 2019", "#f08242"],
-  ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:NA", "#13bf82"],
-  ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:KR", "#0bb8da"],
-  ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:CN", "#aa76b3"]
+  ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29), "OWL 2019", "#f08242", true, true],
+  ["us", "Overwatch Contenders 2019 Season 2: North America", "Contenders North America", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:NA", "#13bf82", false, false],
+  ["kr", "Overwatch Contenders 2019 Season 2: Korea", "Contenders Korea", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:KR", "#0bb8da", false, false],
+  ["cn", "Overwatch Contenders 2019 Season 2: China", "Contenders China", "Online", 100000, Date.new(2019, 6, 12), Date.new(2019, 8, 30), "OWC 2019 S2:CN", "#aa76b3", false, false]
 ]
 
-events.each do |country, name, desc, location, prize, start, end_date, shortname, color|
+events.each do |country, name, desc, location, prize, start, end_date, shortname, color, display, primary|
   Event.create(name: name, desc: desc, location: location, prize: prize, start_date: start,
-    end_date: end_date, country: country, shortname: shortname, color: color)
+    end_date: end_date, country: country, shortname: shortname, color: color, display_ranking: display, primary_ranking: primary)
 end
 
 @event = Event.first
@@ -51,6 +52,12 @@ response = JSON.parse(open('https://api.overwatchleague.com/v2/teams').read)['da
 countries = {'DAL': 'us', 'PHI': 'us', 'HOU': 'us', 'BOS': 'us', 'NYE':'us', 'SFS':'us',
             'VAL': 'us', 'GLA': 'us', 'FLA': 'us', 'SHD': 'cn', 'SEO': 'kr', 'LDN': 'gb', 'PAR': 'fr',
             'CDH': 'cn', 'HZS': 'cn', 'TOR': 'ca', 'VAN': 'ca', 'WAS': 'us', 'ATL': 'us', 'GZC': 'cn'}
+players ={}
+response.each do |team|
+  team['players'].each do |player|
+    players[player['name']] = team['name']
+  end
+end
 teams = {}
 response.each do |team|
   socials = {}
@@ -75,7 +82,7 @@ response.each do |player|
     socials[social['accountType']] = social['value']
   end
   Player.create(headshot: player['headshot'], eng_name: player['givenName'] + " " + player['familyName'], handle: player['name'],
-    country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[player['teams'][0]['team']['name']])
+    country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[players[player['name']]])
 end
 
 #Create Sections

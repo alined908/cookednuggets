@@ -937,7 +937,7 @@ p{
 .match-horz{
   font-size: 11px;
   display: flex;
-  padding: .4rem 1rem;
+  padding: .6rem 1rem;
   border-bottom: 1px solid #ccc;
   justify-content: space-between;
   div{
@@ -1283,6 +1283,9 @@ p{
 .team-img-md{
   width: 50px;
 }
+.team-img-sm{
+  width: 30px;
+}
 .event-logo{
   width: 50px;
 }
@@ -1448,7 +1451,7 @@ p{
 }
 
 /* Admin */
-.admin-actions{
+.admin-actions, #admin-action-edit{
   padding: 1rem;
   background-color: #fafafa;
   font-size: 12px;
@@ -1469,4 +1472,35 @@ p{
 }
 #admin-action-edit, #admin-action-add{
   display: none;
+}
+
+#event-add-teams{
+  margin-top: 1rem;
+  #teams_{
+    margin-bottom: .5rem;
+  }
+}
+
+.team-selector{
+  margin-top: .5rem;
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  grid-column-gap: 10px;
+}
+
+/* Rankings */
+.rankings-table {
+  background: #fafafa;
+
+  td{
+    padding: .75rem;
+    font-size: 11px;
+    border-right: 1px solid #ccc;
+  }
+
+  th{
+    background-color: #eee;
+    padding: .5rem 1rem;
+    font-size: 10px;
+  }
 }
