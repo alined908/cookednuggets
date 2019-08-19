@@ -70,7 +70,7 @@ class Officials::EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:name, :location, :country, :prize, :start_date, :end_date, :desc, :teams)
+      params.require(:event).permit(:name, :location, :country, :prize, :start_date, :end_date, :desc, :teams, :logo)
     end
 
     def get_event_matches

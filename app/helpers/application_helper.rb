@@ -7,11 +7,11 @@ module ApplicationHelper
   def disc_path?(disc)
     type = disc.class
     if type == Official
-      return [match_path(disc), "type-match", "Officials"]
+      return [match_path(disc), "type-match", "Matches", threads_path(:f => "matches")]
     elsif type == New
-      return [news_path(disc), "type-news", "News"]
+      return [news_path(disc), "type-news", "News",threads_path(:f => "news") ]
     else
-      return [thread_path(disc), "type-forum", "Discussions"]
+      return [thread_path(disc), "type-forum", "Discussions",threads_path(:f => "threads") ]
     end
   end
 
@@ -78,6 +78,23 @@ module ApplicationHelper
     rating2 = rating2 + k * (0 - prob_1)
 
     return rating1, rating2
+  end
+
+  def sortable(column, title=nil)
+    title ||= column.titleize
+    css_class = column == sort_column ? "current #{sort_direction}" : nil
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {:sort => column, :d => direction}, {:class => css_class}
+  end
+
+  def streak_helper?(streak)
+    if streak < 0
+      return [-streak, "L"]
+    elsif streak > 0
+      return [streak, "W"]
+    else
+      return [streak, ""]
+    end
   end
 
 end

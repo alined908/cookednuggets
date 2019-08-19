@@ -54,6 +54,12 @@
             <div class="descriptor">End Date</div>
             <%= f.date_field :end_date %>
           </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div><%= f.file_field :logo%></div>
+            </div>
+          </div>
           <div id="event-add-teams">
             <div class="descriptor">Teams</div>
             <%= link_to 'Add Team', 'javascript:;', id: "add-team" %>

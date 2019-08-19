@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :get_discs, except: [:create, :update, :destroy]
+  before_action :get_discs
   before_action :get_matches
 
   def index
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :firstname, :lastname])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :firstname, :lastname, :avatar, :country])
   end
 
   def get_discs

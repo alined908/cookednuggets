@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_one_attached :avatar
   has_many :forum_threads
-  has_many :posts
+  has_many :forum_posts
   has_many :matches
   validates :firstname, presence: true, length: {maximum: 20}
   validates :lastname, presence: true, length: {maximum: 20}

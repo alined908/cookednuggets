@@ -26,6 +26,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.integer :rating, :null => false, :default => 1500
       t.integer :streak, :null => false, :default => 0
       t.integer :games_played, :null => false, :default => 0
+      t.datetime :last_played
       t.timestamps
     end
 

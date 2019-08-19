@@ -1,24 +1,26 @@
-<h2>Change your password</h2>
+<div class="column-2">
+  <div class="descriptor">Change Password</div>
+  <div class="admin-form shadow-sm">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <div class="fields">
+        <div>
+          <div class="descriptor">Current Password</div>
+          <%= f.password_field :current_password, autocomplete: "current-password" %>
+        </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.hidden_field :reset_password_token %>
+        <div>
+          <div class="descriptor">New Password</div>
+          <%= f.password_field :password, placeholder: @minimum_password_length.to_s + " characters min", autocomplete: "new-password"%>
+        </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+        <div>
+          <div class="descriptor">Confirm Password</div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+        <%= f.submit "Change Password" %>
+      </div>
+      </div>
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

@@ -12,8 +12,11 @@
       <div class="article-headshot">
       </div>
       <div class="article-info">
-        <div class="article-author"><%=@news.user.username.capitalize%></div>
-        <div class="article-date"><%=time_ago_in_words(@news.created_at) + " ago"%></div>
+        <div class="article-author">
+          <div class="avatar"><%=image_tag(@news.user.avatar) if @news.user.avatar.attached?%></div>
+          <div><%=@news.user.username.capitalize%></div>
+        </div>
+        <div class="article-date">Posted <%=time_ago_in_words(@news.created_at) + " ago"%></div>
       </div>
     </div>
     <div class="article-body">

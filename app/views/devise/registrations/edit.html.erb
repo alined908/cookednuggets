@@ -2,27 +2,27 @@
   <div class="descriptor">Edit User</div>
   <div class="admin-form shadow-sm">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <div class="fields">
+      <div class="fields split">
+        <div>
+          <div class="descriptor">First Name</div>
+          <%= f.text_field :firstname %>
+        </div>
+        <div>
+          <div class="descriptor">Last Name</div>
+          <%= f.text_field :lastname%>
+        </div>
         <div>
           <div class="descriptor">Email</div>
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>
-
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
         <div>
           <div class="descriptor">Current Password</div>
-          <%= f.password_field :current_password, autocomplete: "current-password" %>
+          <%= f.password_field :current_password %>
         </div>
 
         <div>
           <div class="descriptor">New Password</div>
-          <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password"%>
+          <%= f.password_field :password, placeholder: @minimum_password_length.to_s + " characters min", autocomplete: "new-password"%>
         </div>
 
         <div>
@@ -30,6 +30,21 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
         </div>
 
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+        <div>
+          <div class="descriptor">Avatar</div>
+          <div class="edit-avatar">
+            <div class="avatar"><%=image_tag(current_user.avatar) if current_user.avatar.attached?%></div>
+            <div><%=current_user.avatar.filename if current_user.avatar.attached?%></div>
+            <div><%= f.file_field :avatar%></div>
+          </div>
+        </div>
+        <div>
+          <div class="descriptor">Country</div>
+          <%= f.select :country, options_for_select(COUNTRIES.keys, COUNTRIES.invert[resource.country]) %>
+        </div>
         <%= f.submit "Update"%>
       </div>
     <% end %>

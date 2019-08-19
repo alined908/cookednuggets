@@ -225,8 +225,9 @@ p{
     margin-right: 1rem;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 11px;
     color: #666;
+    padding-left: .75rem;
   }
 
   .gap{
@@ -1284,7 +1285,7 @@ p{
   width: 50px;
 }
 .team-img-sm{
-  width: 30px;
+  width: 25px;
 }
 .event-logo{
   width: 50px;
@@ -1447,6 +1448,10 @@ p{
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    .article-author{
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
@@ -1491,16 +1496,90 @@ p{
 /* Rankings */
 .rankings-table {
   background: #fafafa;
+  a{
+    color: #0056b3;
+  }
 
   td{
+    font-family: 'Roboto', sans-serif;
     padding: .75rem;
     font-size: 11px;
     border-right: 1px solid #ccc;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center !important;
+  }
+  th{
+    text-align: center !important;
+  }
+
+  .left-align{
+    text-align: left !important;
+  }
+
+  .td-small{
+    padding: .75rem 0;
+    width: 50px;
+  }
+  tr{
+    &:hover{
+      background-color: $hover-color;
+    }
+  }
+  .W {
+    color: green;
+  }
+
+  .L{
+    color: red;
   }
 
   th{
     background-color: #eee;
     padding: .5rem 1rem;
     font-size: 10px;
+    border-right: 1px solid #ccc;
   }
+
+  img {
+    margin-right: 5px;
+  }
+}
+
+/* User Profile */
+.user-profile{
+  background-color: #fafafa;
+  font-size: 12px;
+  padding: .75rem 1rem;
+  .user-username{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: .5rem;
+  }
+}
+
+.user-posts{
+  >div{
+    margin-bottom: 1rem;
+  }
+  a{
+    color: #0582b8;
+  }
+}
+
+.avatar{
+  display: inline-block;
+  border-radius: 50%;
+
+  img {
+    width: 40px;
+    border-radius: 50%;
+    display: block;
+  }
+}
+.edit-avatar{
+  font-size: 10px;
+  display: flex;
+  align-items: center;
 }
