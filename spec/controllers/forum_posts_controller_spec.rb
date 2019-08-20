@@ -2,26 +2,50 @@ require 'spec_helper'
 
 RSpec.describe Forums::ForumPostsController, :type => :controller do
   before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-    @user1 = create(:user)
-    @user2 = create(:user)
+    @user = create(:user)
     @forum_thread = create(:forum_thread)
     @forum_post = create(:forum_post)
-    sign_in @user1
+    @official = create(:official, end: "2019-08-10 16:07:34")
+    @new = create(:new)
+    @forum_post2 = create(:forum_post, commentable_id: @forum_post.id, commentable_type: "ForumPost")
+    sign_in @user
   end
 
   describe 'POST create' do
     context 'with valid attributes' do
-      it 'creates a new post and redirects to thread w/ success' do
-        expect{post :create, params: {forum_thread_id: @forum_thread.id, forum_post: FactoryBot.attributes_for(:forum_post)}}.to change(ForumPost, :count).by(1)
-        expect(response).to redirect_to(forum_thread_path(@forum_thread.id))
+      it 'creates a new post of a ForumThread' do
+        expect{post :create, params: {thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post)}}.to change(ForumPost, :count).by(1)
+        post :create, params: {thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post)}
+        expect(response).to redirect_to(thread_path(@forum_thread))
+        expect(flash[:success]).to_not be nil
+      end
+      it 'creates a new post of an Official and redirects to Official' do
+        expect{post :create, params: {match_id: @official, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @official.id, commentable_type: "Official")}}.to change(ForumPost, :count).by(1)
+        post :create, params: {match_id: @official, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @official.id, commentable_type: "Official")}
+        expect(response).to redirect_to(match_path(@official))
+        expect(flash[:success]).to_not be nil
+      end
+      it 'creates a new post of a New and redirects to New' do
+        expect{post :create, params: {news_id: @new, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @new.id, commentable_type: "New")}}.to change(ForumPost, :count).by(1)
+        post :create, params: {news_id: @new, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @new.id, commentable_type: "New")}
+        expect(response).to redirect_to(news_path(@new))
+        expect(flash[:success]).to_not be nil
+      end
+      it 'creates a new post of a ForumPost and redirects to ForumThread' do
+        expect{post :create, params: {post_id: @forum_post, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @forum_post.id, commentable_type: "ForumPost")}}.to change(ForumPost, :count).by(1)
+        post :create, params: {post_id: @forum_post, forum_post: FactoryBot.attributes_for(:forum_post, commentable_id: @forum_post.id, commentable_type: "ForumPost")}
+        expect(response).to redirect_to(thread_path(@forum_thread))
         expect(flash[:success]).to_not be nil
       end
     end
     context  'with invalid attributes' do
-      it 'does not create a new post and redirects w/fail' do
-        expect{post :create, params: {forum_thread_id: @forum_thread.id, forum_post: FactoryBot.attributes_for(:forum_post, :invalid)}}.to_not change(ForumPost, :count)
-        expect(response).to redirect_to(forum_thread_path(@forum_thread.id))
+      it 'does not create a new post' do
+        expect{post :create, params: {thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post, body: "")}}.to_not change(ForumPost, :count)
+      end
+
+      it 'redirects to correct parent' do
+        post :create, params: {thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post, body: "")}
+        expect(response).to redirect_to(thread_path(@forum_thread))
         expect(flash[:danger]).to_not be nil
       end
     end
@@ -29,20 +53,41 @@ RSpec.describe Forums::ForumPostsController, :type => :controller do
 
   describe 'PUT update' do
     context 'with valid attributes' do
-      it 'edits post and redirects to thread w/success' do
-        put :update, params: {id: @forum_post.id, forum_thread_id: @forum_thread.id, forum_post: FactoryBot.attributes_for(:forum_post, body: "Florida Mayhem sucks")}
+      it 'edits post' do
+        put :update, params: {id: @forum_post, thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post, body: "Florida Mayhem sucks")}
         @forum_post.reload
         expect(@forum_post.body).to eq("Florida Mayhem sucks")
-        expect(response).to redirect_to(forum_thread_path(@forum_thread.id))
+      end
+
+      it 'redirects back to thread w/ success' do
+        put :update, params: {thread_id: @forum_thread, id: @forum_post, forum_post: FactoryBot.attributes_for(:forum_post, body: "Florida Mayhem sucks")}
+        expect(response).to redirect_to(thread_path(@forum_thread))
+        expect(flash[:success]).to_not be nil
       end
     end
     context 'with invalid attributes' do
-      it 'does not edit post and redirects to thread w/failure' do
-        put :update, params: {id: @forum_post.id, forum_thread_id: @forum_thread.id, forum_post: FactoryBot.attributes_for(:forum_post, body: "")}
+      it 'does not edit post' do
+        put :update, params: {id: @forum_post, thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post, body: "")}
         @forum_post.reload
         expect(@forum_post.body).to_not eq("")
-        expect(response).to redirect_to(forum_thread_path(@forum_thread.id))
+
       end
+      it 'redirects to thread w/failure' do
+        put :update, params: {id: @forum_post, thread_id: @forum_thread, forum_post: FactoryBot.attributes_for(:forum_post, body: "")}
+        expect(response).to redirect_to(thread_path(@forum_thread))
+        expect(flash[:danger]).to_not be nil
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    it 'deletes the post' do
+      expect{delete :destroy, params:{thread_id: @forum_thread, id: @forum_post}}.to change(ForumPost, :count).by(-1)
+    end
+    it 'redirects to the parent' do
+      delete :destroy, params:{thread_id: @forum_thread, id: @forum_post}
+      expect(flash[:success]).to_not be nil
+      expect(response).to redirect_to(thread_path(@forum_thread))
     end
   end
 end

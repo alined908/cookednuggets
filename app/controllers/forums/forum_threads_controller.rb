@@ -45,7 +45,11 @@ class Forums::ForumThreadsController < ApplicationController
 
   def update
     authorize @forum_thread
-    @forum_thread.update_attributes(forum_thread_params)
+    if @forum_thread.update_attributes(forum_thread_params)
+      flash[:success] = "Successfully updated Forum Thread"
+    else
+      flash[:danger] = "Unable to update Forum Thread. There is an error with a field."
+    end
     redirect_to thread_path(@forum_thread)
   end
 

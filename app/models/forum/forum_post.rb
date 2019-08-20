@@ -8,13 +8,13 @@ class ForumPost < ApplicationRecord
   validates :body, presence: true
 
   def update_count(num)
-    parent = self.find_parent
+    parent = ForumPost.find_parent(self)
     parent.comments_count += num
     parent.save!
   end
 
-  def find_parent
-    parent = self.commentable
+  def self.find_parent(child)
+    parent = child.commentable
     while parent.is_a? ForumPost
       parent = parent.commentable
     end

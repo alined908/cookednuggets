@@ -22,7 +22,11 @@ class News::NewsController < ApplicationController
 
   def update
     authorize @news
-    @news.update_attributes(news_params)
+    if @news.update_attributes(news_params)
+      flash[:success] = "Successfully updated news article"
+    else
+      flash[:danger] = "Unable to update news article"
+    end
     redirect_to news_path(@news)
   end
 

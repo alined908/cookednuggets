@@ -7,13 +7,12 @@ class Forums::ForumPostsController < ApplicationController
     @post = @commentable.forum_posts.new(forum_post_params)
     authorize @post
     @post.user = current_user
-    @post.thread_id = @parent_id
     if @post.save
       flash[:success] = "Post successfully created."
     else
       flash[:danger] = @post.errors.full_messages
     end
-    redirect_to request.referrer
+    redirect_to find_parent_route?(@post)
   end
 
   def update
@@ -24,14 +23,15 @@ class Forums::ForumPostsController < ApplicationController
     else
       flash[:danger] = @post.errors.full_messages
     end
-    redirect_to request.referrer
+    redirect_to find_parent_route?(@post)
   end
 
   def destroy
     authorize @post
+    route = find_parent_route?(@post)
     @post.destroy
     flash[:success] = "Post successfully deleted."
-    redirect_to request.referrer
+    redirect_to route
   end
 
   def vote
@@ -53,18 +53,27 @@ class Forums::ForumPostsController < ApplicationController
     def find_commentable
       if params[:post_id]
         @commentable = ForumPost.find(params[:post_id])
-        @parent_id = @commentable.thread_id
       elsif params[:thread_id]
         @commentable = ForumThread.find(params[:thread_id])
-        @parent_id = params[:thread_id]
       elsif params[:match_id]
         @commentable = Official.find(params[:match_id])
-        @parent_id = params[:match_id]
       elsif params[:news_id]
         @commentable = New.find(params[:news_id])
-        @parent_id = params[:news_id]
       else
         @forumpost = ForumPost.find(params[:id])
+      end
+    end
+
+    def find_parent_route?(child)
+      parent = ForumPost.find_parent(child)
+      type = parent.class
+
+      if type == ForumThread
+        return thread_path(parent)
+      elsif type == Official
+        return match_path(parent)
+      elsif type == New
+        return news_path(parent)
       end
     end
 
