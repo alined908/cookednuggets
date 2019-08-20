@@ -4,7 +4,7 @@ RSpec.describe Forums::ForumPostsController, :type => :controller do
   before do
     @user = create(:user)
     @forum_thread = create(:forum_thread)
-    @forum_post = create(:forum_post)
+    @forum_post = create(:forum_post, score: 0)
     @official = create(:official, end: "2019-08-10 16:07:34")
     @new = create(:new)
     @forum_post2 = create(:forum_post, commentable_id: @forum_post.id, commentable_type: "ForumPost")
@@ -88,6 +88,22 @@ RSpec.describe Forums::ForumPostsController, :type => :controller do
       delete :destroy, params:{thread_id: @forum_thread, id: @forum_post}
       expect(flash[:success]).to_not be nil
       expect(response).to redirect_to(thread_path(@forum_thread))
+    end
+  end
+
+  describe 'POST vote' do
+    it 'creates a vote on the post' do
+      expect{post :vote, params: {id: @forum_post, direction: 1}, xhr: true}.to change(Vote, :count).by(1)
+      @forum_post.reload
+      expect(@forum_post.score).to eq(1)
+    end
+
+    it 'changes vote if already exists' do
+      post :vote, params: {id: @forum_post, direction: 1}, xhr: true
+      @forum_post.reload
+      expect{post :vote, params: {id: @forum_post, direction: -1}, xhr: true}.to_not change(Vote, :count)
+      @forum_post.reload
+      expect(@forum_post.score).to eq(-1)
     end
   end
 end

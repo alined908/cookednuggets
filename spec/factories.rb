@@ -21,7 +21,7 @@ FactoryBot.define do
     team2 {team1}
     association :event
     association :section
-    match_type {"Regular"}
+    match_type {"regular"}
     start { "2019-06-26 16:07:34" }
   end
 
@@ -71,8 +71,10 @@ FactoryBot.define do
   end
 
   factory :vote do
-    user { nil }
-    forum_post { nil }
+    association :user
+    votable_id {1}
+    votable_type {"ForumPost"}
+    direction {1}
   end
 
   factory :player do

@@ -106,6 +106,7 @@ RSpec.describe Forums::ForumThreadsController, :type => :controller do
     it 'redirects to all threads' do
       delete :destroy, params:{id: @forum_thread}
       expect(response).to redirect_to(threads_path)
+      expect(flash[:success]).to_not be nil
     end
   end
 end

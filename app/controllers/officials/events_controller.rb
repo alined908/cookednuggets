@@ -36,23 +36,27 @@ class Officials::EventsController < ApplicationController
       flash[:success] = "Event successfully created."
       redirect_to event_path(@event)
     else
-      flash[:danger] = @event.erros.full_messages
+      flash[:danger] = @event.errors.full_messages
       redirect_to events_path
     end
   end
 
   def update
     authorize @event
-    @event.update_attributes(event_params.except[:teams])
-    if params[:teams]
-      params[:teams].each do |team|
-        team = Team.find(team)
-        unless @event.teams.include?(team)
-          @event.teams << team
+    if @event.update_attributes(event_params.except(:teams))
+      if params[:teams]
+        params[:teams].each do |team|
+          team = Team.find(team)
+          unless @event.teams.include?(team)
+            @event.teams << team
+          end
         end
       end
+      flash[:success] = "Event successfully updated."
+
+    else
+      flash[:danger] = "Event field caused an error."
     end
-    flash[:success] = "Event successfully updated."
     redirect_to @event
   end
 
