@@ -1,4 +1,5 @@
 require 'spec_helper'
+include ApplicationHelper
 
 RSpec.describe Officials::RankingsController, :type => :controller do
   before do
@@ -21,4 +22,5 @@ RSpec.describe Officials::RankingsController, :type => :controller do
       expect(assigns(:custom)).to eq([@team3, @team, @team2])
     end
   end
+
 end

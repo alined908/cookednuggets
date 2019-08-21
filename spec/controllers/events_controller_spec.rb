@@ -32,6 +32,11 @@ RSpec.describe Officials::EventsController, :type => :controller do
       get :show, params: {id: @active}
       expect(response).to render_template(:show)
     end
+
+    it 'obtains regular season matches' do
+      get :show, params: {id: @active}
+      expect(assigns(:regulars)).to match_array(@section.officials)
+    end
   end
 
   describe 'POST create' do

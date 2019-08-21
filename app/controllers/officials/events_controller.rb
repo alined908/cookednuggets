@@ -6,9 +6,9 @@ class Officials::EventsController < ApplicationController
     @teams = Team.all
     @event = Event.new
     if params[:s] == 'completed'
-      @events = Event.where('? > end_date', Date.today)
+      @events = Event.where('? > end_date', Date.current)
     else
-      @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
+      @events = Event.where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
     end
   end
 

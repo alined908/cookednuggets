@@ -1,7 +1,6 @@
 module ApplicationHelper
   def current_class?(test_path)
-    return 'active' if request.path == test_path
-    ''
+    request.path == test_path ? "active" : ""
   end
 
   def disc_path?(disc)
@@ -74,8 +73,8 @@ module ApplicationHelper
     prob_1 = probability?(rating2, rating1)
     prob_2 = probability?(rating1, rating2)
 
-    rating1 = rating1 + k * (1 - prob_2)
-    rating2 = rating2 + k * (0 - prob_1)
+    rating1 = rating1 + k * (1 - prob_1)
+    rating2 = rating2 + k * (0 - prob_2)
 
     return rating1, rating2
   end
@@ -97,4 +96,12 @@ module ApplicationHelper
     end
   end
 
+  def get_time_ago(time)
+    time_ago = time_ago_in_words(time.to_time).gsub("about", "").gsub("less than a", "1")
+    return time_ago
+  end
+
+  def get_time_string(time)
+    return time.strftime("%Y-%m-%d %H:%M")
+  end
 end
