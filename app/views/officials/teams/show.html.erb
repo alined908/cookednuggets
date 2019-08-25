@@ -2,14 +2,69 @@
   <div class="descriptor">Team</div>
   <%= react_component("Team", {teams1: @info[0], teams2: @info[1], matches: @officials, team: @team, events: @info[2], sections: @info[3], compact: false}, {style: "margin-bottom: 1rem"})%>
   <%= will_paginate @officials %>
+  <% if policy(Team).update? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Edit Team', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Delete Event', team_path(@team), method: :delete, data: { confirm: 'Are you sure?' }%>
+    </div>
+    <div id="admin-action-edit" class="admin-form">
+      <%= form_for(@team, url: team_path(@team), method: :patch) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Team Name</div>
+            <%= f.text_field :name %>
+          </div>
+          <div>
+            <div class="descriptor">Initials/Shortname</div>
+            <%= f.text_field :shortname %>
+          </div>
+          <div>
+            <div class="descriptor">Country</div>
+            <%= f.select :country, options_for_select(COUNTRIES, COUNTRIES.invert[@team.country]), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Website</div>
+            <%= f.text_field :website %>
+          </div>
+          <div>
+            <div class="descriptor">Social Media Accounts</div>
+            <%= f.fields_for :socials do |ff| %>
+              Discord: <%= ff.text_field :DISCORD, value: @team.socials["DISCORD"] %>
+              Facebook: <%= ff.text_field :FACEBOOK, value: @team.socials["FACEBOOK"] %>
+              Instagram: <%= ff.text_field :INSTAGRAM, value: @team.socials["INSTAGRAM"] %>
+              Twitter: <%= ff.text_field :TWITTER, value: @team.socials["TWITTER"] %>
+              Twitch: <%= ff.text_field :TWITCH, value: @team.socials["TWITCH"]%>
+              Youtube: <%= ff.text_field :YOUTUBE_CHANNEL, value: @team.socials["YOUTUBE_CHANNEL"] %>
+            <% end %>
+          </div>
+          <div>
+            <div class="descriptor">Rating</div>
+            <%= f.number_field :rating %>
+          </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div><%= f.file_field :logo%></div>
+            </div>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="column-3 indent-right">
-  <div class="descriptor">
-    Roster
-  </div>
-  <div class="team-roster shadow-sm">
-    <% @players.each do |player| %>
-      <%= react_component("Player", {player: player}) %>
-    <% end %>
-  </div>
+  <% if @players.empty? %>
+    <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+  <% else %>
+    <div class="descriptor">
+      Roster
+    </div>
+    <div class="team-roster shadow-sm">
+      <% @players.each do |player| %>
+        <%= react_component("Player", {player: player}) %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

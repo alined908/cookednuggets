@@ -156,10 +156,11 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "nicknames"
     t.string "handle"
     t.string "country", default: "un", null: false
-    t.integer "age"
+    t.date "birthday"
     t.string "roles"
     t.string "socials"
     t.integer "team_id"
+    t.integer "past_teams"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_players_on_team_id"

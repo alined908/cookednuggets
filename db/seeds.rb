@@ -5,9 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-  require 'open-uri'
-  require 'json'
-{}
+require 'open-uri'
+require 'json'
 
 # Create Users
 users = [
@@ -82,7 +81,7 @@ response.each do |player|
     socials[social['accountType']] = social['value']
   end
   Player.create(headshot: player['headshot'], eng_name: player['givenName'] + " " + player['familyName'], handle: player['name'],
-    country: player['nationality'], roles: [player['attributes']['role']], socials: socials, team_id: teams[players[player['name']]])
+    country: player['nationality'], roles: player['attributes']['role'], socials: socials, team_id: teams[players[player['name']]], past_teams: [teams[players[player['name']]]])
 end
 
 #Create Sections
@@ -186,21 +185,21 @@ news.each do |author, subject, country, article|
 end
 
 forum_posts = [
-  [2, 1, "ForumThread", 1, 'The Fusion should pick up Alarm.'],
-  [3, 1, "ForumThread", 1, 'Washington Justice need to replace Sansam.'],
-  [4, 2, "ForumPost", 1, 'I agree with this statement'],
-  [1, 3, "ForumPost", 1, 'I also agree with this statement'],
-  [4, 1, "ForumPost", 1, "Alarm is a beast."],
-  [3, 2, "ForumThread", 2, 'Best gaming mice I have used is Logitech G Pro Wireless'],
-  [4, 6, "ForumPost", 2, 'I also use this mouse and its wireless feature is really good.'],
-  [1, 3, "ForumThread", 3, 'Dont watch this streamer'],
-  [1, 1, "Official", nil , "Wow Carpe popped off"],
-  [1, 1, "New", nil , "Sad that he has to go"],
-  [3, 2, "New", nil , "His widow was the best in comp"],
-  [1, 3, "New", nil , "Finally some exciting games"],
-  [2, 3, "New", nil , "LUL FINALLY"],
-  [4, 6, "New", nil , "Mangachu is he good?"],
-  [1, 7, "New", nil , "TRASH MASTERS PLAYER"]
+  [2, 1, "ForumThread", 1, '<p>The Fusion should pick up Alarm.</p>'],
+  [3, 1, "ForumThread", 1, '<p>Washington Justice need to replace Sansam.</p>'],
+  [4, 2, "ForumPost", 1, '<p>I agree with this statement</p>'],
+  [1, 3, "ForumPost", 1, '<p>I also agree with this statement</p>'],
+  [4, 1, "ForumPost", 1, "<p>Alarm is a beast.</p>"],
+  [3, 2, "ForumThread", 2, '<p>Best gaming mice I have used is Logitech G Pro Wireless</p>'],
+  [4, 6, "ForumPost", 2, '<p>I also use this mouse and its wireless feature is really good.</p>'],
+  [1, 3, "ForumThread", 3, '<p>Dont watch this streamer</p>'],
+  [1, 1, "Official", nil , "<p>Wow Carpe popped off</p>"],
+  [1, 1, "New", nil , "<p>Sad that he has to go</p>"],
+  [3, 2, "New", nil , "<p>His widow was the best in comp</p>"],
+  [1, 3, "New", nil , "<p>Finally some exciting games</p>"],
+  [2, 3, "New", nil , "<p>LUL FINALLY</p>"],
+  [4, 6, "New", nil , "<p>Mangachu is he good?</p>"],
+  [1, 7, "New", nil , "<p>TRASH MASTERS PLAYER</p>"]
 ]
 
 forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|

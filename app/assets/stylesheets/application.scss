@@ -1084,8 +1084,8 @@ p{
   .team-socials {
     justify-content: space-between;
     .team-social {
-      font-size: 13px;
-      margin-right: 5px;
+      font-size: 12px;
+
     }
   }
 
@@ -1096,7 +1096,19 @@ p{
 
   .team-header-name {
     margin-left: 15px;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    > div {
+      margin-bottom: 5px;
+    }
+    .player-handle{
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .player-nat-name{
+      color: #888;
+      font-size: 16px;
+    }
   }
 
   .event-date-end, .event-date-start{
@@ -1582,4 +1594,10 @@ p{
   font-size: 10px;
   display: flex;
   align-items: center;
+}
+
+/* PLayers */
+.player-recent-matches, .player-teams{
+  background-color: #fafafa;
+  margin-bottom: 1rem;
 }

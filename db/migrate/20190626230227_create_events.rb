@@ -69,10 +69,11 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :nicknames
       t.string :handle
       t.string :country, :null => false, :default => "un"
-      t.integer :age
+      t.date :birthday
       t.string :roles
       t.string :socials
       t.references :team, foreign_key: true
+      t.integer :past_teams, array: true
       t.timestamps
     end
 

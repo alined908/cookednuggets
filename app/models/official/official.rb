@@ -9,6 +9,7 @@ class Official < ApplicationRecord
   has_many :forum_posts, as: :commentable
   serialize :score
   has_many :maps
+  has_many :performances, :through => :maps
   validates :start, presence: true
   validates :end, presence: true
 

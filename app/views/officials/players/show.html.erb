@@ -1,55 +1,143 @@
-<div class="team-header shadow">
-  <div>
-    <%= image_tag(@player.headshot, class: "team-header-logo")%>
-  </div>
-  <div class="team-header-name">
-    <h2>
-      <%= @player.handle %><%= @player.eng_name %>
-    </h2>
-    <div class="team-socials">
-      <% if @player.socials['TWITTER'] %>
-        <span class="team-social">
-          <%= link_to @player.socials['TWITTER'], target: "_blank" do %>
-            <img class="social-logo" src="/assets/socials/twitter.svg"/>
-          <% end %>
-        </span>
-      <% end %>
-      <% if @player.socials['INSTAGRAM'] %>
-        <span className="team-social">
-          <%= link_to @player.socials['INSTAGRAM'], target: "_blank" do %>
-            <img class="social-logo" src="/assets/socials/instagram.svg"/>
-          <% end %>
-        </span>
-      <% end %>
-      <% if @player.socials['FACEBOOK'] %>
-        <span className="team-social">
-          <%= link_to @player.socials['FACEBOOK'], target: "_blank" do %>
-            <img className="social-logo" src="/assets/socials/facebook.png"/>
-          <% end %>
-        </span>
-      <% end %>
-      <% if @player.socials['YOUTUBE_CHANNEL'] %>
-        <span className="team-social">
-          <%= link_to @player.socials['YOUTUBE_CHANNEL'], target: "_blank" do %>
-            <img className="social-logo" src="/assets/socials/youtube.svg"/>
-          <% end %>
-        </span>
-      <% end %>
-      <% if @player.socials['TWITCH'] %>
-        <span className="team-social">
-          <%= link_to @player.socials['TWITCH'], target: "_blank" do %>
-            <img className="social-logo" src="/assets/socials/twitch.png"/>
-          <% end %>
-        </span>
-      <% end %>
+<div class='column-2'>
+  <div class="descriptor">Player Profile</div>
+  <div class="team-header shadow-sm">
+    <div>
+      <%= image_tag(@player.avatar, class: "team-header-logo")%>
     </div>
-    <div className="country">
-      <div className="country-flag">
-        <%= image_tag("flags/" + @player.country.downcase, class: "flag-logo") %>
-      </div>
+    <div class="team-header-name">
       <div>
-
+        <span class="player-handle">
+          <%= @player.handle %>
+        </span>
+        <span class="player-nat-name">
+          <%= @player.eng_name %>
+        </span>
+      </div>
+      <div class="team-socials">
+        <% if @player.socials['TWITTER'] %>
+          <span class="team-social">
+            <%= link_to @player.socials['TWITTER'], target: "_blank" do %>
+              <img class="social-logo" src="/assets/socials/twitter.svg"/>
+            <% end %>
+          </span>
+        <% end %>
+        <% if @player.socials['INSTAGRAM'] %>
+          <span class="team-social">
+            <%= link_to @player.socials['INSTAGRAM'], target: "_blank" do %>
+              <img class="social-logo" src="/assets/socials/instagram.svg"/>
+            <% end %>
+          </span>
+        <% end %>
+        <% if @player.socials['FACEBOOK'] %>
+          <span class="team-social">
+            <%= link_to @player.socials['FACEBOOK'], target: "_blank" do %>
+              <img clas="social-logo" src="/assets/socials/facebook.png"/>
+            <% end %>
+          </span>
+        <% end %>
+        <% if @player.socials['YOUTUBE_CHANNEL'] %>
+          <span class="team-social">
+            <%= link_to @player.socials['YOUTUBE_CHANNEL'], target: "_blank" do %>
+              <img class="social-logo" src="/assets/socials/youtube.svg"/>
+            <% end %>
+          </span>
+        <% end %>
+        <% if @player.socials['TWITCH'] %>
+          <span class="team-social">
+            <%= link_to @player.socials['TWITCH'], target: "_blank" do %>
+              <img class="social-logo" src="/assets/socials/twitch.png"/>
+            <% end %>
+          </span>
+        <% end %>
+      </div>
+      <div class="country">
+        <%= image_tag("flags/" + @player.country.downcase, class: "flag-logo") %>
+        <%= COUNTRIES.invert[@player.country.downcase] %>
       </div>
     </div>
   </div>
+  <div class="descriptor">
+    Teams
+  </div>
+  <div class="player-teams">
+
+  </div>
+  <div class="descriptor">
+    Recent Matches
+  </div>
+  <div class="player-recent-matches">
+    <% @recent_matches.each do |match| %>
+      <%= react_component("Match", {match: match, compact: false, teams: [match.team1, match.team2], event: match.event, section: match.section}) %>
+    <% end %>
+  </div>
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @recent_matches %>
+    </div>
+    <%= will_paginate @recent_matches, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
+
+  <% if policy(Player).update? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Edit Player', 'javascript:;', id: "edit-thread" %>
+    </div>
+    <div id="admin-action-edit" class="admin-form">
+      <%= form_for(@player, url: player_path(@player)) do |f| %>
+        <div class='fields split'>
+          <div>
+            <div class="descriptor">English Name</div>
+            <%= f.text_field :eng_name %>
+          </div>
+          <div>
+            <div class="descriptor">Naturalized Name</div>
+            <%= f.text_field :nat_name %>
+          </div>
+          <div>
+            <div class="descriptor">Nicknames</div>
+            <%= f.text_field :nicknames %>
+          </div>
+          <div>
+            <div class="descriptor">Handle</div>
+            <%= f.text_field :handle %>
+          </div>
+          <div>
+            <div class="descriptor">Country</div>
+            <%= f.select :country, options_for_select(COUNTRIES, COUNTRIES.invert[@player.country]), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Social Media</div>
+            <%= f.fields_for :socials do |ff| %>
+              Discord: <%= ff.text_field :DISCORD %>
+              Facebook: <%= ff.text_field :FACEBOOK %>
+              Instagram: <%= ff.text_field :INSTAGRAM %>
+              Twitter: <%= ff.text_field :TWITTER %>
+              Twitch: <%= ff.text_field :TWITCH %>
+              Youtube: <%= ff.text_field :YOUTUBE_CHANNEL %>
+            <% end %>
+          </div>
+          <div>
+            <div class="descriptor">Roles</div>
+            <%= f.text_field :roles %>
+          </div>
+          <div>
+            <div class="descriptor">Team</div>
+            <%= f.select :team_id, options_from_collection_for_select(@teams, 'id', 'name', @player.team.id), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div class="avatar"><%=image_tag(@player.avatar) if @player.avatar.attached?%></div>
+              <div><%=@player.avatar.filename if @player.avatar.attached?%></div>
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="column-3 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

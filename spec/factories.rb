@@ -44,6 +44,7 @@ FactoryBot.define do
   factory :team do
     name {generate(:teamname)}
     shortname {generate(:teamname)}
+    socials {{"TWITTER" => "twitter.com/sfs", "DISCORD" => "discord.gg/sfs"}}
   end
 
   factory :user do
@@ -70,6 +71,16 @@ FactoryBot.define do
     body {"Florida Mayhem 28-0"}
   end
 
+  factory :performance do
+    association :map
+    association :team
+    association :player
+  end
+
+  factory :map do
+    association :official
+  end
+
   factory :vote do
     association :user
     votable_id {1}
@@ -78,13 +89,12 @@ FactoryBot.define do
   end
 
   factory :player do
+    association :team
+    handle {"daw"}
     eng_name { "MyString" }
     nat_name { "MyString" }
-    country { "MyString" }
-    age { 1 }
-    role { "MyString" }
-    social_stream { "MyString" }
-    social_twitter { "MyString" }
-    association :team
+    roles {"dps"}
+    team_id {1}
+    socials {{"TWITTER" => "twitter.com/alined", "DISCORD" => "discord.gg/alined"}}
   end
 end

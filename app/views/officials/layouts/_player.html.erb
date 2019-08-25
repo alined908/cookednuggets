@@ -1,0 +1,4 @@
+<div class="team-selector">
+  <%= select_tag 'players[]', options_from_collection_for_select(players, 'id', 'handle'), {:required => true} %>
+  <%= link_to 'Remove Player', 'javascript:;', class: "remove-team" %>
+</div>
