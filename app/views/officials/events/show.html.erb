@@ -73,8 +73,8 @@
           <div>
             <div class="descriptor">Logo</div>
             <div class="edit-avatar">
-              <div class="avatar"><%=image_tag(@event.logo) if @event.logo.avatar.attached?%></div>
-              <div><%=@event.logo.filename if @event.logo.avatar.attached?%></div>
+              <div class="avatar"><%=image_tag(@event.logo) if @event.logo.attached?%></div>
+              <div><%=@event.logo.filename if @event.logo.attached?%></div>
               <div><%= f.file_field :logo%></div>
             </div>
           </div>

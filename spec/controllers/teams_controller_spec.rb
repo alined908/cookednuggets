@@ -12,14 +12,14 @@ RSpec.describe Officials::TeamsController, :type => :controller do
   end
 
   describe 'GET index' do
-    it 'retrieves all teams' do
-      get 'index'
-      expect(assigns(:teams)).to match_array(@teams)
-    end
-
     it 'renders index view' do
       get 'index'
       expect(response).to render_template(:index)
+    end
+
+    it 'retrieves all teams' do
+      get 'index'
+      expect(assigns(:teams)).to match_array(@teams)
     end
   end
 

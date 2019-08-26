@@ -24,8 +24,11 @@ class Officials::SectionsController < ApplicationController
 
   def update
     authorize @section
-    @section.update_attributes(section_params)
-    flash[:success] = "Successfully updated section"
+    if @section.update_attributes(section_params)
+      flash[:success] = "Successfully updated section"
+    else
+      flash[:danger] = "Unable to update section."
+    end
     redirect_to event_section_path(@event, @section)
   end
 
