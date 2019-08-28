@@ -21,7 +21,7 @@ class Officials::OfficialsController < ApplicationController
 
   def create
     @match = Official.new(match_params)
-    @match.score = params[:score].map{|num| num.to_i}
+    (params[:score].nil? ? @match.score = [0,0] : @match.score = params[:score].map{|num| num.to_i})
     authorize @match
     if @match.save
       flash[:success] = "Match successfully created."

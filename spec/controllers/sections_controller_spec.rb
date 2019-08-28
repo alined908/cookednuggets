@@ -4,9 +4,12 @@ RSpec.describe Officials::SectionsController, :type => :controller do
   before do
     @user = create(:user)
     @event = create(:event)
+    @team = create(:team)
+    @team1 = create(:team)
+    @event.teams << [@team, @team1]
     @section1 = create(:section, event: @event)
     @section2 = create(:section, event: @event)
-    @official = create(:official, section: @section1, end: "2019-08-10 16:07:34")
+    @official = create(:official, team1: @team, team2: @team1, section: @section1, end: "2019-08-10 16:07:34")
     sign_in @user
   end
 

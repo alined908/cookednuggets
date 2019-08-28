@@ -4,12 +4,15 @@ RSpec.describe Officials::OfficialsController, :type => :controller do
   before do
     @user = create(:user)
     @event = create(:event)
+    @team = create(:team)
+    @team2 = create(:team)
     @section1 = create(:section, event: @event)
     @section2 = create(:section, event: @event)
-    @official = create(:official, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago)
-    @official1 = create(:official, event: @event, section: @section1, start: 2.days.from_now, end: 3.days.from_now)
-    @official2 = create(:official, event: @event, section: @section1, start: 1.day.from_now, end: 2.days.from_now)
-    @official3 = create(:official, event: @event, section: @section1, start: 1.day.ago, end: Date.current)
+    @event.teams << [@team, @team2]
+    @official = create(:official, team1: @team, team2: @team2, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago)
+    @official1 = create(:official, team1: @team, team2: @team2, event: @event, section: @section1, start: 2.days.from_now, end: 3.days.from_now)
+    @official2 = create(:official, team1: @team, team2: @team2, event: @event, section: @section1, start: 1.day.from_now, end: 2.days.from_now)
+    @official3 = create(:official, team1: @team, team2: @team2, event: @event, section: @section1, start: 1.day.ago, end: Date.current)
     sign_in @user
   end
 

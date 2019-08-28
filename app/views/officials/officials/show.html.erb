@@ -181,7 +181,10 @@
             <div class="descriptor">Section</div>
             <%= f.number_field :section_id, :value => @section.id, :readonly => true %>
           </div>
+          <%= f.submit "Submit" %>
         </div>
+      <% end %>
+        <hr>
         <div class="fields">
           <div>
             <div class="descriptor">Maps</div>
@@ -193,9 +196,32 @@
               </div>
             <% end %>
           </div>
-          <%= f.submit "Submit" %>
         </div>
-      <% end %>
+        <hr>
+        <div class="fields">
+          <div class="descriptor">Add a Map</div>
+          <%= form_for(Map.new, url: match_maps_path(@match)) do |ff| %>
+            <%= ff.hidden_field :official_id, :value => @match.id %>
+            <div>
+              <div class="descriptor">Winner</div>
+              <%= ff.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+            </div>
+            <div>
+              <div class="descriptor">Score</div>
+              <div><%=@teams[0].name%><%= number_field_tag "score[]",  0 %>
+                <%= @teams[1].name%><%= number_field_tag "score[]",  0 %></div>
+            </div>
+            <div>
+              <div class="descriptor">Name</div>
+              <%= ff.text_field :name, placeholder: "ex. Rialto" %>
+            </div>
+            <div>
+              <div class="descriptor">State</div>
+              <%= ff.select :state, options_for_select(['finished', 'unfinished'], "unfinished"), :required => true %>
+            </div>
+            <%= ff.submit "Submit" %>
+          <% end %>
+        </div>
     </div>
   <% end %>
 </div>

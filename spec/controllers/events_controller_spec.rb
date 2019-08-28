@@ -9,7 +9,7 @@ RSpec.describe Officials::EventsController, :type => :controller do
     @team2 = create(:team)
     @section = create(:section, event_id: @active.id)
     @official = create(:official, end: "2019-08-10 16:07:34", team1: @team, team2: @team2, section_id: @section.id, event_id: @active.id)
-    @active.teams << @team
+    @active.teams << [@team, @team2]
     @active.sections << @section
     @section.officials << @official
     sign_in @user
