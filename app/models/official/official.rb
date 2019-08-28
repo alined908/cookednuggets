@@ -5,6 +5,7 @@ class Official < ApplicationRecord
   belongs_to :team2, class_name: 'Team', foreign_key: 'team2_id'
   belongs_to :winner, class_name: 'Team', foreign_key: 'winner_id', optional: true
   before_save :callback_teams, if: :will_save_change_to_winner_id?
+  after_create :default_maps
   after_create :give_title
   has_many :forum_posts, as: :commentable
   serialize :score
@@ -54,5 +55,13 @@ class Official < ApplicationRecord
     winner = self.winner_id
     loser = ((self.team1_id == winner) ? self.team2_id : self.team1_id)
     Team.update_teams(winner, loser, self.end)
+  end
+
+  def default_maps
+    if self.identifier.nil?
+      for i in 0..(self.map_count-1)
+        self.maps << Map.create(official_id: self.id, winner_id: nil, score: [0, 0], name: nil, state: "unfinished")
+      end
+    end
   end
 end

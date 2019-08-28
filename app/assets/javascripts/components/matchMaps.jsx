@@ -4,8 +4,14 @@ class MatchMaps extends React.Component {
 
   constructor(props){
     super(props);
+    if (this.props.maps_json.length == 0) {
+      var length = 5
+    }else {
+      var length = this.props.maps_json.length
+    }
+
     this.state = {
-      status: [1].concat(new Array(this.props.maps_json.length - 1).fill(0)),
+      status: [1].concat(new Array(length - 1).fill(0)),
     }
     this.setActive = this.setActive.bind(this);
     this.mapscore;
@@ -22,7 +28,11 @@ class MatchMaps extends React.Component {
     })
   }
 
-  mapWinner(score){
+  mapWinner(score, state){
+    if (state == "unfinished") {
+      this.mapscore = ["", ""]
+      return
+    }
     var mapscore = []
     if (score[0] > score[1]){
       mapscore = ["winner", ""]
@@ -58,7 +68,7 @@ class MatchMaps extends React.Component {
         <div className="map-container-games">
           {this.props.maps_json.map((map, index) => (
             <div style={{display: this.state.status[index] ? "block" : "none"}} className={"map-info " + index.toString()}>
-              {this.mapWinner(map.score)}
+              {this.mapWinner(map.score, map.state)}
               <div className="map-game-wrapper">
                 <div className="map-game-stats">
                   <div className="map-team">
@@ -83,7 +93,7 @@ class MatchMaps extends React.Component {
                               {player.handle} <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/>
                             </div>
                             <div className="map-player-info-bot">
-                              {player.roles[0]}
+                              {player.roles}
                             </div>
                           </div>
                         </div>
@@ -91,7 +101,13 @@ class MatchMaps extends React.Component {
                     ))}
                   </div>
                   <div className="map-scoreboard">
-                    <span className={this.mapscore[0]}>{map.score[0]} </span><span> : </span><span className={this.mapscore[1]}> {map.score[1]}</span>
+                    {map.state == "finished" &&
+                      <div>
+                        <span className={this.mapscore[0]}>{map.score[0]} </span>
+                        <span> : </span>
+                        <span className={this.mapscore[1]}> {map.score[1]}</span>
+                      </div>
+                    }
                   </div>
                   <div className="map-roster-right">
                   {map.players[1].map((player) => (
@@ -102,7 +118,7 @@ class MatchMaps extends React.Component {
                             <img className="flag-logo" src={"/assets/flags/" + player.country.toLowerCase() + '.svg'}/> {player.handle}
                           </div>
                           <div style={{textAlign: "right"}} className="map-player-info-bot">
-                            {player.roles[0]}
+                            {player.roles}
                           </div>
                         </div>
                         <div style={{marginLeft: "10px"}} className="map-player-logo">

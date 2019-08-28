@@ -36,7 +36,9 @@ Rails.application.routes.draw do
       resources :sections, :path => 's', :except => [:index]
     end
     resources :rankings, :only => [:index]
-    resources :officials, :path => 'matches', :as => 'matches', :except => [:edit]
+    resources :officials, :path => 'matches', :as => 'matches', :except => [:edit] do
+      resources :maps, :only => [:create, :update, :destroy, :edit]
+    end
     resources :teams
     resources :players
   end

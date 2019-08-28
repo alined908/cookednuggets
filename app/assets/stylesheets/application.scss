@@ -1601,3 +1601,14 @@ p{
   background-color: #fafafa;
   margin-bottom: 1rem;
 }
+
+/* Maps */
+.form-maps{
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: center;
+
+  .form-map-num{
+    margin-right: 10px;
+  }
+}

@@ -51,6 +51,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.references :winner, index: true, foreign_key: {to_table: :teams}
       t.integer :identifier
       t.integer :comments_count, :null => false, :default => 0
+      t.integer :map_count, :null => false, :default => 5
       t.string :label
       t.string :score
       t.string :match_type
@@ -72,6 +73,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.date :birthday
       t.string :roles
       t.string :socials
+      t.boolean :starter, :null => false, :default => false
       t.references :team, foreign_key: true
       t.integer :past_teams, array: true
       t.timestamps

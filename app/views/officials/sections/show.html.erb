@@ -38,7 +38,7 @@
       <% end %>
     </div>
     <div id="admin-action-add" class="admin-form">
-      <%= form_for(@official, url: matches_path) do |f| %>
+      <%= form_for(@match, url: matches_path) do |f| %>
       <div class='fields split'>
         <div>
           <div class="descriptor">Team 1</div>
@@ -62,6 +62,10 @@
           <%= f.text_field :match_type %>
         </div>
         <div>
+          <div class="descriptor">Map Count</div>
+          <%= f.number_field :map_count %>
+        </div>
+        <div>
           <div class="descriptor">Start</div>
           <%= f.datetime_field :start %>
         </div>
@@ -71,11 +75,11 @@
         </div>
         <div>
           <div class="descriptor">Event</div>
-          <%= f.number_field :event_id, :value => @event.id, :disabled => true %>
+          <%= f.number_field :event_id, :value => @event.id, :readonly => true %>
         </div>
         <div>
           <div class="descriptor">Section</div>
-          <%= f.number_field :section_id, :value => @section.id, :disabled => true %>
+          <%= f.number_field :section_id, :value => @section.id, :readonly => true %>
         </div>
         <%= f.submit "Submit" %>
       </div>

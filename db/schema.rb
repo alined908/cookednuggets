@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.integer "winner_id"
     t.integer "identifier"
     t.integer "comments_count", default: 0, null: false
+    t.integer "map_count", default: 5, null: false
     t.string "label"
     t.string "score"
     t.string "match_type"
@@ -159,6 +160,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.date "birthday"
     t.string "roles"
     t.string "socials"
+    t.boolean "starter", default: false, null: false
     t.integer "team_id"
     t.integer "past_teams"
     t.datetime "created_at", null: false

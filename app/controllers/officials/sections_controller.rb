@@ -3,7 +3,7 @@ class Officials::SectionsController < ApplicationController
   before_action :set_event
 
   def show
-    @official = Official.new
+    @match = Official.new
     @sections = @event.sections
     @officials = @section.officials.includes(:team1, :team2)
     @regulars = @officials.where("match_type = ?", 'regular').includes(:winner, maps: :winner)

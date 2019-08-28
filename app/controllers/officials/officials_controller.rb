@@ -10,7 +10,6 @@ class Officials::OfficialsController < ApplicationController
   end
 
   def show
-    puts @match.attributes
     @section, @teams = Section.find(@match.section_id), Team.find(@match.team1_id, @match.team2_id)
     @event, @maps = Event.find(@section.event_id), @match.maps
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
@@ -22,13 +21,14 @@ class Officials::OfficialsController < ApplicationController
 
   def create
     @match = Official.new(match_params)
+    @match.score = params[:score].map{|num| num.to_i}
     authorize @match
     if @match.save
       flash[:success] = "Match successfully created."
       redirect_to match_path(@match)
     else
       flash[:danger] = @match.errors.full_messages
-      redirect_to event_section_path(match_params[:event_id], match_params[:section_id])
+      redirect_to event_section_path(params[:official][:event_id], params[:official][:section_id])
     end
   end
 
@@ -56,6 +56,6 @@ class Officials::OfficialsController < ApplicationController
     end
 
     def match_params
-      params.require(:match).permit(:team1_id, :team2_id, :winner_id, :identifier, :label, :score, :match_type, :start, :end, :section_id, :event_id, :subject)
+      params.require(:official).permit(:team1_id, :team2_id, :winner_id, :identifier, :label, :score, :match_type, :map_count, :start, :end, :section_id, :event_id, :subject)
     end
 end

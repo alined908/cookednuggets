@@ -51,7 +51,7 @@ class Officials::PlayersController < ApplicationController
     end
 
     def player_params
-      params.require(:player).permit(:headshot, :eng_name, :nat_name, :nicknames, :handle, :country, :age, :roles, :team_id, :past_teams, socials: [:TWITTER, :DISCORD, :YOUTUBE_CHANNEL, :FACEBOOK, :INSTAGRAM, :TWITCH])
+      params.require(:player).permit(:starter, :headshot, :eng_name, :nat_name, :nicknames, :handle, :country, :age, :roles, :team_id, :past_teams, socials: [:TWITTER, :DISCORD, :YOUTUBE_CHANNEL, :FACEBOOK, :INSTAGRAM, :TWITCH])
     end
 
   def sort_column

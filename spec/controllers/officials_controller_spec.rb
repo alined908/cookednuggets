@@ -38,21 +38,21 @@ RSpec.describe Officials::OfficialsController, :type => :controller do
   describe 'POST create' do
     context 'with valid attributes' do
       it 'creates a match' do
-        expect{post :create, params: {match: @official.attributes}}.to change(@section1.officials, :count).by(1)
+        expect{post :create, params: {official: @official.attributes}}.to change(@section1.officials, :count).by(1)
       end
       it 'successfully redirects back to the match' do
-        post :create, params: {match: @official.attributes}
+        post :create, params: {official: @official.attributes}
         expect(response).to redirect_to(match_path(Official.last))
         expect(flash[:success]).to eq("Match successfully created.")
       end
     end
     context 'with invalid attributes' do
       it 'does not create a match' do
-        expect{post :create, params: {match: build(:official, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago).attributes}}.to_not change(@section1.officials, :count)
+        expect{post :create, params: {official: build(:official, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago).attributes}}.to_not change(@section1.officials, :count)
       end
 
       it 'successfully redirects back to the event section path' do
-        post :create, params: {match: build(:official, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago).attributes}
+        post :create, params: {official: build(:official, event: @event, section: @section1, start: 2.days.ago, end: 1.day.ago).attributes}
         expect(response).to redirect_to(event_section_path(@event, @section1))
         expect(flash[:danger]).to_not be nil
       end
@@ -62,7 +62,7 @@ RSpec.describe Officials::OfficialsController, :type => :controller do
   describe 'PATCH update' do
     context 'with valid attributes' do
       it 'updates a match and redirects successfully' do
-        put :update, params: {id: @official, match: FactoryBot.attributes_for(:official, event: @event, section: @section1, match_type: "playoffs")}
+        put :update, params: {id: @official, official: FactoryBot.attributes_for(:official, event: @event, section: @section1, match_type: "playoffs")}
         @official.reload
         expect(@official.match_type).to eq("playoffs")
         expect(response).to redirect_to(match_path(@official))
@@ -71,7 +71,7 @@ RSpec.describe Officials::OfficialsController, :type => :controller do
     end
     context 'with invalid attributes' do
       it 'does not update a match and redirects successfully' do
-        put :update, params: {id: @official, match: FactoryBot.attributes_for(:official, event: @event, section: @section1, start: nil)}
+        put :update, params: {id: @official, official: FactoryBot.attributes_for(:official, event: @event, section: @section1, start: nil)}
         @official.reload
         expect(@official.start).to_not be nil
         expect(response).to redirect_to(match_path(@official))

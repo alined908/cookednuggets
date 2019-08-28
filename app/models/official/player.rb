@@ -12,9 +12,17 @@ class Player < ApplicationRecord
   validates :handle, presence: true
   validates :country, presence: true
   validates :roles, presence: true
+  after_create :lazy_starter
 
   def get_image
     image = open(self.headshot)
     self.avatar.attach(io: image, filename: self.handle+"-"+self.eng_name+".png")
+  end
+
+  def lazy_starter
+    if self.team.players.where(roles: self.roles).length < 3
+      self.starter = true
+      self.save!
+    end
   end
 end

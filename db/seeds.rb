@@ -119,19 +119,24 @@ response['stages'].each do |stage|
     score = match['wins']
     match.key?('winner') ? (winner = owl_teams[match['winner']['name']].id) : (winner = nil)
     (match['tournament']['type'] == "OPEN_MATCHES") ? (match_type = "regular") : (match_type = "playoff")
+    if match['games'].length == 0
+      games = 4
+    else
+      games = match['games'].length
+    end
 
     official = Official.create(match_type: match_type, section_id: i, team1_id: team1, team2_id: team2,
-        winner_id: winner, start: start, end: ends, score: score, identifier: match['id'], event_id: @event.id)
+        winner_id: winner, start: start, end: ends, score: score, map_count: games, identifier: match['id'], event_id: @event.id)
     # Maps
     match['games'].each do |map|
       if !map.key?('points')
         map_winner = nil
-        state = 'unstarted'
+        state = 'unfinished'
         score = []
         map_name = nil
       else
         score = map['points']
-        state = 'concluded'
+        state = 'finished'
         map_name = map['attributes']['map']
         if map['points'][0] > map['points'][1]
           map_winner = team1
@@ -206,3 +211,9 @@ forum_posts.each do |user_id, parent_id, parent_type, thread_id, body|
   ForumPost.create(user_id: user_id, commentable_id: parent_id,
     commentable_type: parent_type, thread_id: thread_id, body: body)
 end
+
+Official.create(team1_id: 17, team2_id: 6, winner_id: nil,
+  identifier: nil, comments_count: 0, map_count: 4,
+  label: nil, score: [0, 0], match_type: "Quarterfinals",
+  start: "2019-08-30 12:30:00", end: "2019-08-30 15:30:00",
+  section_id: 5, event_id: 1, subject: "VAN vs SFS - Overwatch League 2019 Playoffs")

@@ -6,7 +6,7 @@
     <div class="descriptor">Admin Actions</div>
     <div class="admin-actions">
       <%= link_to 'Edit Team', 'javascript:;', id: "edit-thread" %>
-      <%= link_to 'Delete Event', team_path(@team), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= link_to 'Delete Team', team_path(@team), method: :delete, data: { confirm: 'Are you sure?' }%>
     </div>
     <div id="admin-action-edit" class="admin-form">
       <%= form_for(@team, url: team_path(@team), method: :patch) do |f| %>
