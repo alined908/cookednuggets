@@ -13,6 +13,7 @@ class Officials::SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
     @section.event = @event
+    authorize @section
     if @section.save
       flash[:success] = "Section successfully created."
       redirect_to event_section_path(@event, @section)

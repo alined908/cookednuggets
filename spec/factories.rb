@@ -18,7 +18,7 @@ FactoryBot.define do
 
   factory :official do
     association :team1, factory: :team
-    team2 {team1}
+    association :team2, factory: :team
     association :event
     association :section
     match_type {"regular"}

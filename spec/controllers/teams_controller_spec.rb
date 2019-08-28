@@ -5,9 +5,9 @@ RSpec.describe Officials::TeamsController, :type => :controller do
     @event = create(:event)
     @teams = create_list(:team, 3)
     @user = create(:user)
-    @official1 = create(:official, end: "2019-08-10 16:07:34", team1: @teams[0])
-    @official2 = create(:official, end: "2019-08-10 18:07:34", team1: @teams[0])
-    @official3 = create(:official, end: "2019-08-10 20:07:34", team1: @teams[0])
+    @official1 = create(:official, end: "2019-08-10 16:07:34", team1: @teams[0], team2: @teams[1])
+    @official2 = create(:official, end: "2019-08-10 18:07:34", team1: @teams[0], team2: @teams[2])
+    @official3 = create(:official, end: "2019-08-10 20:07:34", team1: @teams[0], team2: @teams[2])
     sign_in @user
   end
 

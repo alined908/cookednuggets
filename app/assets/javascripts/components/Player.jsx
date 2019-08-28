@@ -21,9 +21,7 @@ class Player extends React.Component {
                 {this.props.player.eng_name}
               </div>
               <div className="team-player-roles">
-                {this.props.player.roles.map((role) => (
-                  <div className="team-player-role">{role}</div>
-                ))}
+                {this.props.player.roles}
               </div>
             </div>
           </div>

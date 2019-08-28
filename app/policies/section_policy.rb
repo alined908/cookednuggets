@@ -11,4 +11,8 @@ class SectionPolicy < ApplicationPolicy
   def update?
     admin?
   end
+
+  def create?
+    admin?
+  end
 end
