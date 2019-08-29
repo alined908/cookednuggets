@@ -29,6 +29,8 @@ class MatchMaps extends React.Component {
   }
 
   mapWinner(score, state){
+    console.log(score)
+    console.log(state)
     if (state == "unfinished") {
       this.mapscore = ["", ""]
       return
@@ -45,7 +47,7 @@ class MatchMaps extends React.Component {
   }
 
   sanitizeMap(map){
-    if (map != null){
+    if (map != null && map != ""){
       map = map.replace("-", " ")
     }else {
       map = "TBD"
@@ -104,7 +106,7 @@ class MatchMaps extends React.Component {
                     {map.state == "finished" &&
                       <div>
                         <span className={this.mapscore[0]}>{map.score[0]} </span>
-                        <span> : </span>
+                        <span>-</span>
                         <span className={this.mapscore[1]}> {map.score[1]}</span>
                       </div>
                     }

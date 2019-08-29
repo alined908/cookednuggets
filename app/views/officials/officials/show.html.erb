@@ -23,7 +23,7 @@
           <span class="score-entry"><%= @match.score[0]%></span>
           <span class="score-entry"><%= @match.score[1]%></span>
         </div>
-        <div><span><%= @maps.size %><span> <span>maps</span></div>
+        <div><%= @maps.size %> maps</div>
       </div>
       <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
         <div>
@@ -86,7 +86,9 @@
                 <% end %>
               </div>
             </div>
-            <div class="match-h2h-date"><%=h2h.start.strftime("%m/%d/%Y")%></div>
+            <div class="match-h2h-date">
+              <%=h2h.start.strftime("%m/%d/%Y")%>
+            </div>
           </div>
         <% end %>
       <% end %>
@@ -188,13 +190,40 @@
         <div class="fields">
           <div>
             <div class="descriptor">Maps</div>
-            <% @match.maps.each_with_index do |map, index| %>
-              <div class="form-maps">
-                <div class='form-map-num'><%= "Map #{index + 1}"%></div>
-                <%= link_to "Delete" , match_map_path(@match, map), method: :delete, data: {confirm: 'Are you sure?'}%>
-                <%= link_to "Edit" , edit_match_map_path(@match, map)%>
-              </div>
-            <% end %>
+            <div class="form-maps">
+              <% @match.maps.each_with_index do |map, index| %>
+                <div class="form-map">
+                  <div class="form-map-actions">
+                    <div class='form-map-num descriptor'><%= "Map #{index + 1}"%></div>
+                    <%= link_to "Delete" , match_map_path(@match, map), method: :delete, data: {confirm: 'Are you sure?'}%>
+                  </div>
+                  <div class="form-map-form">
+                    <%= form_for(map, url: match_map_path(@match, map)) do |a| %>
+                      <div>
+                        <div class="descriptor">Map Winner</div>
+                        <%= a.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name', map.winner_id), :required => true, prompt: "" %>
+                      </div>
+                      <div>
+                        <div class="descriptor">Score</div>
+                        <div>
+                          <%=@teams[0].name%><%= number_field_tag "score[]",  map.score.to_a[0] %>
+                          <%= @teams[1].name%><%= number_field_tag "score[]",  map.score.to_a[1] %>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="descriptor">Name</div>
+                        <%= a.text_field :name, value: map.name %>
+                      </div>
+                      <div>
+                        <div class="descriptor">State</div>
+                        <%= a.select :state, options_for_select(['finished', 'unfinished'], map.state), :required => true %>
+                      </div>
+                      <%= a.submit "Submit"%>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
         <hr>

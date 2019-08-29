@@ -1220,6 +1220,7 @@ p{
     .match-recent-entry{
       font-size: 12px;
       display: flex;
+      align-items: center;
       padding: 20px;
       border-bottom: 1px solid #ccc;
 
@@ -1244,7 +1245,7 @@ p{
 
       .match-recent-entry-date{
         font-weight: 300;
-        font-size: 12px;
+        font-size: 11px;
       }
 
       div {
@@ -1259,15 +1260,15 @@ p{
   grid-template-rows: 30% 70%;
   background-color: #fafafa;
   padding: 1rem;
-  font-size: 13px;
+  font-size: 12px;
 
   .match-header-info{
     display: flex;
     justify-content: space-between;
 
     .match-header-event, .match-header-date{
-      display: grid;
-      grid-template-rows: 50% 50%;
+      display: flex;
+      flex-direction: column;
     }
 
     .match-header-date{
@@ -1283,9 +1284,16 @@ p{
 
     .match-header-score{
       text-align: center;
-      margin: 0 10px;
+      margin: 0 15px;
+    }
+
+    .score-entrys{
+      margin-bottom: 5px;
     }
     a{
+      font-size: 15px;
+    }
+    span{
       font-size: 15px;
     }
   }
@@ -1305,7 +1313,7 @@ p{
 
 .match-head-to-head{
   background-color: #fafafa;
-  font-size: 13px;
+  font-size: 12px;
 
   .head-to-head-teams{
     display: flex;
@@ -1322,7 +1330,7 @@ p{
       display: flex;
       align-items: center;
       padding: 15px 20px 15px 15px;
-      font-size: 13px;
+      font-size: 12px;
 
       &:hover{
         background-color: $hover-color;
@@ -1334,14 +1342,25 @@ p{
       }
       .match-h2h-teams{
         display: flex;
-        justify-content: center;
-        align-self: center;
+        justify-content: flex-end;
         flex: 1;
-      }
-      .score-entrys{
-        margin: 0 10px;
+        padding: 0 1rem;
+        div {
+          flex:1;
+          display: flex;
+          justify-content: center;
+        }
+        .score-entrys{
+          display:flex;
+          align-items: center;
+          margin: 0 10px;
+          span{
+            margin: 0 2px;
+          }
+        }
       }
       .match-h2h-date{
+        font-size: 11px;
         display: flex;
         justify-content: flex-end;
         flex: 1;
@@ -1379,7 +1398,7 @@ p{
   }
 
   .map-container-games{
-    padding: 1rem;
+    padding: .75rem;
 
     .map-info {
       display: none;
@@ -1399,7 +1418,7 @@ p{
         }
 
         .map-rosters{
-          padding: 1rem;
+          padding: .75rem;
           display: grid;
           grid-template-columns: 30% 40% 30%;
 
@@ -1408,7 +1427,8 @@ p{
             align-items: center;
             justify-content: center;
             color: #ccc;
-            font-size: 70px;
+            font-size: 50px;
+            font-family: "Roboto";
 
             span {
               margin-bottom: 40px;
@@ -1604,11 +1624,16 @@ p{
 
 /* Maps */
 .form-maps{
-  display: flex;
+  display: grid;
   margin-bottom: 1rem;
-  align-items: center;
+  grid-template-columns: 48% 48%;
+  grid-column-gap: 4%;
+  grid-row-gap: 20px;
 
   .form-map-num{
     margin-right: 10px;
+  }
+  .form-map-actions{
+    margin-bottom: 5px;
   }
 }

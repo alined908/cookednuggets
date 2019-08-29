@@ -3,6 +3,7 @@ class Officials::MapsController < ApplicationController
 
   def create
     @map = Map.new(map_params)
+    (params[:score].nil? ? (@map.score = [0,0]) : (@map.score = params[:score].map{|num| num.to_i}))
     authorize @map
     if @map.save
       flash[:success] = "Successfully created a map"
@@ -12,12 +13,9 @@ class Officials::MapsController < ApplicationController
     redirect_to match_path(@map.official_id)
   end
 
-  def edit
-
-  end
-
   def update
     authorize @map
+    (params[:score].nil? ? (@map.score = [0,0]) : (@map.score = params[:score].map{|num| num.to_i}))
     if @map.update_attributes(map_params)
       flash[:success] = "Successfully updated map"
     else

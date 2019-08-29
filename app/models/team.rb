@@ -1,9 +1,11 @@
 class Team < ApplicationRecord
+  has_one_attached :pic
   attr_accessor :COUNTRIES
   has_many :eventteams
   has_many :events, through: :eventteams
   has_many :players
   has_many :officials
+  before_save :get_image, if: :logo?
   serialize :socials
   validates :name, presence: true
   validates :country, presence: true
@@ -40,5 +42,10 @@ class Team < ApplicationRecord
     #save
     winner.save!
     loser.save!
+  end
+
+  def get_image
+    image = open(self.logo)
+    self.pic.attach(io: image, filename: self.name+".png")
   end
 end

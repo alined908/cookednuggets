@@ -43,6 +43,15 @@ class Official < ApplicationRecord
     return recents
   end
 
+  def update_score(winner)
+    if winner == self.team1.id
+      self.score[0] += 1
+    else
+      self.score[1] += 1
+    end
+    self.save!
+  end
+
   private
 
   def give_title

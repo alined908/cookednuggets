@@ -21,7 +21,7 @@ class Officials::OfficialsController < ApplicationController
 
   def create
     @match = Official.new(match_params)
-    (params[:score].nil? ? @match.score = [0,0] : @match.score = params[:score].map{|num| num.to_i})
+    (params[:score].nil? ? (@match.score = [0,0]) : (@match.score = params[:score].map{|num| num.to_i}))
     authorize @match
     if @match.save
       flash[:success] = "Match successfully created."
@@ -34,6 +34,7 @@ class Officials::OfficialsController < ApplicationController
 
   def update
     authorize @match
+    (params[:score].nil? ? (@match.score = [0,0]) : (@match.score = params[:score].map{|num| num.to_i}))
     if @match.update_attributes(match_params)
       flash[:success] = "Match successfully updated."
     else
