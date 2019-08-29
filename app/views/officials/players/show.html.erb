@@ -2,7 +2,7 @@
   <div class="descriptor">Player Profile</div>
   <div class="team-header shadow-sm">
     <div>
-      <%= image_tag(@player.avatar, class: "team-header-logo")%>
+      <%= image_tag(@player.avatar, class: "team-header-logo") if @player.avatar.attached?%>
     </div>
     <div class="team-header-name">
       <div>

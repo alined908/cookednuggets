@@ -15,7 +15,7 @@
       <%= link_to team_path(@teams[0]), class: "link-nodec color" do %>
         <div>
           <%= @teams[0].name %>
-          <%= image_tag(@teams[0].logo, class: 'team-img-lg')%>
+          <%= image_tag(@teams[0].pic, class: 'team-img-lg') if @teams[0].pic.attached?%>
         </div>
       <% end %>
       <div class="match-header-score">
@@ -27,7 +27,7 @@
       </div>
       <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
         <div>
-          <%= image_tag(@teams[1].logo, class: 'team-img-lg')%>
+          <%= image_tag(@teams[1].pic, class: 'team-img-lg') if @teams[1].pic.attached?%>
           <%= @teams[1].name %>
         </div>
       <% end %>
@@ -42,14 +42,14 @@
     <div class="head-to-head-teams">
       <%= link_to team_path(@teams[0]), class: "link-nodec" do %>
         <div>
-          <%= image_tag(@teams[0].logo, class: 'team-img-md')%>
+          <%= image_tag(@teams[0].pic, class: 'team-img-md') if @teams[0].pic.attached?%>
           <%= @teams[0].name %>
         </div>
       <% end %>
       <%= link_to team_path(@teams[1]), class: "link-nodec" do %>
         <div>
           <%= @teams[1].name %>
-          <%= image_tag(@teams[1].logo, class: 'team-img-md')%>
+          <%= image_tag(@teams[1].pic, class: 'team-img-md') if @teams[1].pic.attached?%>
         </div>
       <% end %>
     </div>
@@ -71,14 +71,14 @@
                 <% end %>
               </div>
               <div>
-                <%= image_tag(h2h.team1.logo, class:"team-logo") %>
+                <%= image_tag(h2h.team1.pic, class: 'team-logo') if h2h.team1.pic.attached?%>
               </div>
               <div class="score-entrys">
                 <span class="score-entry"><%= h2h.score[0]%></span>
                 <span class="score-entry"><%= h2h.score[1]%></span>
               </div>
               <div>
-                <%= image_tag(h2h.team2.logo, class:"team-logo")%>
+                <%= image_tag(h2h.team2.pic, class: 'team-logo') if h2h.team2.pic.attached?%>
               </div>
               <div class="checkmark">
                 <% if h2h.score[0] < h2h.score[1] %>
@@ -108,7 +108,9 @@
               </div>
               <div class="match-recent-entry-opp">
                 <span><em>vs</em></span>
-                <span><%=image_tag(match.team2.logo, class: 'team-logo')%></span>
+                <span>
+                  <%=image_tag(match.team2.pic, class: 'team-logo') if match.team2.pic.attached?%>
+                </span>
                 <span><%= match.team2.name %></span>
               </div>
               <div class="match-recent-entry-date"><%= match.start.strftime("%m/%d/%Y")%></div>

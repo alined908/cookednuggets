@@ -52,4 +52,25 @@ $(document).ready(function() {
     hello = $(this).parent()
     $(this).parent().remove();
   });
+
+  $(".post-collapsable").click(function(){
+    var post = $(this).parent().parent().parent();
+    var parent = $(post).parent().parent();
+    var children = $(parent).find(".parent-post").length;
+
+    if ($(this).html().indexOf("–") >= 0) {
+      if (children >= 1) {
+        $(parent).children().eq(1).hide();
+      }
+      $(post).children().slice(1).hide();
+      $(this).html("&#43; " + children + " children");
+    }
+    else {
+      if (children >= 1) {
+        $(parent).children().eq(1).show();
+      }
+      $(post).children().show();
+      $(this).html("&#8211;");
+    }
+  });
 });

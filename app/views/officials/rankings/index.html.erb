@@ -22,7 +22,7 @@
           <tr>
             <% streak = streak_helper?(team.streak) %>
             <td class="td-small"><%= @default.map(&:id).index(team.id) + 1%></td>
-            <td class="left-align" style="font-weight: 500"><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>
+            <td class="left-align" style="font-weight: 500"><%= image_tag(team.pic, class: "team-img-sm") if team.pic.attached?%><%= link_to team.name, team_path(team) %></td>
             <td class="left-align"><%= image_tag("flags/"+team.country+".svg", class: "flag-logo")%><%= COUNTRIES.invert[team.country]%> </td>
             <td><%= team.rating %></td>
             <td><%= time_ago_in_words(team.last_played).gsub("about", "") %> ago</td>

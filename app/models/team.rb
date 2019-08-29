@@ -46,6 +46,6 @@ class Team < ApplicationRecord
 
   def get_image
     image = open(self.logo)
-    self.pic.attach(io: image, filename: self.name+".png")
+    self.pic.attach(io: image, filename: self.name+"."+self.logo.split(".")[-1])
   end
 end
