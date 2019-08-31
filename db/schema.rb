@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.index ["winner_id"], name: "index_officials_on_winner_id"
   end
 
-  create_table "performances", id: false, force: :cascade do |t|
+  create_table "performances", force: :cascade do |t|
     t.integer "player_id"
     t.integer "map_id"
     t.integer "team_id"

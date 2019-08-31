@@ -149,6 +149,7 @@
 .admin-form {
   background-color: #fafafa;
   margin: 0 0 1rem 0;
+  font-size: 11px;
   .fields {
     display: grid;
     grid-row-gap: 1rem;
@@ -163,6 +164,14 @@
 
     select {
       font-size: 12px;
+    }
+
+    a{
+      text-decoration: none;
+      color: black;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      padding: 5px;
     }
 
     input {
@@ -215,6 +224,9 @@
 
 p{
   margin-bottom: 0;
+}
+.hidden{
+  display: none;
 }
 
 .pagination {
@@ -1522,9 +1534,6 @@ p{
     }
   }
 }
-#admin-action-edit, #admin-action-add{
-  display: none;
-}
 
 #event-add-teams{
   margin-top: 1rem;
@@ -1651,4 +1660,7 @@ p{
   .form-map-actions{
     margin-bottom: 5px;
   }
+}
+
+.form-performances {
 }

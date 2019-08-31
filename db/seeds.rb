@@ -8,6 +8,7 @@
 require 'open-uri'
 require 'json'
 
+puts "users"
 # Create Users
 users = [
   ['Daniel', 'Lee', 'alined', 'daniel@berkeley.edu', 'password', 'us', 2],
@@ -21,6 +22,7 @@ users.each do |first, last, username, email, password, country, role|
               email: email, password: password, password_confirmation: password, role: role)
 end
 
+puts "forum-threads"
 #Create Forum
 forum_threads = [
   [1, 'OWL Postseason Trades', 'Which players should each OWL team pick up?'],
@@ -32,6 +34,7 @@ forum_threads.each do |user_id, subject, description|
   ForumThread.create(user_id: user_id, subject: subject, description: description)
 end
 
+puts "events"
 #Create Events
 events = [
   ["us", "Overwatch League 2019", "Professional League for Overwatch", "Burbank, California", 5000000, Date.new(2019,1,1), Date.new(2019,9,29), "OWL 2019", "#f08242", true, true],
@@ -45,6 +48,7 @@ events.each do |country, name, desc, location, prize, start, end_date, shortname
     end_date: end_date, country: country, shortname: shortname, color: color, display_ranking: display, primary_ranking: primary)
 end
 
+puts "teams"
 @event = Event.first
 #Create Teams
 response = JSON.parse(open('https://api.overwatchleague.com/v2/teams').read)['data']
@@ -73,6 +77,7 @@ response.each do |team|
   teams[tem.name] = tem.id
 end
 
+puts "players"
 #Create Players
 response = JSON.parse(open('https://api.overwatchleague.com/players').read)['content']
 response.each do |player|
@@ -92,6 +97,7 @@ sections = [
   [1, "Stage 4", Date.new(2019, 7, 25), Date.new(2019, 8, 25)],
   [1, "Playoffs", Date.new(2019, 8, 31), Date.new(2019, 9, 30)]
 ]
+puts "sections"
 
 sections.each do |event, name, start, ends|
   Section.create(event_id: event, name: name, start: start, end: ends)
@@ -101,7 +107,7 @@ owl_teams = {}
 Team.all.each do |team|
   owl_teams[team.name] = team
 end
-
+puts "maps"
 i = 0
 #Create Matches
 response = JSON.parse(open("https://api.overwatchleague.com/schedule").read)['data']
@@ -150,7 +156,7 @@ response['stages'].each do |stage|
     end
   end
 end
-
+puts "performance"
 response = JSON.parse(open("https://api.overwatchleague.com/matches").read)['content']
 
 response.each do |match|

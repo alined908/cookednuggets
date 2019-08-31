@@ -138,10 +138,12 @@
   <% if policy(@section).admin? %>
     <div class="descriptor">Admin Actions</div>
     <div class="admin-actions">
-      <%= link_to 'Edit Match', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Edit Match', 'javascript:;', class: "admin-panel 1" %>
       <%= link_to 'Delete Match', match_path(@match), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= link_to 'Edit Maps', 'javascript:;', class: "admin-panel 2" %>
+      <%= link_to 'Add Map', 'javascript:;', class: "admin-panel 3" %>
     </div>
-    <div id="admin-action-edit" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@match, url: matches_path) do |f| %>
         <div class='fields split'>
           <div>
@@ -188,71 +190,83 @@
           <%= f.submit "Submit" %>
         </div>
       <% end %>
-        <hr>
-        <div class="fields">
-          <div>
-            <div class="descriptor">Maps</div>
-            <div class="form-maps">
-              <% @match.maps.each_with_index do |map, index| %>
-                <div class="form-map">
-                  <div class="form-map-actions">
-                    <div class='form-map-num descriptor'><%= "Map #{index + 1}"%></div>
-                    <%= link_to "Delete" , match_map_path(@match, map), method: :delete, data: {confirm: 'Are you sure?'}%>
+    </div>
+    <div id="panel-2" class="admin-form hidden">
+      <div class="fields">
+        <div class="form-maps">
+          <% @match.maps.each_with_index do |map, index| %>
+            <div class="form-map">
+              <div class="form-map-actions">
+                <div class='form-map-num descriptor'><%= "Map #{index + 1}"%></div>
+                <%= link_to "Delete" , match_map_path(@match, map), method: :delete, data: {confirm: 'Are you sure?'}%>
+              </div>
+              <div class="form-map-form">
+                <%= form_for(map, url: match_map_path(@match, map)) do |a| %>
+                  <div>
+                    <div class="descriptor">Map Winner</div>
+                    <%= a.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name', map.winner_id), :required => true, prompt: "" %>
                   </div>
-                  <div class="form-map-form">
-                    <%= form_for(map, url: match_map_path(@match, map)) do |a| %>
-                      <div>
-                        <div class="descriptor">Map Winner</div>
-                        <%= a.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name', map.winner_id), :required => true, prompt: "" %>
-                      </div>
-                      <div>
-                        <div class="descriptor">Score</div>
-                        <div>
-                          <%=@teams[0].name%><%= number_field_tag "score[]",  map.score.to_a[0] %>
-                          <%= @teams[1].name%><%= number_field_tag "score[]",  map.score.to_a[1] %>
-                        </div>
-                      </div>
-                      <div>
-                        <div class="descriptor">Name</div>
-                        <%= a.text_field :name, value: map.name %>
-                      </div>
-                      <div>
-                        <div class="descriptor">State</div>
-                        <%= a.select :state, options_for_select(['finished', 'unfinished'], map.state), :required => true %>
-                      </div>
-                      <%= a.submit "Submit"%>
+                  <div>
+                    <div class="descriptor">Score</div>
+                    <div>
+                      <%=@teams[0].name%><%= number_field_tag "score[]",  map.score.to_a[0] %>
+                      <%=@teams[1].name%><%= number_field_tag "score[]",  map.score.to_a[1] %>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="descriptor">Name</div>
+                    <%= a.text_field :name, value: map.name %>
+                  </div>
+                  <div>
+                    <div class="descriptor">State</div>
+                    <%= a.select :state, options_for_select(['finished', 'unfinished'], map.state), :required => true %>
+                  </div>
+                  <div>
+                    <div class="descriptor">Players</div>
+                    <%= a.fields_for :performances do |aa| %>
+                      <%=@teams[0].name%>
+                      <% map.team1_perfs.includes(:player).each do |perf| %>
+                        <%= select_tag 'players[]', options_from_collection_for_select(@teams[0].players, 'id', 'handle', perf.player_id) %>
+                      <% end %>
+                      <%=@teams[1].name%>
+                      <% map.team2_perfs.includes(:player).each do |perf| %>
+                        <%= select_tag 'players[]', options_from_collection_for_select(@teams[1].players, 'id', 'handle', perf.player_id) %>
+                      <% end %>
                     <% end %>
                   </div>
-                </div>
-              <% end %>
+                  <%= a.submit "Submit"%>
+                <% end %>
+              </div>
             </div>
-          </div>
-        </div>
-        <hr>
-        <div class="fields">
-          <div class="descriptor">Add a Map</div>
-          <%= form_for(Map.new, url: match_maps_path(@match)) do |ff| %>
-            <%= ff.hidden_field :official_id, :value => @match.id %>
-            <div>
-              <div class="descriptor">Winner</div>
-              <%= ff.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
-            </div>
-            <div>
-              <div class="descriptor">Score</div>
-              <div><%=@teams[0].name%><%= number_field_tag "score[]",  0 %>
-                <%= @teams[1].name%><%= number_field_tag "score[]",  0 %></div>
-            </div>
-            <div>
-              <div class="descriptor">Name</div>
-              <%= ff.text_field :name, placeholder: "ex. Rialto" %>
-            </div>
-            <div>
-              <div class="descriptor">State</div>
-              <%= ff.select :state, options_for_select(['finished', 'unfinished'], "unfinished"), :required => true %>
-            </div>
-            <%= ff.submit "Submit" %>
           <% end %>
         </div>
+      </div>
+    </div>
+    <div id="panel-3" class="admin-form hidden">
+      <div class="fields">
+        <div class="descriptor">Add a Map</div>
+        <%= form_for(Map.new, url: match_maps_path(@match)) do |f| %>
+          <%= f.hidden_field :official_id, :value => @match.id %>
+          <div>
+            <div class="descriptor">Winner</div>
+            <%= f.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Score</div>
+            <div><%=@teams[0].name%><%= number_field_tag "score[]",  0 %>
+              <%= @teams[1].name%><%= number_field_tag "score[]",  0 %></div>
+          </div>
+          <div>
+            <div class="descriptor">Name</div>
+            <%= f.text_field :name, placeholder: "ex. Rialto" %>
+          </div>
+          <div>
+            <div class="descriptor">State</div>
+            <%= f.select :state, options_for_select(['finished', 'unfinished'], "unfinished"), :required => true %>
+          </div>
+          <%= f.submit "Submit" %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>

@@ -27,7 +27,7 @@ class Official < ApplicationRecord
   end
 
   def self.recents_helper(team, id)
-    recents = Official.where("team1_id = ? OR team2_id = ? AND id != ?", team.id, team.id, id).where.not(winner_id: nil).order(start: :desc).includes(:team1, :team2).limit(5)
+    recents = Official.where("team1_id = ? OR team2_id = ? AND id != ?", team.id, team.id, id).where.not(winner_id: nil).order(start: :desc).includes(team1: [pic_attachment: :blob], team2: [pic_attachment: :blob]).limit(5)
     return reverse_matches(team, recents)
   end
 

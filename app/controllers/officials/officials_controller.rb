@@ -3,7 +3,7 @@ class Officials::OfficialsController < ApplicationController
 
   def index
     if params[:f] == "comp"
-      @officials = Official.where("start <= ?", DateTime.now).paginate(:page => params[:page]).order(start: :desc).includes(:team1, :team2, :event, :section)
+      @officials = Official.where("start < ?", DateTime.now).paginate(:page => params[:page]).order(start: :desc).includes(:team1, :team2, :event, :section)
     else
       @officials = Official.where("end >= ?", DateTime.now).paginate(:page => params[:page]).includes(:team1, :team2, :event, :section)
     end

@@ -22,6 +22,17 @@ $(document).ready(function() {
         $("#edit-" + num).prev().show();
       }
   });
+
+  $(".admin-panel").click(function(){
+    var num = $(this).attr('class').split(" ")[1];
+    if ($("#panel-" + num).css('display') == 'none'){
+      $("#panel-" + num).show();
+    }
+    else {
+      $("#panel-" + num).hide();
+    }
+  })
+
   $("#edit-thread").click(function(){
     if ($("#admin-action-edit").css('display') == 'none'){
       $("#admin-action-edit").show();

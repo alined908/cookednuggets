@@ -29,8 +29,6 @@ class MatchMaps extends React.Component {
   }
 
   mapWinner(score, state){
-    console.log(score)
-    console.log(state)
     if (state == "unfinished") {
       this.mapscore = ["", ""]
       return

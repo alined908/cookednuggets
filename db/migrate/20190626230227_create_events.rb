@@ -88,7 +88,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :performances, id:false do |t|
+    create_table :performances do |t|
       t.belongs_to :player, index: true, foreign_key: true
       t.belongs_to :map, index: true, foreign_key: true
       t.belongs_to :team, index: true, foreign_key: true

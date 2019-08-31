@@ -16,6 +16,7 @@ class Officials::MapsController < ApplicationController
   def update
     authorize @map
     (params[:score].nil? ? (@map.score = [0,0]) : (@map.score = params[:score].map{|num| num.to_i}))
+    @map.def_players(params[:players])
     if @map.update_attributes(map_params)
       flash[:success] = "Successfully updated map"
     else
@@ -38,6 +39,6 @@ class Officials::MapsController < ApplicationController
   end
 
   def map_params
-    params.require(:map).permit(:official_id, :winner_id, :score, :name, :state)
+    params.require(:map).permit(:official_id, :winner_id, :score, :name, :state, :performances)
   end
 end

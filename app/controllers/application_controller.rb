@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_matches
-    @completed = Official.limit(7).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)
+    @completed = Official.limit(7).where("start < ?", DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)
     @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
   end
 end
