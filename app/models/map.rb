@@ -14,15 +14,16 @@ class Map < ApplicationRecord
     maps_json = maps.includes(performances: :player).map do |map|
       performances = [map.performances.reject{|play| play.team_id != ids[0]}.collect {|perf| perf.player}, map.performances.reject{|play| play.team_id != ids[1]}.collect {|perf| perf.player}]
       if performances[0].empty?
-        map.as_json.merge({players: [Team.find(ids[0]).players.where(starter: true).limit(6), Team.find(ids[1]).players.where(starter: true).limit(6)]})
+        map.as_json.merge({players: [Team.find(ids[0]).players.where(starter: true).limit(6).order(roles: :desc), Team.find(ids[1]).players.where(starter: true).limit(6).order(roles: :desc)]})
       else
-        map.as_json.merge({players: [performances[0], performances[1]]})
+        map.as_json.merge({players: [performances[0].sort_by(&:roles), performances[1].sort_by(&:roles)]})
       end
     end
     return maps_json
   end
 
   def def_players(players)
+    return if players == nil
     players = players.map{|num| num.to_i}
     current_players = self.players.pluck(:id)
     put_on_bench = current_players - players

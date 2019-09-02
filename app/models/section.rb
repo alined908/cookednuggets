@@ -22,6 +22,7 @@ class Section < ApplicationRecord
 
       end
       match.maps.each do |map|
+        #puts map.attributes
         winner = map.winner
         if winner == team1
           standings[team1.name][:map][0] += 1

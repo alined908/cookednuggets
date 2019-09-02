@@ -69,7 +69,7 @@ RSpec.describe Officials::EventsController, :type => :controller do
         put :update, params: {id: @active, teams: [@team2],event: FactoryBot.attributes_for(:event, name: "Overwatch Contenders")}
         @active.reload
         expect(@active.name).to eq("Overwatch Contenders")
-        expect(@active.teams).to match_array([@team, @team2])
+        expect(@active.teams).to match_array([@team2])
       end
       it 'redirects to updated event' do
         put :update, params: {id: @active, event: FactoryBot.attributes_for(:event, name: "Overwatch Contenders")}

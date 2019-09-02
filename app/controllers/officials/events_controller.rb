@@ -23,14 +23,7 @@ class Officials::EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     authorize(@event)
-    if params[:teams]
-      params[:teams].each do |team|
-        team = Team.find(team)
-        unless @event.teams.include?(team)
-          @event.teams << team
-        end
-      end
-    end
+    @event.check_teams(params[:teams])
 
     if @event.save
       flash[:success] = "Event successfully created."
@@ -44,16 +37,8 @@ class Officials::EventsController < ApplicationController
   def update
     authorize @event
     if @event.update_attributes(event_params.except(:teams))
-      if params[:teams]
-        params[:teams].each do |team|
-          team = Team.find(team)
-          unless @event.teams.include?(team)
-            @event.teams << team
-          end
-        end
-      end
+      @event.check_teams(params[:teams])
       flash[:success] = "Event successfully updated."
-
     else
       flash[:danger] = "Event field caused an error."
     end

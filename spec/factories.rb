@@ -45,6 +45,7 @@ FactoryBot.define do
     name {generate(:teamname)}
     shortname {generate(:teamname)}
     socials {{"TWITTER" => "twitter.com/sfs", "DISCORD" => "discord.gg/sfs"}}
+    rating {1500}
   end
 
   factory :user do
@@ -79,6 +80,8 @@ FactoryBot.define do
 
   factory :map do
     association :official
+    name {'Lijiang'}
+    state {'unfinished'}
   end
 
   factory :vote do

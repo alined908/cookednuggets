@@ -10,7 +10,7 @@ class Officials::MapsController < ApplicationController
     else
       flash[:danger] = @map.errors.full_messages
     end
-    redirect_to match_path(@map.official_id)
+    redirect_to match_path(@map.official)
   end
 
   def update
