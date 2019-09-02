@@ -13,7 +13,7 @@
       <tbody>
         <% @players.each do |player| %>
           <tr>
-            <td><%=link_to player.handle, player_path(player)%></td>
+            <td class="left-align"><%= image_tag(player.avatar, class: "team-img-sm") %><%=link_to player.handle, player_path(player)%></td>
             <td><%=player.roles%></td>
             <% team = player.team %>
             <td class="left-align"><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>

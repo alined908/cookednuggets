@@ -53,6 +53,18 @@
             <div class="descriptor">Content</div>
             <%= f.cktext_area :article, value: @news.article, ckeditor: {height: 300, toolbarCanCollapse: true}%>
           </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div class="avatar"><%= image_tag(@news.avatar) if @news.avatar.attached?%></div>
+              <div><%=@news.avatar.filename if @news.avatar.attached?%></div>
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
+          <div>
+              <div class="descriptor">Featured</div>
+              <%= f.check_box :featured, :value => @news.featured %>
+          </div>
           <%= f.submit "Submit" %>
         </div>
       <% end %>

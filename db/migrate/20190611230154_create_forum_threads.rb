@@ -20,8 +20,9 @@ class CreateForumThreads < ActiveRecord::Migration[5.2]
     end
 
     create_table :news do |t|
-      t.json :pictures
+      t.string :pictures
       t.references :user
+      t.boolean :featured, :null => false, :default => false
       t.string :country, :null => false, :default => "un"
       t.text :subject
       t.text :article

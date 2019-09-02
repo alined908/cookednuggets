@@ -22,6 +22,8 @@ class News::NewsController < ApplicationController
 
   def update
     authorize @news
+    puts params[:pictures]
+    puts "DWADWDA"
     if @news.update_attributes(news_params)
       flash[:success] = "Successfully updated news article"
     else
@@ -43,7 +45,7 @@ class News::NewsController < ApplicationController
     end
 
     def news_params
-      params.require(:new).permit(:subject, :article, :pictures)
+      params.require(:new).permit(:subject, :article, :featured, :avatar, {pictures: []})
     end
 
 end

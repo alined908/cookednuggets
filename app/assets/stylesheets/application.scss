@@ -506,8 +506,27 @@ p{
     }
   }
 }
+.featured-article-wrapper {
+  background-color: #dadadc;
+
+  .featured-article {
+    width: 100%;
+    background-color: #fafafa;
+    font-size: 12px;
+    font-weight: 500;
+
+    img {
+      max-width: 400px;
+    }
+
+    &:hover{
+      opacity: .8;
+    }
+  }
+}
 
 .news {
+
   .article{
     display: flex;
     align-items: center;
@@ -1660,7 +1679,4 @@ p{
   .form-map-actions{
     margin-bottom: 5px;
   }
-}
-
-.form-performances {
 }

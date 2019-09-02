@@ -9,7 +9,13 @@ class ApplicationController < ActionController::Base
     @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
     @completed = Official.limit(12).where("start <= ?", DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)
     @upcoming = Official.limit(12).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
-    @news = New.order(created_at: :desc).limit(15)
+    @featured = New.where(featured: true).order(created_at: :desc)[0]
+    @all_news = New.where.not(id: @featured.id).order(created_at: :desc).limit(20)
+    @news_today, @news_tw, @news_pm = @all_news.where("created_at > ?", 2.days.ago), @all_news.where("created_at > ? AND created_at < ?", 1.week.ago, 1.day.ago), @all_news.where("created_at > ? AND created_at < ?", 1.month.ago, 1.week.ago)
+    puts @all_news.count
+    puts "DAWDAWD"
+    puts @news_today
+    puts "DWADADWDW"
   end
 
   protected

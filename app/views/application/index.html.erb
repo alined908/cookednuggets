@@ -1,18 +1,61 @@
 <div class="column-2">
   <div class="descriptor">News</div>
-  <div class="news">
-    <% @news.each do |article| %>
-      <%= link_to news_path(article), class: "link-nodec" do %>
-        <div class="article">
-          <div>
-            <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
-            <span><%= article.subject %></span>
-          </div>
-          <div class="article-comment"><%= article.comments_count %></div>
-        </div>
-      <% end %>
+  <div class="featured-article-wrapper">
+    <%= link_to news_path(@featured), class:'link-nodec' do %>
+      <div class="featured-article">
+        <div><%= image_tag(@featured.avatar) if @featured.avatar.attached?%></div>
+        <div style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
+      </div>
     <% end %>
   </div>
+  <% unless @news_today.empty? %>
+    <div class="descriptor">News Today</div>
+    <div class="news">
+      <% @news_today.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @news_tw.empty? %>
+    <div class="descriptor">News This Week</div>
+    <div class="news">
+      <% @news_tw.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @news_pm.empty? %>
+    <div class="descriptor">News This Month</div>
+    <div class="news">
+      <% @news_pm.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="column-3">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>

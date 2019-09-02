@@ -104,8 +104,9 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
   end
 
   create_table "news", force: :cascade do |t|
-    t.json "pictures"
+    t.string "pictures"
     t.integer "user_id"
+    t.boolean "featured"
     t.string "country", default: "un", null: false
     t.text "subject"
     t.text "article"

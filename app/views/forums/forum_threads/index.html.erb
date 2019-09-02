@@ -55,6 +55,16 @@
             <div class='descriptor'>Content</div>
             <%= f.cktext_area :article, ckeditor: {height: 300, toolbarCanCollapse: true}%>
           </div>
+          <div>
+              <div class="descriptor">Featured</div>
+              <%= f.check_box :featured %>
+          </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
           <%= f.submit "Submit" %>
         </div>
       <% end %>

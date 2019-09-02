@@ -179,19 +179,19 @@ response.each do |match|
 end
 
 news = [
-  [1, "Coach815 leaves the Spitfire", "kr"],
-  [4, "Munchkin departs from Seoul Dynasty", "kr"],
-  [1, "Blizzard announces 2-2-2 role lock", "un"],
-  [3, "New Hero: Sigma", "un"],
-  [4, "Alarm promoted to Fusion main roster", "kr"],
-  [2, "Defiant pick up Mangachu", "ca"],
-  [1, "CampingFatKid: An Inside Look", "us"],
-  [1, "Alined and Mercy leave Shock", "us"],
-  [3, "Leave joins Hunters as contracted talent", "cn"]
+  [1, "Coach815 leaves the Spitfire", "kr", 1.day.ago],
+  [4, "Munchkin departs from Seoul Dynasty", "kr", 2.days.ago],
+  [1, "Blizzard announces 2-2-2 role lock", "un", 3.days.ago],
+  [3, "New Hero: Sigma", "un", 8.days.ago],
+  [4, "Alarm promoted to Fusion main roster", "kr", 2.weeks.ago],
+  [2, "Defiant pick up Mangachu", "ca", 3.weeks.ago],
+  [1, "CampingFatKid: An Inside Look", "us", 4.weeks.ago],
+  [1, "Alined and Mercy leave Shock", "us", 2.months.ago],
+  [3, "Leave joins Hunters as contracted talent", "cn", 1.week.ago]
 ]
 
-news.each do |author, subject, country, article|
-  New.create(user_id: author, subject: subject, country: country,
+news.each do |author, subject, country, article, created_at|
+  New.create(user_id: author, subject: subject, country: country, created_at: created_at, 
     article: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
 end
 
@@ -221,5 +221,5 @@ end
 Official.create(team1_id: 17, team2_id: 6, winner_id: nil,
   identifier: nil, comments_count: 0, map_count: 4,
   label: nil, score: [0, 0], match_type: "Quarterfinals",
-  start: "2019-08-30 12:30:00", end: "2019-08-30 15:30:00",
+  start: 1.day.from_now, end: 2.days.from_now,
   section_id: 5, event_id: 1, subject: "VAN vs SFS - Overwatch League 2019 Playoffs")
