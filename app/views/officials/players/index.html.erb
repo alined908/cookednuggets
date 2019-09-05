@@ -4,20 +4,18 @@
     <table class="table">
       <thead>
         <tr>
-          <th><%= sortable("LOWER(handle)", "Player")%></th>
-          <th>Roles</th>
+          <th class="left-align"><%= sortable("LOWER(handle)", "Player")%></th>
           <th class="left-align"><%= sortable("teams.name","Current Team")%></th>
-          <th>Heroes</th>
+          <th><%= sortable("roles", "Role")%></th>
         </tr>
       </thead>
       <tbody>
-        <% @players.each do |player| %>
+        <% @players.includes(avatar_attachment: :blob).each do |player| %>
           <tr>
-            <td class="left-align"><%= image_tag(player.avatar, class: "team-img-sm") %><%=link_to player.handle, player_path(player)%></td>
-            <td><%=player.roles%></td>
+            <td class="indent-td left-align"><%= image_tag(player.avatar, class: "team-img-sm") %><%=link_to player.handle, player_path(player)%></td>
             <% team = player.team %>
-            <td class="left-align"><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>
-            <td></td>
+            <td class="indent-td left-align"><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>
+            <td><%=player.roles%></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,9 +31,9 @@
   <% if policy(Player).create? %>
     <div class="descriptor">Admin Actions</div>
     <div class="admin-actions">
-      <%= link_to 'Create Player', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Create Player', 'javascript:;', class: "admin-panel 1" %>
     </div>
-    <div id="admin-action-edit" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@player, url: players_path) do |f| %>
         <div class='fields split'>
           <div>
@@ -89,6 +87,6 @@
     </div>
   <% end %>
 </div>
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

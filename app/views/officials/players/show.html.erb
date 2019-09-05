@@ -14,35 +14,35 @@
         </span>
       </div>
       <div class="team-socials">
-        <% if @player.socials['TWITTER'] %>
+        <% unless @player.socials['TWITTER'].blank? %>
           <span class="team-social">
             <%= link_to @player.socials['TWITTER'], target: "_blank" do %>
               <img class="social-logo" src="/assets/socials/twitter.svg"/>
             <% end %>
           </span>
         <% end %>
-        <% if @player.socials['INSTAGRAM'] %>
+        <% unless @player.socials['INSTAGRAM'].blank? %>
           <span class="team-social">
             <%= link_to @player.socials['INSTAGRAM'], target: "_blank" do %>
               <img class="social-logo" src="/assets/socials/instagram.svg"/>
             <% end %>
           </span>
         <% end %>
-        <% if @player.socials['FACEBOOK'] %>
+        <% unless @player.socials['FACEBOOK'].blank? %>
           <span class="team-social">
             <%= link_to @player.socials['FACEBOOK'], target: "_blank" do %>
               <img class="social-logo" src="/assets/socials/facebook.png"/>
             <% end %>
           </span>
         <% end %>
-        <% if @player.socials['YOUTUBE_CHANNEL'] %>
+        <% unless @player.socials['YOUTUBE_CHANNEL'].blank? %>
           <span class="team-social">
             <%= link_to @player.socials['YOUTUBE_CHANNEL'], target: "_blank" do %>
               <img class="social-logo" src="/assets/socials/youtube.svg"/>
             <% end %>
           </span>
         <% end %>
-        <% if @player.socials['TWITCH'] %>
+        <% unless @player.socials['TWITCH'].blank? %>
           <span class="team-social">
             <%= link_to @player.socials['TWITCH'], target: "_blank" do %>
               <img class="social-logo" src="/assets/socials/twitch.png"/>
@@ -59,8 +59,19 @@
   <div class="descriptor">
     Teams
   </div>
-  <div class="player-teams">
-
+  <div class="teamstable table">
+    <% @past_teams.each do |team| %>
+      <div class="team-table-row">
+        <div class="teamstable-ttr">
+          <span><%= image_tag(team.logo, class: "team-logo") %></span>
+          <span class="team-name"><%= link_to team.name, team_path(team) %></span>
+        </div>
+        <div>
+          <span><%= image_tag("/assets/flags/"+team.country, class: "flag-logo") %></span>
+          <span><%= COUNTRIES.invert[team.country] %></span>
+        </div>
+      </div>
+    <% end %>
   </div>
   <div class="descriptor">
     Recent Matches
@@ -80,9 +91,9 @@
   <% if policy(Player).update? %>
     <div class="descriptor">Admin Actions</div>
     <div class="admin-actions">
-      <%= link_to 'Edit Player', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Edit Player', 'javascript:;', id: "admin-panel 1" %>
     </div>
-    <div id="admin-action-edit" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@player, url: player_path(@player)) do |f| %>
         <div class='fields split'>
           <div>
@@ -138,6 +149,6 @@
     </div>
   <% end %>
 </div>
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

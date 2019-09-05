@@ -5,6 +5,7 @@ class Team < ApplicationRecord
   has_many :events, through: :eventteams
   has_many :players
   has_many :officials
+  before_create :set_default_image
   before_save :get_image, if: :logo?
   serialize :socials
   validates :name, presence: true
@@ -47,5 +48,11 @@ class Team < ApplicationRecord
   def get_image
     image = open(self.logo)
     self.pic.attach(io: image, filename: self.name+"."+self.logo.split(".")[-1])
+  end
+
+  def set_default_image
+    unless self.pic.attached?
+      self.pic.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'misc', 'ow.png')), filename: 'ow.png', content_type: 'image/png')
+    end
   end
 end

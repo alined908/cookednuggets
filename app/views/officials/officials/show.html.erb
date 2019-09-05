@@ -107,11 +107,11 @@
                 <span class="score-entry"><%= match.score[1]%></span>
               </div>
               <div class="match-recent-entry-opp">
-                <span><em>vs</em></span>
-                <span>
+                <div><em>vs</em></div>
+                <div>
                   <%=image_tag(match.team2.pic, class: 'team-logo') if match.team2.pic.attached?%>
-                </span>
-                <span><%= match.team2.name %></span>
+                </div>
+                <div><%= match.team2.name %></div>
               </div>
               <div class="match-recent-entry-date"><%= match.start.strftime("%m/%d/%Y")%></div>
             </div>
@@ -270,6 +270,6 @@
     </div>
   <% end %>
 </div>
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

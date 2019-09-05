@@ -10,9 +10,10 @@ class LiveStreams extends React.Component {
     this.state = {
       streamers: []
     };
+    this.updateStreamers = this.updateStreamers.bind(this);
   }
 
-  async componentDidMount() {
+  fetchStreams(){
     fetch ("https://api.twitch.tv/helix/streams?game_id=488552", {
       headers: {
         'Client-Id': clientId,
@@ -31,15 +32,26 @@ class LiveStreams extends React.Component {
     });
   }
 
+  async componentDidMount() {
+    this.fetchStreams();
+  }
+
+  updateStreamers(){
+    this.fetchStreams();
+  }
+
   render () {
     return (
       <div>
-        {this.state.streamers.map((stream) => (
-          <Streamer
-            key={stream.id} name={stream.user_name} lang={stream.language}
-            link={stream.thumbnail_url.split("live_user_")[1].split("-")[0]}
-            viewcount={stream.viewer_count} title={stream.title} />
-        ))}
+        <div className="descriptor">Streams <span onClick={this.updateStreamers} className="refresh-stream">&#8635;</span></div>
+        <div className="shadow-sm streamer-list">
+          {this.state.streamers.map((stream) => (
+            <Streamer
+              key={stream.id} name={stream.user_name} lang={stream.language}
+              link={stream.thumbnail_url.split("live_user_")[1].split("-")[0]}
+              viewcount={stream.viewer_count} title={stream.title} />
+          ))}
+        </div>
       </div>
     );
   }

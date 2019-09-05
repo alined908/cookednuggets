@@ -8,7 +8,7 @@
       <%= link_to 'Edit Team', 'javascript:;', class: "admin-panel 1" %>
       <%= link_to 'Delete Team', team_path(@team), method: :delete, data: { confirm: 'Are you sure?' }%>
     </div>
-    <div id="panel-1" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@team, url: team_path(@team), method: :patch) do |f| %>
         <div class='fields'>
           <div>
@@ -54,7 +54,7 @@
     </div>
   <% end %>
 </div>
-<div class="column-3 indent-right">
+<div class="column-4">
   <% if @players.empty? %>
     <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
   <% else %>

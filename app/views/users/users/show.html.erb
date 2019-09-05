@@ -2,17 +2,17 @@
   <div class="descriptor">Profile</div>
   <div class="user-profile">
     <div class="user-username"><%= @user.username.capitalize %></div>
-    <div><span class="light-text">Country:</span> <%= image_tag("/assets/flags/"+@user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[@user.country] %></div>
-    <div><span class="light-text">Signed Up: </span><%= @user.created_at.strftime("%B %d, %Y") %></div>
-    <div><span class="light-text">Last Posted: </span><%= @posts.order(:updated_at).first.updated_at.strftime("%B %d, %Y at %I:%M") %></div>
-    <div><span class="light-text">Total Posts: </span><%= @posts.size %> </div>
+    <div><span class="bold-text">Country:</span> <%= image_tag("/assets/flags/"+@user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[@user.country] %></div>
+    <div><span class="bold-text">Signed Up: </span><%= @user.created_at.strftime("%B %d, %Y") %></div>
+    <div><span class="bold-text">Last Posted: </span><%= @posts.order(:updated_at).first.updated_at.strftime("%B %d, %Y at %I:%M") %></div>
+    <div><span class="bold-text">Total Posts: </span><%= @posts.size %> </div>
   </div>
   <div class="descriptor"><%= @user.username %>'s Posts</div>
   <div class="user-posts">
     <% @posts.includes(:commentable).each do |post| %>
       <div class="forum-post-wrapper">
         <div class="forum-post">
-          <% parent = post.find_parent %>
+          <% parent = ForumPost.find_parent(post) %>
           <% category = disc_path?(parent) %>
           <div class="post-header">
             <div>
@@ -23,7 +23,7 @@
               <%= post.score%> points
             </div>
           </div>
-          <div class="post-body"><%= post.body %></div>
+          <div class="post-body"><%= sanitize post.body %></div>
           <div class="post-footer">posted <%= time_ago_in_words(post.created_at).gsub("about", "") %> ago</div>
         </div>
       </div>

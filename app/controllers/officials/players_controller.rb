@@ -10,6 +10,7 @@ class Officials::PlayersController < ApplicationController
 
   def show
     @teams = Team.all
+    @player.past_teams.nil? ? @past_teams = [] : @past_teams = @player.past_teams.reverse.map {|team| Team.find(team)}
     @recent_matches = Official.joins(:performances => :map).where(:performances => {:player => @player}).distinct.order(start: :desc).paginate(:page => params[:page], :per_page => 20).includes(:team1, :team2, :event, :section)
   end
 

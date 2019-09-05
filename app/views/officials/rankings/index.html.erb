@@ -18,7 +18,7 @@
         </tr>
       <thead>
       <tbody>
-        <% @custom.each_with_index do |team, index| %>
+        <% @custom.includes(pic_attachment: :blob).each_with_index do |team, index| %>
           <tr>
             <% streak = streak_helper?(team.streak) %>
             <td class="td-small"><%= @default.map(&:id).index(team.id) + 1%></td>
@@ -35,6 +35,6 @@
   </div>
 </div>
 
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

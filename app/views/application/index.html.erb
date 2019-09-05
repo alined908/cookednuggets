@@ -1,13 +1,15 @@
 <div class="column-2">
   <div class="descriptor">News</div>
-  <div class="featured-article-wrapper">
-    <%= link_to news_path(@featured), class:'link-nodec' do %>
-      <div class="featured-article">
-        <div><%= image_tag(@featured.avatar) if @featured.avatar.attached?%></div>
-        <div style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
-      </div>
-    <% end %>
-  </div>
+  <% unless @featured.nil? %>
+    <div class="featured-article-wrapper">
+      <%= link_to news_path(@featured), class:'link-nodec' do %>
+        <div class="featured-article">
+          <div><%= image_tag(@featured.avatar) if @featured.avatar.attached?%></div>
+          <div style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <% unless @news_today.empty? %>
     <div class="descriptor">News Today</div>
     <div class="news">
@@ -78,8 +80,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="descriptor">Streams</div>
-  <div class="shadow-sm streamer-list">
+  <div>
     <%= react_component("LiveStreams") %>
   </div>
 </div>

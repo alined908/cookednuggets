@@ -18,7 +18,7 @@
       <%= link_to 'Delete Section', event_section_path(@event, @section), method: :delete, data: { confirm: 'Are you sure?' }%>
       <%= link_to 'Add Match', 'javascript:;', class: "admin-panel 2" %>
     </div>
-    <div id="panel-1" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@section, url: event_section_path(@event, @section), method: :patch) do |f| %>
         <div class='fields'>
           <div>
@@ -37,7 +37,7 @@
         </div>
       <% end %>
     </div>
-    <div id="panel-2" class="admin-form">
+    <div id="panel-2" class="admin-form hidden">
       <%= form_for(@match, url: matches_path) do |f| %>
       <div class='fields split'>
         <div>
@@ -87,6 +87,6 @@
     </div>
   <% end %>
 </div>
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

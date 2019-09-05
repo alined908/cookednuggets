@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   has_one_attached :logo
+  before_create :set_default_image
   has_many :eventteams
   has_many :teams, through: :eventteams
   has_many :sections
@@ -31,5 +32,9 @@ class Event < ApplicationRecord
     delete_teams.each do |team|
       self.teams.delete(Team.find(team))
     end
+  end
+
+  def set_default_image
+    self.avatar.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'misc', 'default-player.png')), filename: 'default-player.png', content_type: 'image/png')
   end
 end

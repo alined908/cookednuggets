@@ -15,7 +15,8 @@ class Match extends React.Component {
     this.state = {
       date: this.checkTime(time[0]),
       hour: time[1],
-      score: score
+      score: score,
+      opacity: 0
     };
   }
 
@@ -61,19 +62,19 @@ class Match extends React.Component {
     time = +new Date(time);
 
     var time_formats = [
-      [60, 'seconds', 1], // 60
-      [120, '1 min ago', '1 min'], // 60*2
-      [3600, 'minutes', 60], // 60*60, 60
-      [7200, '1 hour ago', '1 hour'], // 60*60*2
-      [86400, 'hours', 3600], // 60*60*24, 60*60
-      [172800, '1 day ago', '1 day'], // 60*60*24*2
-      [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-      [1209600, '1 week ago', '1 week'], // 60*60*24*7*4*2
-      [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-      [4838400, '1 month ago', '1 month'], // 60*60*24*7*4*2
-      [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-      [58060800, '1 year ago', '1 year'], // 60*60*24*7*4*12*2
-      [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+      [60, 'secs', 1], // 60
+      [120, '1 min ago', '1min'], // 60*2
+      [3600, 'mins', 60], // 60*60, 60
+      [7200, '1h ago', '1h'], // 60*60*2
+      [86400, 'h', 3600], // 60*60*24, 60*60
+      [172800, '1d ago', '1d'], // 60*60*24*2
+      [604800, 'd', 86400], // 60*60*24*7, 60*60*24
+      [1209600, '1w ago', '1w'], // 60*60*24*7*4*2
+      [2419200, 'w', 604800], // 60*60*24*7*4, 60*60*24*7
+      [4838400, '1mo ago', '1m'], // 60*60*24*7*4*2
+      [29030400, 'mo', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+      [58060800, '1y ago', '1y'], // 60*60*24*7*4*12*2
+      [2903040000, 'y', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
     ];
     var seconds = (+new Date() - time) / 1000,
       token = 'ago',
@@ -94,9 +95,9 @@ class Match extends React.Component {
         if (typeof format[2] == 'string')
           return format[list_choice];
         else if (token == "from now")
-          return Math.floor(seconds / format[2]) + ' ' + format[1];
+          return Math.floor(seconds / format[2]) + '' + format[1];
         else
-          return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+          return Math.floor(seconds / format[2]) + '' + format[1] + ' ' + token;
       }
     return time;
   }
@@ -155,7 +156,12 @@ class Match extends React.Component {
     else {
       return (
         <a href={"/matches/" + this.props.match.id} className="match-compact link">
-          <div className="match-comp">
+          <div className="hoverable" style={{opacity: this.state.opacity}}>
+            <div>{this.props.time}</div>
+            <div>{this.props.fullname}</div>
+            <div>{this.props.teams[0].shortname}({this.props.teams[0].rating}) vs {this.props.teams[1].shortname}({this.props.teams[1].rating})</div>
+          </div>
+          <div onMouseEnter={() => this.setState({opacity: 1})} onMouseLeave={() => this.setState({opacity: 0})} className="match-comp">
             <div className="match-comp-time">
               <div className="match-event">{this.props.event}</div>
               <div>{this.time_ago(this.props.match.start)}</div>

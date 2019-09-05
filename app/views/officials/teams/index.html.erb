@@ -11,9 +11,9 @@
   <% if policy(Team).create? %>
     <div class="descriptor">Admin Actions</div>
     <div class="admin-actions">
-      <%= link_to 'Create Team', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Create Team', 'javascript:;', class: "admin-panel 1" %>
     </div>
-    <div id="admin-action-edit" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@team, url: teams_path) do |f| %>
         <div class='fields'>
           <div>
@@ -67,6 +67,6 @@
   <% end %>
 </div>
 
-<div class="column-3 indent-right">
+<div class="column-4">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

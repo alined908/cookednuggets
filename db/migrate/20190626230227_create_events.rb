@@ -75,7 +75,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.string :socials
       t.boolean :starter, :null => false, :default => false
       t.references :team, foreign_key: true
-      t.integer :past_teams, array: true
+      t.string :past_teams
       t.timestamps
     end
 

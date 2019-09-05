@@ -86,7 +86,7 @@ response.each do |player|
     socials[social['accountType']] = social['value']
   end
   Player.create(headshot: player['headshot'], eng_name: player['givenName'] + " " + player['familyName'], handle: player['name'],
-    country: player['nationality'], roles: player['attributes']['role'], socials: socials, team_id: teams[players[player['name']]], past_teams: [teams[players[player['name']]]])
+    country: player['nationality'], roles: player['attributes']['role'], socials: socials, team_id: teams[players[player['name']]])
 end
 
 #Create Sections
@@ -191,7 +191,7 @@ news = [
 ]
 
 news.each do |author, subject, country, article, created_at|
-  New.create(user_id: author, subject: subject, country: country, created_at: created_at, 
+  New.create(user_id: author, subject: subject, country: country, created_at: created_at,
     article: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
 end
 

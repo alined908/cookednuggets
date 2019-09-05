@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
   create_table "news", force: :cascade do |t|
     t.string "pictures"
     t.integer "user_id"
-    t.boolean "featured"
+    t.boolean "featured", default: false, null: false
     t.string "country", default: "un", null: false
     t.text "subject"
     t.text "article"
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_183357) do
     t.string "socials"
     t.boolean "starter", default: false, null: false
     t.integer "team_id"
-    t.integer "past_teams"
+    t.string "past_teams"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_players_on_team_id"
