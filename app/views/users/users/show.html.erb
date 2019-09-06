@@ -35,6 +35,10 @@
     </div>
     <%= will_paginate @posts, :container => false, :inner_window => 1, :outer_window => 1 %>
   </div>
+  <div class="descriptor">Admin Actions</div>
+  <div class="admin-actions">
+    <%= link_to 'Delete User', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }%>
+  </div>
 </div>
 <div class="column-3 indent-right">
   <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>

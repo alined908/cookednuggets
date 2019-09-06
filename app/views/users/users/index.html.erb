@@ -1,0 +1,33 @@
+<div class="column-2">
+  <div class="descriptor">Users</div>
+  <div style="background-color: #fafafa;">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><%= sortable("username", "Username")%></th>
+          <th><%= sortable("firstname", "Fullname")%></th>
+          <th><%= sortable("country", "Country")%></th>
+          <th><%= sortable("role", "Role")%></th>
+          <th><%= sortable("created_at", "Account Created")%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.username, user_path(user) %></td>
+            <td><%= user.firstname + " " + user.lastname %></td>
+            <td><%= image_tag("/assets/flags/"+user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[user.country] %></td>
+            <td><%= user.role %></td>
+            <td><%= user.created_at.strftime("%B %d, %Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @users %>
+    </div>
+    <%= will_paginate @users, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
+</div>

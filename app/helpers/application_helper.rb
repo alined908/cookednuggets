@@ -17,7 +17,11 @@ module ApplicationHelper
   def get_author(thread)
     type = thread.class
     if type == ForumThread or type == New
-      return thread.user.username.capitalize
+      if thread.user.nil?
+        return "User Deleted"
+      else
+        return thread.user.username.capitalize
+      end
     elsif type == Official
       return ""
     end

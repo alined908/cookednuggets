@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   scope module: 'users' do
-    resources :users, :path => 'u', :only => [:index, :show]
+    resources :users, :path => 'u', :only => [:index, :show, :destroy]
   end
 
   def post_resource

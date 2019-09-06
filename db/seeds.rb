@@ -191,9 +191,18 @@ news = [
 ]
 
 news.each do |author, subject, country, article, created_at|
-  New.create(user_id: author, subject: subject, country: country, created_at: created_at,
+  New.create(user_id: author, subject: subject, country: country,
     article: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ")
 end
+
+news.each_with_index do |attr, index|
+  article = New.find(index + 1)
+  article.created_at = attr[3]
+  article.save!
+end
+
+featured = New.create(user_id: 2, subject: "Featured Article Title", country: "us", article: "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a</p>", featured: true)
+featured.avatar.attach(io: File.open('app/assets/images/misc/owl.jpg'), filename: "owl.jpg")
 
 forum_posts = [
   [2, 1, "ForumThread", 1, '<p>The Fusion should pick up Alarm.</p>'],

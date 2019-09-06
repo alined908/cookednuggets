@@ -1,11 +1,12 @@
 <div class="column-2">
-  <div class="descriptor">News</div>
   <% unless @featured.nil? %>
-    <div class="featured-article-wrapper">
+    <div class="descriptor">News</div>
+    <div class="featured-article-wrapper shadow-sm">
       <%= link_to news_path(@featured), class:'link-nodec' do %>
         <div class="featured-article">
-          <div><%= image_tag(@featured.avatar) if @featured.avatar.attached?%></div>
-          <div style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
+          <div class="featured-article-image" style="background: url(<%= url_for(@featured.avatar)%>)">
+            <div class="featured-article-title" style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
+          </div>
         </div>
       <% end %>
     </div>

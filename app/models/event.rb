@@ -35,6 +35,6 @@ class Event < ApplicationRecord
   end
 
   def set_default_image
-    self.avatar.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'misc', 'default-player.png')), filename: 'default-player.png', content_type: 'image/png')
+    self.logo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'misc', 'default-player.png')), filename: 'default-player.png', content_type: 'image/png')
   end
 end

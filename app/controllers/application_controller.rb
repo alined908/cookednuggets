@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     else
       @all_news = New.where.not(id: @featured.id).order(created_at: :desc).limit(20)
     end
-    @news_today, @news_tw, @news_pm = @all_news.where("created_at > ?", 2.days.ago), @all_news.where("created_at > ? AND created_at < ?", 1.week.ago, 1.day.ago), @all_news.where("created_at > ? AND created_at < ?", 1.month.ago, 1.week.ago)
+    @news_today, @news_tw, @news_pm = @all_news.where(:created_at => Date.current - 1..Date.current), @all_news.where(:created_at => Date.current - 7..Date.current - 1), @all_news.where(:created_at => Date.current - 30..Date.current - 7)
   end
 
   protected

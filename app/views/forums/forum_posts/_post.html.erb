@@ -4,8 +4,12 @@
       <div class="post-header">
         <div class="post-info">
           <div class="post-collapsable">&#8211;</div>
-          <%= image_tag("/assets/flags/" + post.user.country, class: "flag-logo")%>
-          <%=post.user.username%>
+          <% if post.user.nil? %>
+            User Deleted
+          <% else %>
+            <%= image_tag("/assets/flags/" + post.user.country, class: "flag-logo")%>
+            <%=post.user.username%>
+          <% end %>
         </div>
         <div class="post-vote" id="post_<%= post.id %>_votes">
           <%= render 'layouts/votes', :post => post%>

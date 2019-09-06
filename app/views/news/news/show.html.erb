@@ -13,8 +13,13 @@
       </div>
       <div class="article-info">
         <div class="article-author">
-          <div class="avatar"><%=image_tag(@news.user.avatar) if @news.user.avatar.attached?%></div>
-          <div><%=@news.user.username.capitalize%></div>
+          <% if @news.user.nil? %>
+            <div class="avatar"></div>
+            <div>User Deleted</div>
+          <% else %>
+            <div class="avatar"><%=image_tag(@news.user.avatar) if @news.user.avatar.attached?%></div>
+            <div><%=@news.user.username.capitalize%></div>
+          <% end %>
         </div>
         <div class="article-date">Posted <%=time_ago_in_words(@news.created_at) + " ago"%></div>
       </div>
@@ -40,9 +45,9 @@
     <div class="descriptor">Moderator Actions</div>
     <div class="admin-actions">
       <%= link_to 'Delete Article', news_path(@news), method: :delete, data: { confirm: 'Are you sure?' } %>
-      <%= link_to 'Edit Article', 'javascript:;', id: "edit-thread" %>
+      <%= link_to 'Edit Article', 'javascript:;', class: "admin-panel 1" %>
     </div>
-    <div id="admin-action-edit" class="admin-form">
+    <div id="panel-1" class="admin-form hidden">
       <%= form_for(@news, url: news_path(@news), method: :patch) do |f| %>
         <div class='fields'>
           <div>
