@@ -58,6 +58,22 @@ class Match extends React.Component {
     return type;
   }
 
+  checkLive(time){
+    if (this.props.match.winner_id != null) {
+      return this.time_ago(time);
+    }else {
+      var start = new Date(this.props.match.start);
+      var current = new Date();
+      var diff = (current - start);
+      if (diff > 0 && diff < 10800000) {
+        return "&#128308; Live"
+      } else {
+        return this.time_ago(time);
+      }
+    }
+
+  }
+
   time_ago(time) {
     time = +new Date(time);
 
@@ -164,7 +180,7 @@ class Match extends React.Component {
           <div onMouseEnter={() => this.setState({opacity: 1})} onMouseLeave={() => this.setState({opacity: 0})} className="match-comp">
             <div className="match-comp-time">
               <div className="match-event">{this.props.event}</div>
-              <div>{this.time_ago(this.props.match.start)}</div>
+              <div dangerouslySetInnerHTML={{__html: this.checkLive(this.props.match.start)}}></div>
             </div>
             <div className="match-comp-vs">
               {this.props.teams.map((team, index) => {

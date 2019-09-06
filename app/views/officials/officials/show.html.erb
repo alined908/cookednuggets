@@ -144,7 +144,7 @@
       <%= link_to 'Add Map', 'javascript:;', class: "admin-panel 3" %>
     </div>
     <div id="panel-1" class="admin-form hidden">
-      <%= form_for(@match, url: matches_path) do |f| %>
+      <%= form_for(@match, url: match_path(@match)) do |f| %>
         <div class='fields split'>
           <div>
             <div class="descriptor">Team 1</div>
