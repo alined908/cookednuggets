@@ -10,11 +10,11 @@
         <tr>
           <th><%= sortable("rating", "Rank") %></th>
           <th class="left-align"><%= sortable("name", "Team") %></th>
-          <th class="left-align"><%= sortable "country" %></th>
+          <th class="left-align mobile-dismiss"><%= sortable "country" %></th>
           <th><%= sortable "rating" %></th>
-          <th><%= sortable("last_played", "Last Played") %></th>
+          <th class="mobile-dismiss"><%= sortable("last_played", "Last Played") %></th>
           <th><%= sortable "streak" %></th>
-          <th><%= sortable("games_played", "Games") %></th>
+          <th class="mobile-dismiss"><%= sortable("games_played", "Games") %></th>
         </tr>
       <thead>
       <tbody>
@@ -23,11 +23,11 @@
             <% streak = streak_helper?(team.streak) %>
             <td class="td-small"><%= @default.map(&:id).index(team.id) + 1%></td>
             <td class="left-align" style="font-weight: 500"><%= image_tag(team.pic, class: "team-img-sm") if team.pic.attached?%><%= link_to team.name, team_path(team) %></td>
-            <td class="left-align"><%= image_tag("flags/"+team.country+".svg", class: "flag-logo")%><%= COUNTRIES.invert[team.country]%> </td>
+            <td class="left-align mobile-dismiss"><%= image_tag("flags/"+team.country+".svg", class: "flag-logo")%><%= COUNTRIES.invert[team.country]%> </td>
             <td><%= team.rating %></td>
-            <td><%= time_ago_in_words(team.last_played).gsub("about", "") %> ago</td>
+            <td class="mobile-dismiss"><%= time_ago_in_words(team.last_played).gsub("about", "") %> ago</td>
             <td class="td-small <%=streak[1]%>"><%= streak[0].to_s + streak[1] %></td>
-            <td class="td-small"><%= team.games_played %></td>
+            <td class="td-small mobile-dismiss"><%= team.games_played %></td>
           </tr>
         <% end %>
       </tbody>

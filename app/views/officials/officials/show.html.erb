@@ -13,9 +13,9 @@
     </div>
     <div class="match-header-scoreboard">
       <%= link_to team_path(@teams[0]), class: "link-nodec color" do %>
-        <div>
-          <%= @teams[0].name %>
-          <%= image_tag(@teams[0].pic, class: 'team-img-lg') if @teams[0].pic.attached?%>
+        <div class="match-header-teams">
+          <div><%= @teams[0].name %></div>
+          <div><%= image_tag(@teams[0].pic, class: 'team-img-lg') if @teams[0].pic.attached?%></div>
         </div>
       <% end %>
       <div class="match-header-score">
@@ -23,12 +23,12 @@
           <span class="score-entry"><%= @match.score[0]%></span>
           <span class="score-entry"><%= @match.score[1]%></span>
         </div>
-        <div><%= @maps.size %> maps</div>
+        <div>BO<%= @maps.size %></div>
       </div>
       <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
-        <div>
-          <%= image_tag(@teams[1].pic, class: 'team-img-lg') if @teams[1].pic.attached?%>
-          <%= @teams[1].name %>
+        <div class="match-header-teams">
+          <div><%= image_tag(@teams[1].pic, class: 'team-img-lg') if @teams[1].pic.attached?%></div>
+          <div><%= @teams[1].name %></div>
         </div>
       <% end %>
     </div>
@@ -62,7 +62,7 @@
           <div class="match-h2h">
             <div class="match-h2h-event">
               <div><%= image_tag("events/" + h2h.section.event.name.split(" ")[0,2].join("-")+ ".png",class:"event-logo")%></div>
-              <div><%= h2h.section.event.name %>: <%= h2h.section.name %></div>
+              <div class="match-h2h-event-name"><%= h2h.section.event.name %>: <%= h2h.section.name %></div>
             </div>
             <div class="match-h2h-teams">
               <div class="checkmark">

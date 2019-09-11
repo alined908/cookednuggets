@@ -84,4 +84,21 @@ $(document).ready(function() {
       $(this).html("&#8211;");
     }
   });
+  $(".navbar-toggle").click(function(){
+    var height = $("#header").height() + "px";
+    if($(".navbar-items").width() == 0){
+      document.getElementById("nav-icon3").classList.add("open");
+      document.getElementById("side-nav").style.width = "200px";
+      document.getElementById("side-nav").style.top = height;
+      document.getElementsByTagName("main")[0].style.opacity = 0.5;
+      document.getElementsByTagName("footer")[0].style.opacity = 0.5;
+    }
+    else{
+      document.getElementById("nav-icon3").classList.remove("open");
+      document.getElementById("side-nav").style.width = "0";
+      document.getElementsByTagName("main")[0].style.opacity = 1;
+      document.getElementsByTagName("footer")[0].style.opacity = 1;
+    }
+  });
+
 });

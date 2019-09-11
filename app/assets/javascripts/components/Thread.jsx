@@ -52,7 +52,7 @@ class Thread extends React.Component {
         <a className="link-nodec" href={this.props.path[0]}>
           <div className={"thread-comp " + this.props.path[1]}>
             <div className="thread-comp-sub">{this.props.thread.subject}</div>
-            <div className="thread-comp-author">{this.props.author}</div>
+            <div className="thread-comp-author mobile-dismiss">{this.props.author}</div>
             <div className="thread-comp-recent">{this.time_ago(this.props.thread.updated_at)}</div>
             <div className="thread-comp-cc">{this.props.thread.comments_count}</div>
           </div>

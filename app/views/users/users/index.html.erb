@@ -6,7 +6,7 @@
         <tr>
           <th><%= sortable("username", "Username")%></th>
           <th><%= sortable("firstname", "Fullname")%></th>
-          <th><%= sortable("country", "Country")%></th>
+          <th class="mobile-dismiss"><%= sortable("country", "Country")%></th>
           <th><%= sortable("role", "Role")%></th>
           <th><%= sortable("created_at", "Account Created")%></th>
         </tr>
@@ -16,7 +16,7 @@
           <tr>
             <td><%= link_to user.username, user_path(user) %></td>
             <td><%= user.firstname + " " + user.lastname %></td>
-            <td><%= image_tag("/assets/flags/"+user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[user.country] %></td>
+            <td class="mobile-dismiss"><%= image_tag("/assets/flags/"+user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[user.country] %></td>
             <td><%= user.role %></td>
             <td><%= user.created_at.strftime("%B %d, %Y") %></td>
           </tr>

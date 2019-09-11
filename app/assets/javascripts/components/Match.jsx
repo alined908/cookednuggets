@@ -177,7 +177,7 @@ class Match extends React.Component {
             <div>{this.props.fullname}</div>
             <div>{this.props.teams[0].shortname}({this.props.teams[0].rating}) vs {this.props.teams[1].shortname}({this.props.teams[1].rating})</div>
           </div>
-          <div onMouseEnter={() => this.setState({opacity: 1})} onMouseLeave={() => this.setState({opacity: 0})} className="match-comp">
+          <div style={{borderLeft: "2px solid " + this.props.color}}onMouseEnter={() => this.setState({opacity: 1})} onMouseLeave={() => this.setState({opacity: 0})} className="match-comp">
             <div className="match-comp-time">
               <div className="match-event">{this.props.event}</div>
               <div dangerouslySetInnerHTML={{__html: this.checkLive(this.props.match.start)}}></div>

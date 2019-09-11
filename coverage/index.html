@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-09-04T18:21:39-07:00">2019-09-04T18:21:39-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-09-06T16:55:27-07:00">2019-09-06T16:55:27-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -1276,7 +1276,7 @@
         <li class="covered" data-hits="4" data-linenumber="10">
           <span class="hits">4</span>
           
-          <code class="ruby">    @completed = Official.limit(12).where(&quot;start &lt;= ?&quot;, DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)</code>
+          <code class="ruby">    @completed = Official.limit(12).where(&quot;start &lt; ?&quot;, DateTime.now - 3).order(start: :desc).includes(:team1, :team2, :event, :section)</code>
         </li>
       
         <li class="covered" data-hits="4" data-linenumber="11">
@@ -1324,7 +1324,7 @@
         <li class="covered" data-hits="4" data-linenumber="18">
           <span class="hits">4</span>
           
-          <code class="ruby">    @news_today, @news_tw, @news_pm = @all_news.where(&quot;created_at &gt; ?&quot;, 2.days.ago), @all_news.where(&quot;created_at &gt; ? AND created_at &lt; ?&quot;, 1.week.ago, 1.day.ago), @all_news.where(&quot;created_at &gt; ? AND created_at &lt; ?&quot;, 1.month.ago, 1.week.ago)</code>
+          <code class="ruby">    @news_today, @news_tw, @news_pm = @all_news.where(:created_at =&gt; Date.current - 1..Date.current), @all_news.where(:created_at =&gt; Date.current - 7..Date.current - 1), @all_news.where(:created_at =&gt; Date.current - 30..Date.current - 7)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
@@ -1432,7 +1432,7 @@
         <li class="covered" data-hits="128" data-linenumber="36">
           <span class="hits">128</span>
           
-          <code class="ruby">    @completed = Official.limit(7).where(&quot;start &lt; ?&quot;, DateTime.now).order(start: :desc).includes(:team1, :team2, :event, :section)</code>
+          <code class="ruby">    @completed = Official.limit(7).where(&quot;start &lt; ?&quot;, DateTime.now - 3).order(start: :desc).includes(:team1, :team2, :event, :section)</code>
         </li>
       
         <li class="covered" data-hits="128" data-linenumber="37">

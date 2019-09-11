@@ -24,9 +24,9 @@
       <div class="admin-actions">
         <div>
           <%= link_to 'Delete Thread', thread_path(@forum_thread), method: :delete, data: { confirm: 'Are you sure?' } %>
-          <%= link_to 'Edit Thread', 'javascript:;', id: "edit-thread" %>
+          <%= link_to 'Edit Thread', 'javascript:;', class: "admin-panel 1" %>
         </div>
-        <div id="admin-action-edit" class="admin-form">
+        <div id="panel-1" class="admin-form hidden">
           <%= form_for(@forum_thread, url: thread_path(@forum_thread), method: :patch) do |f| %>
             <div class='fields'>
               <div>

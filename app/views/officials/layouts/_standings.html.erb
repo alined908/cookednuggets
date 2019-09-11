@@ -7,9 +7,9 @@
         <th scope="col">Team</th>
         <th class="left-align" scope="col">W</th>
         <th class="left-align" scope="col">L</th>
-        <th class="left-align" scope="col">MP</th>
-        <th class="left-align" scope="col">Map W-L-D</th>
-        <th class="left-align" scope="col">Diff</th>
+        <th class="left-align mobile-dismiss" scope="col">MP</th>
+        <th class="left-align" scope="col">Maps</th>
+        <th class="left-align mobile-dismiss" scope="col">Diff</th>
       </tr>
   </thead>
   <tbody>
@@ -22,10 +22,10 @@
         </td>
         <td><%= @standings[team.name][:match][0]%></td>
         <td><%= @standings[team.name][:match][1]%></td>
-        <td><%= @standings[team.name][:match][0] + @standings[team.name][:match][1] %></td>
+        <td class="mobile-dismiss"><%= @standings[team.name][:match][0] + @standings[team.name][:match][1] %></td>
         <td><%= @standings[team.name][:map][0]%>-<%=@standings[team.name][:map][1]%>-<%=@standings[team.name][:map][2]%></td>
         <% diff = @standings[team.name][:map][0] - @standings[team.name][:map][1] %>
-        <td class="<%=map_diff(diff)%>"><%=diff%></td>
+        <td class="<%=map_diff(diff)%> mobile-dismiss"><%=diff%></td>
       </tr>
     <% end %>
   </tbody>

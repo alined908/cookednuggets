@@ -54,7 +54,7 @@
     </div>
   <% end %>
 </div>
-<div class="column-4">
+<div class="column-4 mobile-visible">
   <% if @players.empty? %>
     <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
   <% else %>
