@@ -14,11 +14,11 @@
  @import "bootstrap";
 
  $background: #dadadc;
- $body-width: 1100px;
  $hover-color: rgb(240, 240, 240);
  $info-heavy-width: 90%;
  $header-width: 75%;
- $body-margin: 150px;
+ $body-margin: 10vw;
+ $body-width: 100vw - 2*$body-margin;
  $link-color: rgb(13, 120, 165);
 
  html {
@@ -309,6 +309,7 @@ p{
 }
 
 .hoverable {
+  display: none;
   position: absolute;
   left: 220px;
   top: 0;
@@ -1773,40 +1774,66 @@ p{
   }
 }
 
-/*
-  Mobile
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-*/
-
-@media (min-width: 320px) and (max-width: 480px) {
-
-  $body-width: 100vw;
-
-  html,body{
-    height: 100%;
-    width: 100%;
+@media (min-width: 1500px) {
+  $columns: 15vw;
+  .columns{
+    .column-1, .column-4, .column-3{
+      flex: 0 0 $columns !important;
+      max-width: $columns !important;
+    }
   }
-  body{
-    overflow-x: hidden;
-    .main-content{
-      width: 100%;
+  .featured-article-wrapper .featured-article {
+    height: 300px;
+  }
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1350px) {
+  $body-margin: 5vw;
+  $body-width: 100vw - 2*$body-margin;
+  header{
+    .header-wrapper{
+      width: $body-width;
+      margin: 0 $body-margin;
+    }
+  }
+  .landing-page-wrapper{
+    .landing-page{
+      margin: 0 $body-margin;
+      width: $body-width;
     }
   }
   footer{
-    padding: 0;
-  }
-  .mobile-dismiss, .hoverable{
-    display: none
+    padding: 0 $body-margin;
+    .footer-material{
+      max-width: $body-width;
+    }
   }
   .mobile-visible{
     display: block !important;
   }
-  .table{
-    thead, tbody{
-      font-size: 11px;
+
+  .columns{
+    .column-1, .column-3, .column-4{
+      flex: 0 0 200px !important;
+      max-width: 200px !important;
+    }
+    .column-2{
+      margin-right: 1rem !important;
+    }
+    .column-3{
+      margin-left: 0 !important;
+    }
+    .column-4{
+      display: none;
     }
   }
+}
 
+@media (max-width: 1024px) {
   header{
     display: flex;
     min-height: 47.5px;
@@ -1930,10 +1957,184 @@ p{
     }
   }
 
+}
+
+/*
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  $body-margin: 0;
+  $body-width: 100vw;
+  header{
+    .header-wrapper{
+      width: $body-width;
+      margin: 0 $body-margin;
+    }
+  }
+  .landing-page-wrapper{
+    .landing-page{
+      margin: 0 $body-margin;
+      width: $body-width;
+    }
+  }
+  footer{
+    padding: 0;
+    .footer-material{
+      width: $body-width;
+      max-width: $body-width;
+    }
+  }
+  .hoverable{
+    display: none;
+  }
+  .mobile-visible{
+    display: block !important;
+  }
+
+  .columns{
+    .column-1, .column-3, .column-4{
+      flex: 0 0 170px !important;
+      max-width: 170px !important;
+      margin-left: 1rem !important;
+    }
+    .column-1{
+      display: none;
+    }
+    .column-2{
+      margin-right: 1rem !important;
+    }
+    .column-3{
+      margin-left: 0 !important;
+    }
+
+    .column-4{
+      display: none;
+      margin-left: 1rem !important;
+      margin-right: 1rem !important;
+    }
+  }
+
   .landing-page-wrapper{
     .landing-page{
       margin: 0;
       width: $body-width;
+    }
+  }
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 501px) and (max-width: 767px) {
+  $body-margin: 0;
+  $body-width: 100vw - 2*$body-margin;
+  $left-columns: 30vw;
+
+  header{
+    .header-wrapper{
+      width: $body-width;
+      margin: 0 $body-margin;
+    }
+  }
+  .mobile-visible{
+    display: block !important;
+  }
+  .landing-page-wrapper{
+    .landing-page{
+      margin: 0 $body-margin;
+      width: $body-width;
+      .columns{
+        flex-wrap: wrap;
+        .column-1, .column-4{
+          flex: 0 0 $left-columns !important;
+          max-width: $left-columns !important;
+          margin-left: 1rem !important;
+        }
+        .column-1 {
+          order: 1;
+        }
+        .column-2{
+          order: 2;
+        }
+        .column-3{
+          margin-left: 0 !important;
+          order: 4;
+        }
+        .column-4{
+          order: 3;
+          display: none;
+        }
+        .column-2, .column-3{
+          flex: 0 0 92vw-$left-columns !important;
+          max-width: 92vw-$left-columns !important;
+        }
+      }
+    }
+  }
+  footer{
+    padding: 0;
+    .footer-material{
+      width: $body-width;
+      max-width: $body-width;
+    }
+  }
+  .hoverable{
+    display: none;
+  }
+
+}
+
+/*
+  Mobile
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+*/
+
+@media (min-width: 200px) and (max-width: 500px) {
+
+  $body-margin: 0;
+  $body-width: 100vw;
+
+  html,body{
+    height: 100%;
+    width: 100%;
+  }
+  body{
+    overflow-x: hidden;
+    .main-content{
+      width: 100%;
+    }
+  }
+  header{
+    .header-wrapper{
+      width: $body-width;
+      margin: 0 $body-margin;
+    }
+  }
+  .landing-page-wrapper{
+    .landing-page{
+      margin: 0 $body-margin;
+      width: $body-width;
+    }
+  }
+  footer{
+    padding: 0;
+    .footer-material{
+      width: $body-width;
+      max-width: $body-width;
+    }
+  }
+  .mobile-dismiss, .hoverable{
+    display: none
+  }
+  .mobile-visible{
+    display: block !important;
+  }
+  .table{
+    thead, tbody{
+      font-size: 11px;
     }
   }
 
@@ -1998,6 +2199,9 @@ p{
     span:first-of-type{
       margin-right: 5px;
     }
+  }
+  .map-scoreboard{
+    font-size: 30px !important;
   }
   .match-header-scoreboard{
     padding: 1.5rem 0 !important;
