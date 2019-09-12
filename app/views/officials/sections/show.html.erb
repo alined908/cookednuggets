@@ -1,0 +1,92 @@
+<div class="column-2 event-wrapper">
+  <div class="descriptor">Event</div>
+  <%= react_component("Event", {event: @event, compact: false}) %>
+  <div class="descriptor">Sections</div>
+  <%= render "officials/layouts/sections", :event => @event %>
+  <%= render "officials/layouts/teams", :teams => @teams %>
+  <%= render "officials/layouts/standings", :teams => @teams, :standings => @standings %>
+  <div class="descriptor">Schedule</div>
+  <div class="shadow-sm section-schedule">
+    <% @officials.each do |match| %>
+      <%= react_component("Match", {color: @event.color, match: match, compact: false, teams: [match.team1, match.team2]}, {:style => "margin: 1px 0;"}) %>
+    <% end %>
+  </div>
+  <% if policy(@section).admin? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Edit Section', 'javascript:;', class: "admin-panel 1" %>
+      <%= link_to 'Delete Section', event_section_path(@event, @section), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= link_to 'Add Match', 'javascript:;', class: "admin-panel 2" %>
+    </div>
+    <div id="panel-1" class="admin-form hidden">
+      <%= form_for(@section, url: event_section_path(@event, @section), method: :patch) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Section Name</div>
+            <%= f.text_field :name %>
+          </div>
+          <div>
+            <div class="descriptor">Start Date</div>
+            <%= f.date_field :start %>
+          </div>
+          <div>
+            <div class="descriptor">End Date</div>
+            <%= f.date_field :end %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="panel-2" class="admin-form hidden">
+      <%= form_for(@match, url: matches_path) do |f| %>
+      <div class='fields split'>
+        <div>
+          <div class="descriptor">Team 1</div>
+          <%= f.select :team1_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+        </div>
+        <div>
+          <div class="descriptor">Team 2</div>
+          <%= f.select :team2_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+        </div>
+        <div>
+          <div class="descriptor">Winner</div>
+          <%= f.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+        </div>
+        <div>
+          <div class="descriptor">Score</div>
+          <%= number_field_tag "score[]",  0 %>
+          <%= number_field_tag "score[]",  0 %>
+        </div>
+        <div>
+          <div class="descriptor">Match Type</div>
+          <%= f.text_field :match_type %>
+        </div>
+        <div>
+          <div class="descriptor">Map Count</div>
+          <%= f.number_field :map_count %>
+        </div>
+        <div>
+          <div class="descriptor">Start</div>
+          <%= f.datetime_field :start %>
+        </div>
+        <div>
+          <div class="descriptor">End</div>
+          <%= f.datetime_field :end %>
+        </div>
+        <div>
+          <div class="descriptor">Event</div>
+          <%= f.number_field :event_id, :value => @event.id, :readonly => true %>
+        </div>
+        <div>
+          <div class="descriptor">Section</div>
+          <%= f.number_field :section_id, :value => @section.id, :readonly => true %>
+        </div>
+        <%= f.submit "Submit" %>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

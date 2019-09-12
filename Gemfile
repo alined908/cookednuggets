@@ -11,12 +11,18 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # React rails
 gem 'react-rails'
-gem 'webpacker', '~> 3.2.2'
+gem 'webpacker', '~> 4.x'
 # Bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
+# Paginate
+gem 'will_paginate', '~> 3.1.0'
+#Text editor
+gem 'ckeditor'
+gem "mini_magick"
+gem 'carrierwave'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
@@ -48,6 +54,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use sqlite3 as the database for Active Record
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  gem 'guard'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_bot_rails'

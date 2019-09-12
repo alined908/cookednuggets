@@ -1,0 +1,33 @@
+<div class="descriptor">Standings</div>
+<div class="shadow-sm standings">
+  <table class="table">
+    <thead class="standings-header">
+      <tr>
+        <th class="left-align" scope="col">#</th>
+        <th scope="col">Team</th>
+        <th class="left-align" scope="col">W</th>
+        <th class="left-align" scope="col">L</th>
+        <th class="left-align mobile-dismiss" scope="col">MP</th>
+        <th class="left-align" scope="col">Maps</th>
+        <th class="left-align mobile-dismiss" scope="col">Diff</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @teams.each_with_index do |team, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td>
+          <%= image_tag(team.pic, class: "standings-team-logo")%>
+          <%= link_to team.name, team_path(team) %>
+        </td>
+        <td><%= @standings[team.name][:match][0]%></td>
+        <td><%= @standings[team.name][:match][1]%></td>
+        <td class="mobile-dismiss"><%= @standings[team.name][:match][0] + @standings[team.name][:match][1] %></td>
+        <td><%= @standings[team.name][:map][0]%>-<%=@standings[team.name][:map][1]%>-<%=@standings[team.name][:map][2]%></td>
+        <% diff = @standings[team.name][:map][0] - @standings[team.name][:map][1] %>
+        <td class="<%=map_diff(diff)%> mobile-dismiss"><%=diff%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+</div>

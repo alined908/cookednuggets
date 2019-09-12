@@ -1,0 +1,275 @@
+<div class="column-2 match-page">
+  <div class="descriptor">Match Summary</div>
+  <div class="shadow-sm match-header" style="border-top: 2px solid <%=@event.color%>">
+    <div class="match-header-info">
+      <div class="match-header-event">
+        <div><%= link_to @event.name, event_path(@event), class: "link-nodec color"%></div>
+        <div><%= @section.name %>: <%= @match.match_type.capitalize %></div>
+      </div>
+      <div class="match-header-date">
+        <div><%= @match.start.strftime("%A, %B %d") %></div>
+        <div><%= @match.start.localtime.strftime("%I:%M %p %Z")%></div>
+      </div>
+    </div>
+    <div class="match-header-scoreboard">
+      <%= link_to team_path(@teams[0]), class: "link-nodec color" do %>
+        <div class="match-header-teams">
+          <div><%= @teams[0].name %></div>
+          <div><%= image_tag(@teams[0].pic, class: 'team-img-lg') if @teams[0].pic.attached?%></div>
+        </div>
+      <% end %>
+      <div class="match-header-score">
+        <div class="score-entrys">
+          <span class="score-entry"><%= @match.score[0]%></span>
+          <span class="score-entry"><%= @match.score[1]%></span>
+        </div>
+        <div>BO<%= @maps.size %></div>
+      </div>
+      <%= link_to team_path(@teams[1]), class: "link-nodec color" do %>
+        <div class="match-header-teams">
+          <div><%= image_tag(@teams[1].pic, class: 'team-img-lg') if @teams[1].pic.attached?%></div>
+          <div><%= @teams[1].name %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="descriptor">Maps</div>
+  <%= react_component("matchMaps", {maps_json: @maps_json, teams: @teams}) %>
+
+  <div class="descriptor">Head to Head</div>
+  <div class='shadow-sm match-head-to-head'>
+    <div class="head-to-head-teams">
+      <%= link_to team_path(@teams[0]), class: "link-nodec" do %>
+        <div>
+          <%= image_tag(@teams[0].pic, class: 'team-img-md') if @teams[0].pic.attached?%>
+          <%= @teams[0].name %>
+        </div>
+      <% end %>
+      <%= link_to team_path(@teams[1]), class: "link-nodec" do %>
+        <div>
+          <%= @teams[1].name %>
+          <%= image_tag(@teams[1].pic, class: 'team-img-md') if @teams[1].pic.attached?%>
+        </div>
+      <% end %>
+    </div>
+    <div class="match-h2hs">
+      <% if @h2hs.empty? %>
+        <div style="text-align: center; padding: 1rem 0;">No previous encounters.</div>
+      <% end %>
+      <% @h2hs.each do |h2h|%>
+        <%= link_to match_path(h2h), class: "link-nodec" do%>
+          <div class="match-h2h">
+            <div class="match-h2h-event">
+              <div><%= image_tag("events/" + h2h.section.event.name.split(" ")[0,2].join("-")+ ".png",class:"event-logo")%></div>
+              <div class="match-h2h-event-name"><%= h2h.section.event.name %>: <%= h2h.section.name %></div>
+            </div>
+            <div class="match-h2h-teams">
+              <div class="checkmark">
+                <% if h2h.score[0] > h2h.score[1] %>
+                  <%= image_tag("misc/check-mark-3-32", class: 'check')%>
+                <% end %>
+              </div>
+              <div>
+                <%= image_tag(h2h.team1.pic, class: 'team-logo') if h2h.team1.pic.attached?%>
+              </div>
+              <div class="score-entrys">
+                <span class="score-entry"><%= h2h.score[0]%></span>
+                <span class="score-entry"><%= h2h.score[1]%></span>
+              </div>
+              <div>
+                <%= image_tag(h2h.team2.pic, class: 'team-logo') if h2h.team2.pic.attached?%>
+              </div>
+              <div class="checkmark">
+                <% if h2h.score[0] < h2h.score[1] %>
+                  <%= image_tag("misc/check-mark-3-32", class: 'check')%>
+                <% end %>
+              </div>
+            </div>
+            <div class="match-h2h-date">
+              <%=h2h.start.strftime("%m/%d/%Y")%>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="descriptor">Recent Matches</div>
+  <div class="match-recent-matches">
+    <% @recents.each_with_index do |team, index| %>
+      <div class="shadow-sm match-recent-team">
+        <% team.each do |match|%>
+          <%= link_to match_path(match), class: 'link-nodec' do %>
+            <div class="match-recent-entry <%= match.team1.id == match.winner_id ? 'match-win': 'match-lose'%>">
+              <div class="match-recent-entry-score">
+                <span class="score-entry"><%= match.score[0]%></span>
+                <span class="score-entry"><%= match.score[1]%></span>
+              </div>
+              <div class="match-recent-entry-opp">
+                <div><em>vs</em></div>
+                <div>
+                  <%=image_tag(match.team2.pic, class: 'team-logo') if match.team2.pic.attached?%>
+                </div>
+                <div><%= match.team2.name %></div>
+              </div>
+              <div class="match-recent-entry-date"><%= match.start.strftime("%m/%d/%Y")%></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="descriptor">Comments</div>
+  <%= render(partial: 'forums/forum_posts/post', collection: @match.forum_posts.includes(:user)) %>
+
+  <div class="post-reply bottom-reply">
+    <% if user_signed_in? %>
+      <div class="post-reply-topbar"></div>
+      <%= form_for(@forum_post, url: match_posts_path(@match)) do |f| %>
+        <%= f.cktext_area :body, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, class: "ckeditor"%>
+        <%= f.submit "Submit Post", class: "submit-post-button" %>
+      <% end %>
+    <% else %>
+      Login or register to add your comment to the discussion.
+    <% end %>
+  </div>
+  <% if policy(@section).admin? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Edit Match', 'javascript:;', class: "admin-panel 1" %>
+      <%= link_to 'Delete Match', match_path(@match), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <%= link_to 'Edit Maps', 'javascript:;', class: "admin-panel 2" %>
+      <%= link_to 'Add Map', 'javascript:;', class: "admin-panel 3" %>
+    </div>
+    <div id="panel-1" class="admin-form hidden">
+      <%= form_for(@match, url: match_path(@match)) do |f| %>
+        <div class='fields split'>
+          <div>
+            <div class="descriptor">Team 1</div>
+            <%= f.select :team1_id, options_from_collection_for_select(@teams, 'id', 'name', @teams[0].id), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Team 2</div>
+            <%= f.select :team2_id, options_from_collection_for_select(@teams, 'id', 'name', @teams[1].id), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Winner</div>
+            <%= f.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Score</div>
+            <%= number_field_tag "score[]",  0 %>
+            <%= number_field_tag "score[]",  0 %>
+          </div>
+          <div>
+            <div class="descriptor">Match Type</div>
+            <%= f.text_field :match_type %>
+          </div>
+          <div>
+            <div class="descriptor">Map Count</div>
+            <%= f.number_field :map_count %>
+          </div>
+          <div>
+            <div class="descriptor">Start</div>
+            <%= f.datetime_field :start %>
+          </div>
+          <div>
+            <div class="descriptor">End</div>
+            <%= f.datetime_field :end %>
+          </div>
+          <div>
+            <div class="descriptor">Event</div>
+            <%= f.number_field :event_id, :value => @event.id, :readonly => true %>
+          </div>
+          <div>
+            <div class="descriptor">Section</div>
+            <%= f.number_field :section_id, :value => @section.id, :readonly => true %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="panel-2" class="admin-form hidden">
+      <div class="fields">
+        <div class="form-maps">
+          <% @match.maps.each_with_index do |map, index| %>
+            <div class="form-map">
+              <div class="form-map-actions">
+                <div class='form-map-num descriptor'><%= "Map #{index + 1}"%></div>
+                <%= link_to "Delete" , match_map_path(@match, map), method: :delete, data: {confirm: 'Are you sure?'}%>
+              </div>
+              <div class="form-map-form">
+                <%= form_for(map, url: match_map_path(@match, map)) do |a| %>
+                  <div>
+                    <div class="descriptor">Map Winner</div>
+                    <%= a.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name', map.winner_id), :required => true, prompt: "" %>
+                  </div>
+                  <div>
+                    <div class="descriptor">Score</div>
+                    <div>
+                      <%=@teams[0].name%><%= number_field_tag "score[]",  map.score.to_a[0] %>
+                      <%=@teams[1].name%><%= number_field_tag "score[]",  map.score.to_a[1] %>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="descriptor">Name</div>
+                    <%= a.text_field :name, value: map.name %>
+                  </div>
+                  <div>
+                    <div class="descriptor">State</div>
+                    <%= a.select :state, options_for_select(['finished', 'unfinished'], map.state), :required => true %>
+                  </div>
+                  <div>
+                    <div class="descriptor">Players</div>
+                    <%= a.fields_for :performances do |aa| %>
+                      <%=@teams[0].name%>
+                      <% map.team1_perfs.includes(:player).each do |perf| %>
+                        <%= select_tag 'players[]', options_from_collection_for_select(@teams[0].players, 'id', 'handle', perf.player_id) %>
+                      <% end %>
+                      <%=@teams[1].name%>
+                      <% map.team2_perfs.includes(:player).each do |perf| %>
+                        <%= select_tag 'players[]', options_from_collection_for_select(@teams[1].players, 'id', 'handle', perf.player_id) %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <%= a.submit "Submit"%>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div id="panel-3" class="admin-form hidden">
+      <div class="fields">
+        <div class="descriptor">Add a Map</div>
+        <%= form_for(Map.new, url: match_maps_path(@match)) do |f| %>
+          <%= f.hidden_field :official_id, :value => @match.id %>
+          <div>
+            <div class="descriptor">Winner</div>
+            <%= f.select :winner_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Score</div>
+            <div><%=@teams[0].name%><%= number_field_tag "score[]",  0 %>
+              <%= @teams[1].name%><%= number_field_tag "score[]",  0 %></div>
+          </div>
+          <div>
+            <div class="descriptor">Name</div>
+            <%= f.text_field :name, placeholder: "ex. Rialto" %>
+          </div>
+          <div>
+            <div class="descriptor">State</div>
+            <%= f.select :state, options_for_select(['finished', 'unfinished'], "unfinished"), :required => true %>
+          </div>
+          <%= f.submit "Submit" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

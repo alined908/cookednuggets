@@ -9,12 +9,12 @@ RSpec.describe ForumThread, :type => :model do
     expect(@forum_thread1).to be_valid
   end
 
-  it "has a subject" do
+  it "is not valid without subject" do
     forum_thread2 = build(:forum_thread, subject: "")
     expect(forum_thread2).to_not be_valid
   end
 
-  it "has a description" do
+  it "is not valid without a description" do
     forum_thread2 = build(:forum_thread, description: "")
     expect(forum_thread2).to_not be_valid
   end

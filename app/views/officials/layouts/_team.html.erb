@@ -1,0 +1,10 @@
+<div class="team-selector">
+  <% if default == true %>
+    <%= select_tag 'teams[]', options_for_select(teams, name), {:required => true} %>
+  <% else %>
+    <%= select_tag 'teams[]', options_from_collection_for_select(teams, 'id', 'name'), {:include_blank => true, :required => true} %>
+  <% end %>
+  <% if locked_in == false %>
+    <%= link_to 'Remove Team', 'javascript:;', class: "remove-team" %>
+  <% end %>
+</div>

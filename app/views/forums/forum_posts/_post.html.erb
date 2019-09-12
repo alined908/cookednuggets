@@ -1,5 +1,42 @@
 <div class="parent-post">
-  <%= react_component("Post", {post: post, time: get_time_ago(post.created_at), owner: post.user == current_user,
-    user: post.user.username.capitalize, authenticity_token: form_authenticity_token, signed_in: user_signed_in?}) %>
-  <%= render partial: 'forums/forum_posts/post', collection: post.forum_posts %>
+  <div class="forum-post-wrapper">
+    <div class="forum-post">
+      <div class="post-header">
+        <div class="post-info">
+          <div class="post-collapsable">&#8211;</div>
+          <% if post.user.nil? %>
+            User Deleted
+          <% else %>
+            <%= image_tag("/assets/flags/" + post.user.country, class: "flag-logo")%>
+            <%=post.user.username%>
+          <% end %>
+        </div>
+        <div class="post-vote" id="post_<%= post.id %>_votes">
+          <%= render 'layouts/votes', :post => post%>
+        </div>
+      </div>
+      <div class="post-body">
+        <%= sanitize post.body %>
+        <%= render "layouts/form", :type => "edit", :post => post, :forum_post => ForumPost.new, :content => post.body %>
+      </div>
+      <div class="post-footer">
+        <div class="post-timestamp">posted <%= get_time_ago(post.created_at) %> ago</div>
+        <div class="post-footer-actions">
+          <% if policy(post).destroy? %>
+            <div class='delete-button'>
+              <%= link_to "delete", find_post_route?(post), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
+          <% if policy(post).update? %>
+            <div class='edit-button <%=post.id.to_s%>'>edit</div>
+          <% end %>
+          <% if user_signed_in? %>
+            <div class='reply-button <%=post.id.to_s%>'>reply</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= render "layouts/form", :type => "reply", :post => post, :forum_post => ForumPost.new %>
+  </div>
+  <%= render partial: 'forums/forum_posts/post', collection: post.forum_posts.includes(:user) %>
 </div>

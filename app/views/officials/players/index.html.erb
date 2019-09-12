@@ -1,0 +1,92 @@
+<div class="column-2">
+  <div class="descriptor">Players</div>
+  <div class="rankings-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="left-align"><%= sortable("LOWER(handle)", "Player")%></th>
+          <th class="left-align"><%= sortable("teams.name","Current Team")%></th>
+          <th><%= sortable("roles", "Role")%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @players.includes(avatar_attachment: :blob).each do |player| %>
+          <tr>
+            <td class="indent-td left-align"><%= image_tag(player.avatar, class: "team-img-sm") %><%=link_to player.handle, player_path(player)%></td>
+            <% team = player.team %>
+            <td class="indent-td left-align"><%= image_tag(team.logo, class: "team-img-sm") %><%= link_to team.name, team_path(team) %></td>
+            <td><%=player.roles%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @players %>
+    </div>
+    <%= will_paginate @players, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
+
+  <% if policy(Player).create? %>
+    <div class="descriptor">Admin Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Create Player', 'javascript:;', class: "admin-panel 1" %>
+    </div>
+    <div id="panel-1" class="admin-form hidden">
+      <%= form_for(@player, url: players_path) do |f| %>
+        <div class='fields split'>
+          <div>
+            <div class="descriptor">English Name</div>
+            <%= f.text_field :eng_name %>
+          </div>
+          <div>
+            <div class="descriptor">Naturalized Name</div>
+            <%= f.text_field :nat_name %>
+          </div>
+          <div>
+            <div class="descriptor">Nicknames</div>
+            <%= f.text_field :nicknames %>
+          </div>
+          <div>
+            <div class="descriptor">Handle</div>
+            <%= f.text_field :handle %>
+          </div>
+          <div>
+            <div class="descriptor">Country</div>
+            <%= f.select :country, options_for_select(COUNTRIES, COUNTRIES['United Nations']), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Social Media</div>
+            <%= f.fields_for :socials do |ff| %>
+              Discord: <%= ff.text_field :DISCORD %>
+              Facebook: <%= ff.text_field :FACEBOOK %>
+              Instagram: <%= ff.text_field :INSTAGRAM %>
+              Twitter: <%= ff.text_field :TWITTER %>
+              Twitch: <%= ff.text_field :TWITCH %>
+              Youtube: <%= ff.text_field :YOUTUBE_CHANNEL %>
+            <% end %>
+          </div>
+          <div>
+            <div class="descriptor">Roles</div>
+            <%= f.text_field :roles %>
+          </div>
+          <div>
+            <div class="descriptor">Team</div>
+            <%= f.select :team_id, options_from_collection_for_select(@teams, 'id', 'name'), :required => true, prompt: "" %>
+          </div>
+          <div>
+            <div class="descriptor">Headshot</div>
+            <div class="edit-avatar">
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

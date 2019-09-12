@@ -1,39 +1,58 @@
-<div class="jumbotron shadow">
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="column-2">
+  <div class="descriptor">Edit User</div>
+  <div class="admin-form shadow-sm">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="fields split">
+        <div>
+          <div class="descriptor">First Name</div>
+          <%= f.text_field :firstname %>
+        </div>
+        <div>
+          <div class="descriptor">Last Name</div>
+          <%= f.text_field :lastname%>
+        </div>
+        <div>
+          <div class="descriptor">Email</div>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+        <div>
+          <div class="descriptor">Current Password</div>
+          <%= f.password_field :current_password %>
+        </div>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <div class="form-group">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-    </div>
+        <div>
+          <div class="descriptor">New Password</div>
+          <%= f.password_field :password, placeholder: @minimum_password_length.to_s + " characters min", autocomplete: "new-password"%>
+        </div>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <div>
+          <div class="descriptor">Confirm Password</div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+        <div>
+          <div class="descriptor">Avatar</div>
+          <div class="edit-avatar">
+            <div class="avatar"><%=image_tag(current_user.avatar) if current_user.avatar.attached?%></div>
+            <div><%=current_user.avatar.filename if current_user.avatar.attached?%></div>
+            <div><%= f.file_field :avatar%></div>
+          </div>
+        </div>
+        <div>
+          <div class="descriptor">Country</div>
+          <%= f.select :country, options_for_select(COUNTRIES.keys, COUNTRIES.invert[resource.country]) %>
+        </div>
+        <%= f.submit "Update"%>
+      </div>
     <% end %>
-
-    <div class="form-group">
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+    <div class="extra-actions">
+      <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
     </div>
-
-    <div class="form-group">
-      <%= f.label :password, 'New Password' %>
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :password_confirmation, 'Confirm New Password' %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-    </div>
-
-    <%= f.submit "Update", class: "btn btn-info" %>
-  <% end %>
+  </div>
 </div>
-
-<div class="jumbotron shadow">
-  <h2>Delete Account</h2>
-  <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+<div class="column-4 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

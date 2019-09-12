@@ -1,0 +1,82 @@
+<div class="column-2">
+  <div class="descriptor">
+    <%= link_to "Forums", threads_path %> >
+    <%= link_to "News", threads_path(:f => "news")%> >
+    <span><%=@news.subject%></span>
+  </div>
+  <div class="news-article">
+    <div class="article-title">
+      <%=@news.subject%>
+    </div>
+    <div class="article-stuff">
+      <div class="article-headshot">
+      </div>
+      <div class="article-info">
+        <div class="article-author">
+          <% if @news.user.nil? %>
+            <div class="avatar"></div>
+            <div>User Deleted</div>
+          <% else %>
+            <div class="avatar"><%=image_tag(@news.user.avatar) if @news.user.avatar.attached?%></div>
+            <div><%=@news.user.username.capitalize%></div>
+          <% end %>
+        </div>
+        <div class="article-date">Posted <%=time_ago_in_words(@news.created_at) + " ago"%></div>
+      </div>
+    </div>
+    <div class="article-body">
+      <%= sanitize @news.article %>
+    </div>
+  </div>
+
+  <div class="descriptor">Comments</div>
+  <%= render(partial: 'forums/forum_posts/post', collection: @news.forum_posts.includes(:user)) %>
+  <div class="post-reply bottom-reply">
+    <% if user_signed_in? %>
+      <%= form_for(@post, url: news_posts_path(@news)) do |f| %>
+        <%= f.cktext_area :body, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, class: "ckeditor"%>
+        <%= f.submit "Submit Post", class: "submit-post-button" %>
+      <% end %>
+    <% else %>
+      Login or register to add your comment to the discussion.
+    <% end %>
+  </div>
+  <% if policy(@news).destroy? %>
+    <div class="descriptor">Moderator Actions</div>
+    <div class="admin-actions">
+      <%= link_to 'Delete Article', news_path(@news), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Edit Article', 'javascript:;', class: "admin-panel 1" %>
+    </div>
+    <div id="panel-1" class="admin-form hidden">
+      <%= form_for(@news, url: news_path(@news), method: :patch) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Title</div>
+            <%= f.text_field :subject, :value => @news.subject %>
+          </div>
+          <div>
+            <div class="descriptor">Content</div>
+            <%= f.cktext_area :article, value: @news.article, ckeditor: {height: 300, toolbarCanCollapse: true}%>
+          </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div class="avatar"><%= image_tag(@news.avatar) if @news.avatar.attached?%></div>
+              <div><%=@news.avatar.filename if @news.avatar.attached?%></div>
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
+          <div>
+              <div class="descriptor">Featured</div>
+              <%= f.check_box :featured, :value => @news.featured %>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

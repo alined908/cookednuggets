@@ -1,0 +1,12 @@
+<div class="descriptor">Upcoming Matches</div>
+<div class="upcoming-matches shadow-sm">
+  <% @upcoming.each do |match| %>
+    <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true, event: match.event.shortname + " - " + match.section.name, fullname: match.event.name + " - " + match.section.name, color: match.event.color, time: match.start.strftime("%b %d - %I:%M %p %Z")})%>
+  <% end %>
+</div>
+<div class="descriptor">Completed Matches</div>
+<div class="completed-matches shadow-sm">
+  <% @completed.each do |match| %>
+    <%= react_component("Match", {match: match, teams: [match.team1, match.team2], compact: true, event: match.event.shortname + " - " + match.section.name, fullname: match.event.name + " - " + match.section.name, color: match.event.color ,time: match.start.strftime("%b %d - %I:%M %p %Z")}) %>
+  <% end %>
+</div>

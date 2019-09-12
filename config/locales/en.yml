@@ -31,3 +31,19 @@
 
 en:
   hello: "Hello world"
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "No entries"
+        one:   "1 entry"
+        other: "1 - %{count} of %{count} entries"
+      single_page_html:
+        zero:  "No entries"
+        one:   "1 entry"
+        other: "1&nbsp;-&nbsp;%{count} of %{count} entries"
+
+      multi_page: "%{from} - %{to} of %{count} entries"
+      multi_page_html: "%{from}&nbsp;-&nbsp;%{to} of %{count} entries"

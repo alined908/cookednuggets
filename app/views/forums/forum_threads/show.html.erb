@@ -1,15 +1,50 @@
-<%= react_component("Thread", {timestamp: get_time_ago(@forum_thread.created_at), thread: @forum_thread, info: @thread_info, compact: false}) %>
-<hr>
-<%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts.includes(:user, :forum_posts)) %>
-<hr>
-<div class="post-reply bottom-reply">
-  <% if user_signed_in? %>
-    <div class="post-reply-topbar"></div>
-    <%= form_for(ForumPost.new, url: forum_thread_forum_posts_path(@forum_thread)) do |f| %>
-      <%= f.text_area :body, placeholder: "Add a comment", rows: 4, class: "reply-form" %>
-      <%= f.submit "Submit Post", class: "submit-post-button" %>
+<div class="column-2">
+  <div class="thread">
+    <div class="descriptor">
+      <%= link_to "Forums", threads_path %> >
+      <%= link_to "Discussions", threads_path(:f => "threads")%> >
+      <span><%=@forum_thread.subject%></span>
+    </div>
+    <%= react_component("Thread", {timestamp: get_time_ago(@forum_thread.created_at), thread: @forum_thread, user: @forum_thread.user, compact: false}) %>
+    <div class="descriptor">Comments</div>
+    <%= render(partial: 'forums/forum_posts/post', collection: @forum_thread.forum_posts.includes(:user)) %>
+    <hr>
+    <div class="post-reply bottom-reply">
+      <% if user_signed_in? %>
+        <%= form_for(ForumPost.new, url: thread_posts_path(@forum_thread)) do |f| %>
+          <%= f.cktext_area :body, ckeditor: {toolbar: "mini", height: 200, toolbarCanCollapse: true}, class: "ckeditor"%>
+          <%= f.submit "Submit Post", class: "submit-post-button" %>
+        <% end %>
+      <% else %>
+        Login or register to add your comment to the discussion.
+      <% end %>
+    </div>
+    <% if policy(@forum_thread).destroy? %>
+      <div class="descriptor">Moderator Actions</div>
+      <div class="admin-actions">
+        <div>
+          <%= link_to 'Delete Thread', thread_path(@forum_thread), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Edit Thread', 'javascript:;', class: "admin-panel 1" %>
+        </div>
+        <div id="panel-1" class="admin-form hidden">
+          <%= form_for(@forum_thread, url: thread_path(@forum_thread), method: :patch) do |f| %>
+            <div class='fields'>
+              <div>
+                <div class="descriptor">Title</div>
+                <%= f.text_field :subject, :value => @forum_thread.subject %>
+              </div>
+              <div>
+                <div class="descriptor">Content</div>
+                <%= f.cktext_area :description, value: @forum_thread.description, ckeditor: {toolbar: "mini", height: 300, toolbarCanCollapse: true}%>
+              </div>
+              <%= f.submit "Submit" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  <% else %>
-    Login or register to add your comment to the discussion.
-  <% end %>
+  </div>
+</div>
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

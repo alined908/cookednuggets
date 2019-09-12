@@ -1,0 +1,18 @@
+<div class="shadow-sm skinny">
+  <div class="event-stages">
+    <%= link_to event_path(@event), class: "link" do %>
+    <div class="event-stages-entry">
+      <div class="event-stages-dates"><%= @event.start_date.strftime("%b %d") + " - " + @event.end_date.strftime("%b %d")%></div>
+      <div class="event-stages-name">Overview</div>
+    </div>
+    <% end %>
+    <% @event.sections.order(start: :asc).each do |stage| %>
+      <%= link_to event_section_path(@event, stage), class: "link" do %>
+        <div class="event-stages-entry">
+          <div class="event-stages-dates"><%= stage.start.strftime("%b %d") + " - " + stage.end.strftime("%b %d")%></div>
+          <div class="event-stages-name"><%=stage.name%></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,7 +1,87 @@
-<div class="jumbotron shadow">
-  Welcome to the home page.
+<div class="column-2">
+  <% unless @featured.nil? %>
+    <div class="descriptor">News</div>
+    <div class="featured-article-wrapper shadow-sm">
+      <%= link_to news_path(@featured), class:'link-nodec' do %>
+        <div class="featured-article">
+          <div class="featured-article-image" style="background: url(<%= url_for(@featured.avatar)%>)">
+            <div class="featured-article-title" style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @news_today.empty? %>
+    <div class="descriptor">News Today</div>
+    <div class="news">
+      <% @news_today.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @news_tw.empty? %>
+    <div class="descriptor">News This Week</div>
+    <div class="news">
+      <% @news_tw.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @news_pm.empty? %>
+    <div class="descriptor">News This Month</div>
+    <div class="news">
+      <% @news_pm.each do |article| %>
+        <%= link_to news_path(article), class: "link-nodec" do %>
+          <div class="article">
+            <div>
+              <span><%= image_tag("/assets/flags/" + article.country, class:'flag-logo') %></span>
+              <span><%= article.subject %></span>
+            </div>
+            <div class="article-comment"><%= article.comments_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
-<div class="jumbotron shadow streamer-list">
-  <h3>Live Streams</h3>
-  <%= react_component("LiveStreams") %>
+<div class="column-3">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>
+
+<div class="column-4 mobile-visible">
+  <div class="descriptor">Events</div>
+  <div class="events-comp shadow-sm">
+    <% @events.each do |event| %>
+      <%= link_to event_path(event), class: "link-nodec" do %>
+        <div style='border-left: 2px solid <%=event.color%>' class="event-comp">
+          <div class="event-comp-img">
+            <%= image_tag("/assets/events/" + event.name.split(" ").slice(0, 2).join("-")+".png", class: "team-img-md") %>
+          </div>
+          <div class="event-comp-info">
+            <div class="event-comp-name"><%= event.shortname %></div>
+            <div class="event-comp-date"><%= event.start_date.strftime("%b %d")%> - <%=event.end_date.strftime("%b %d") %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= react_component("LiveStreams") %>
+  </div>
 </div>

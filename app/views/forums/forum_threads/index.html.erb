@@ -1,12 +1,77 @@
-<%= react_component("Forum", {threads: @forum_threads, thread_info: @thread_info}, class: "jumbotron shadow") %>
+<div class="column-2">
+  <div class="descriptor">
+    <span><%= link_to "All", threads_path %></span>
+    <span><%= link_to "News", threads_path(:f => "news")%></span>
+    <span><%= link_to "Matches", threads_path(:f => "matches")%></span>
+    <span><%= link_to "Discussions", threads_path(:f => "threads")%></span>
+  </div>
+  <div class="forum-index">
+    <div class="forum-index-header">
+      <div>Topic</div>
+      <div class="mobile-dismiss">Author</div>
+      <div>Activity</div>
+      <div>Comments</div>
+    </div>
+    <% @discs.each do |thread| %>
+      <%= react_component("Thread", {thread: thread, compact: true, author: get_author(thread), path: disc_path?(thread)}) %>
+    <% end %>
+  </div>
 
-<% if user_signed_in? %>
-  <%= form_for(@forum_thread, url: forum_threads_path) do |f| %>
-    <div class="jumbotron shadow">
-      <h2>Create New Thread</h2>
-      <%= f.text_field :subject, placeholder: "Subject", class:"form-control" %>
-      <%= f.text_area :description, placeholder: "Description", rows: 5, class:"form-control" %>
-      <%= f.submit "Submit", class: "btn btn-primary" %>
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @discs %>
+    </div>
+    <%= will_paginate @discs, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
+  <% if user_signed_in? && params[:f] != "news" && params[:f] != "matches" %>
+    <div class="descriptor">Create New Thread</div>
+    <div class="admin-form shadow-sm">
+      <%= form_for(@forum_thread, url: threads_path) do |f| %>
+        <div class='fields'>
+          <div>
+            <div class="descriptor">Title</div>
+            <%= f.text_field :subject%>
+          </div>
+          <div>
+            <div class="descriptor">Content</div>
+            <%= f.cktext_area :description, ckeditor: {toolbar: "mini", height: 300, toolbarCanCollapse: true}%>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
-<% end %>
+
+  <% if params[:f] == "news" && policy(@new).create? %>
+    <div class="descriptor">Create News Article</div>
+    <div class="admin-form shadow-sm">
+      <%= form_for(@new, url: news_index_path) do |f| %>
+        <div class="fields">
+          <div>
+            <div class='descriptor'>Title</div>
+            <%= f.text_field :subject%>
+          </div>
+          <div>
+            <div class='descriptor'>Content</div>
+            <%= f.cktext_area :article, ckeditor: {height: 300, toolbarCanCollapse: true}%>
+          </div>
+          <div>
+              <div class="descriptor">Featured</div>
+              <%= f.check_box :featured %>
+          </div>
+          <div>
+            <div class="descriptor">Logo</div>
+            <div class="edit-avatar">
+              <div><%= f.file_field :avatar%></div>
+            </div>
+          </div>
+          <%= f.submit "Submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="column-4">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

@@ -1,0 +1,45 @@
+<div class="column-2">
+  <div class="descriptor">Profile</div>
+  <div class="user-profile">
+    <div class="user-username"><%= @user.username.capitalize %></div>
+    <div><span class="bold-text">Country:</span> <%= image_tag("/assets/flags/"+@user.country+".svg", class:"flag-logo")%> <%= COUNTRIES.invert[@user.country] %></div>
+    <div><span class="bold-text">Signed Up: </span><%= @user.created_at.strftime("%B %d, %Y") %></div>
+    <div><span class="bold-text">Last Posted: </span><%= @posts.order(:updated_at).first.updated_at.strftime("%B %d, %Y at %I:%M") %></div>
+    <div><span class="bold-text">Total Posts: </span><%= @posts.size %> </div>
+  </div>
+  <div class="descriptor"><%= @user.username %>'s Posts</div>
+  <div class="user-posts">
+    <% @posts.includes(:commentable).each do |post| %>
+      <div class="forum-post-wrapper">
+        <div class="forum-post">
+          <% parent = ForumPost.find_parent(post) %>
+          <% category = disc_path?(parent) %>
+          <div class="post-header">
+            <div>
+              <%= link_to parent.subject, category[0] %> in
+              <%= link_to category[2], category[3]%>
+            </div>
+            <div>
+              <%= post.score%> points
+            </div>
+          </div>
+          <div class="post-body"><%= sanitize post.body %></div>
+          <div class="post-footer">posted <%= time_ago_in_words(post.created_at).gsub("about", "") %> ago</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="pagination">
+    <div class="page_info">
+      <%= page_entries_info @posts %>
+    </div>
+    <%= will_paginate @posts, :container => false, :inner_window => 1, :outer_window => 1 %>
+  </div>
+  <div class="descriptor">Admin Actions</div>
+  <div class="admin-actions">
+    <%= link_to 'Delete User', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }%>
+  </div>
+</div>
+<div class="column-4 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
+</div>

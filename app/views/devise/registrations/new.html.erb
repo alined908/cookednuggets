@@ -1,38 +1,39 @@
-<% devise_error_messages! %>
-<div class="jumbotron shadow">
-  <h2>Sign Up</h2>
-  <p>Please fill in this form to create an account!</p>
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-                <%= f.text_field :firstname, placeholder: "First Name", class: "form-control", :required => true %>
-            </div>
-            <div class="col">
-                <%= f.text_field :lastname, placeholder: "Last Name", class: "form-control", :required => true%>
-            </div>
+<div class="column-2">
+  <% devise_error_messages! %>
+  <div class="descriptor">Sign Up</div>
+  <div class="admin-form shadow-sm">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => ""}) do |f| %>
+      <div class="fields split">
+        <div>
+          <div class="descriptor">First Name</div>
+          <%= f.text_field :firstname,:required => true %>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-                <%= f.text_field :username, placeholder: "Username (3 character min)", class: "form-control", :required => true %>
-            </div>
-            <div class="col">
-                <%= f.email_field :email, placeholder: "Email", class: "form-control", :required => true%>
-            </div>
+        <div>
+          <div class="descriptor">Last Name</div>
+          <%= f.text_field :lastname, :required => true%>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-                <%= f.password_field :password, placeholder: "Password (#{@minimum_password_length} character min)" , class: "form-control",:required => true %>
-            </div>
-            <div class="col">
-                <%= f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", :required => true %>
-            </div>
+        <div>
+          <div class="descriptor">Username</div>
+          <%= f.text_field :username, :required => true %>
         </div>
-    </div>
-    <%= f.submit "Sign Up!", class:"btn btn-primary" %>
-  <% end %>
+        <div>
+          <div class="descriptor">Email</div>
+          <%= f.email_field :email, :required => true%>
+        </div>
+        <div>
+          <div class="descriptor">Password</div>
+          <%= f.password_field :password, placeholder: "#{@minimum_password_length} char min",:required => true %>
+        </div>
+        <div>
+          <div class="descriptor">Confirm Password</div>
+          <%= f.password_field :password_confirmation, :required => true %>
+        </div>
+        <%= f.select :country, options_for_select(COUNTRIES), :required => true, prompt: "" %>
+        <%= f.submit "Sign Up!" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="column-4 indent-right">
+  <%= render "layouts/matches", :upcoming => @upcoming, :completed => @completed %>
 </div>

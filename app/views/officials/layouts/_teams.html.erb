@@ -1,0 +1,15 @@
+<div class="descriptor">Teams</div>
+<div class="shadow-sm team-table-wrapper">
+  <div class="team-table">
+    <% @event.teams.includes(pic_attachment: :blob).each do |team| %>
+      <%= link_to team_path(team), class: "team-table-link" do %>
+        <div class="team-table-entry">
+          <div class="team-table-img">
+            <%= image_tag(team.pic) if team.pic.attached?%>
+          </div>
+          <%= team.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

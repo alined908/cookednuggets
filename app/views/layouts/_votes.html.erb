@@ -1,0 +1,4 @@
+<% active = active_vote?(post) %>
+<div><%= pluralize(post.score, "point") %></div>
+<%= button_to raw("&#43;"), vote_post_path(post, :direction => 1), method: :post, remote: true, class: active[0]%>
+<%= button_to raw("&#8722;"), vote_post_path(post, :direction => -1), method: :post, remote: true, class: active[1] %>
