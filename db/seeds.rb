@@ -149,7 +149,7 @@ response['stages'].each do |stage|
         elsif map['points'][0] < map['points'][1]
           map_winner = team2
         else
-          map_winner = 0
+          map_winner = nil
         end
       end
       Map.create(official_id: official.id, winner_id: map_winner, name: map_name, state: state, score: score)
