@@ -63,7 +63,7 @@ class Officials::EventsController < ApplicationController
     end
 
     def get_event_matches
-      @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
-      @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2, :event, :section)
+      @completed = Official.where(event_id: @event.id).where(start: (DateTime.now - 3.months)..(DateTime.now - 3.hours)).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
+      @upcoming = Official.where(event_id: @event.id).where(end: DateTime.now..(DateTime.now + 3.months)).limit(5).includes(:team1, :team2, :event, :section)
     end
 end
