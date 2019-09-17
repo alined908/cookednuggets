@@ -6,9 +6,9 @@ class Officials::EventsController < ApplicationController
     @teams = Team.all
     @event = Event.new
     if params[:s] == 'completed'
-      @events = Event.where('? > end_date', Date.current)
+      @events = Event.where("? > end_date", Date.current)
     else
-      @events = Event.where('start_date <= ? AND end_date >= ?', Date.current, Date.current)
+      @events = Event.where("start_date <= ? AND end_date >= ?", Date.current, Date.current)
     end
   end
 
@@ -16,7 +16,7 @@ class Officials::EventsController < ApplicationController
     @section = Section.new
     @regulars = []
     @event.sections.each {|stage|
-       @regulars += stage.officials.where("match_type = ?", 'regular').includes(:winner, :team1, :team2, maps: :winner)}
+       @regulars += stage.officials.where("match_type = ?", "regular").includes(:winner, :team1, :team2, maps: :winner)}
     @teams, @standings = Section.standings(@event.teams, @regulars)
   end
 
@@ -63,7 +63,7 @@ class Officials::EventsController < ApplicationController
     end
 
     def get_event_matches
-      @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
-      @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2, :event, :section)
+      @completed = Official.where(event_id: @event.id).where(start: (DateTime.now - 3.months)..(DateTime.now - 3.hours)).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
+      @upcoming = Official.where(event_id: @event.id).where(end: DateTime.now..(DateTime.now + 3.months)).limit(5).includes(:team1, :team2, :event, :section)
     end
 end

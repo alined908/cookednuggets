@@ -6,7 +6,7 @@ class Officials::SectionsController < ApplicationController
     @match = Official.new
     @sections = @event.sections
     @officials = @section.officials.includes(:team1, :team2)
-    @regulars = @officials.where("match_type = ?", 'regular').includes(:winner, maps: :winner)
+    @regulars = @officials.where("match_type = ?", "regular").includes(:winner, maps: :winner)
     @teams, @standings = Section.standings(@event.teams, @regulars)
   end
 

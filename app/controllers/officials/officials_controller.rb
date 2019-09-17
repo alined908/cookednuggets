@@ -3,9 +3,9 @@ class Officials::OfficialsController < ApplicationController
 
   def index
     if params[:f] == "comp"
-      @officials = Official.where("start < ?", DateTime.now).paginate(:page => params[:page]).order(start: :desc).includes(:team1, :team2, :event, :section)
+      @officials = Official.where(start: (DateTime.now - 3.years)..(DateTime.now - 3.hours)).paginate(:page => params[:page]).order(start: :desc).includes(:team1, :team2, :event, :section)
     else
-      @officials = Official.where("end >= ?", DateTime.now).paginate(:page => params[:page]).includes(:team1, :team2, :event, :section)
+      @officials = Official.where(end: DateTime.now..(DateTime.now + 6.months)).paginate(:page => params[:page]).includes(:team1, :team2, :event, :section)
     end
   end
 
@@ -15,8 +15,8 @@ class Officials::OfficialsController < ApplicationController
     @h2hs, @recents = Official.h2hs(@teams, @match.id), Official.recents(@teams, @match.id)
     @maps_json = Map.get_perfs(@maps, @teams)
     @forum_post = ForumPost.new
-    @completed = Official.where(event_id: @event.id).where("start <= ?", DateTime.now).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
-    @upcoming = Official.where(event_id: @event.id).where("end >= ?", DateTime.now).limit(5).includes(:team1, :team2, :event, :section)
+    @completed = Official.where(event_id: @event.id).where(start: (DateTime.now - 3.months)..(DateTime.now - 3.hours)).order(start: :desc).limit(5).includes(:team1, :team2, :event, :section)
+    @upcoming = Official.where(event_id: @event.id).where(end: DateTime.now..(DateTime.now + 3.months)).limit(5).includes(:team1, :team2, :event, :section)
   end
 
   def create

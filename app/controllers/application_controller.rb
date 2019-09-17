@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
   before_action :get_matches
 
   def index
-    @events = Event.where('start_date <= ? AND end_date >= ?', Date.today, Date.today)
-    @completed = Official.limit(12).where("start < ?", DateTime.now - 3.hours).order(start: :desc).includes(:team1, :team2, :event, :section)
-    @upcoming = Official.limit(12).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
+    @events = Event.where("start_date <= ? AND end_date >= ?", Date.today, Date.today)
+    @completed = Official.limit(12).where(start: (DateTime.now - 3.months)..(DateTime.now - 3.hours)).order(start: :desc).includes(:team1, :team2, :event, :section)
+    @upcoming = Official.limit(12).where(end: DateTime.now..(DateTime.now + 3.months)).includes(:team1, :team2, :event, :section)
     @featured = New.where(featured: true).order(created_at: :desc)[0]
     if @featured.nil?
       @all_news = New.order(created_at: :desc).limit(20)
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_matches
-    @completed = Official.limit(7).where("start < ?", DateTime.now - 3.hours).order(start: :desc).includes(:team1, :team2, :event, :section)
-    @upcoming = Official.limit(7).where("end >= ?", DateTime.now).includes(:team1, :team2, :event, :section)
+    @completed = Official.limit(7).where(start: (DateTime.now - 3.months)..(DateTime.now - 3.hours)).order(start: :desc).includes(:team1, :team2, :event, :section)
+    @upcoming = Official.limit(7).where(end: DateTime.now..(DateTime.now + 3.months)).includes(:team1, :team2, :event, :section)
   end
 end
