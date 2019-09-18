@@ -1,6 +1,6 @@
 # Cooked Nuggets
 
-Cooked Nuggets is an attempt to clone over.gg, a website I frequently visit to gain information about the Overwatch competitive scene.  I wanted to see if I could replicate some of the features of the website as well as practice more Rails and React.
+Cooked Nuggets is an attempt to clone [over.gg](https://www.over.gg/), a website I frequently visit to gain information about the Overwatch competitive scene.  I wanted to see if I could replicate some of the features of the website as well as practice more Rails and React.
 
 Here is a link to the website --> https://cookednuggets.herokuapp.com/
 
