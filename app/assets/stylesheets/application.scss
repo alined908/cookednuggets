@@ -112,7 +112,7 @@
   padding: 0 $body-margin;
   .footer-material{
     padding: .6rem 1rem;
-    max-width: 1100px;
+    max-width: $body-width;
     width: 100%;
     border-right: 1px solid #181818;
     border-left: 1px solid #181818;
@@ -1780,6 +1780,9 @@ p{
       flex: 0 0 $columns !important;
       max-width: $columns !important;
     }
+  }
+  .hoverable{
+    left: $columns + .5vw;
   }
   .featured-article-wrapper .featured-article {
     height: 300px;
