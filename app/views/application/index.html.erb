@@ -4,7 +4,7 @@
     <div class="featured-article-wrapper shadow-sm">
       <%= link_to news_path(@featured), class:'link-nodec' do %>
         <div class="featured-article">
-          <div class="featured-article-image" style="background: url(<%= url_for(@featured.avatar)%>)">
+          <div class="featured-article-image" style="background: url(<%= url_for(@featured.avatar) if @featured.avatar.attached?%>)">
             <div class="featured-article-title" style="margin-left: 1rem; padding-bottom: .5rem"><%= @featured.subject %></div>
           </div>
         </div>

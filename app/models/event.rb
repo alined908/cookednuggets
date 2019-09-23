@@ -26,10 +26,12 @@ class Event < ApplicationRecord
     delete_teams = current_teams - teams
 
     add_teams.each do |team|
+      next if team == 0
       self.teams << Team.find(team)
     end
 
     delete_teams.each do |team|
+      next if team == 0
       self.teams.delete(Team.find(team))
     end
   end

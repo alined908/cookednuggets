@@ -64,7 +64,7 @@
             <div class="descriptor">Teams</div>
             <%= link_to 'Add Team', 'javascript:;', id: "add-team" %>
             <%= f.fields_for :teams do |ff| %>
-              <%= render 'officials/layouts/team', :teams => @teams, :default => false, :locked_in => true %>
+              <%= render 'officials/layouts/team', :teams => @teams, :default => false, :locked_in => false %>
             <% end %>
           </div>
           <%= f.submit "Submit" %>

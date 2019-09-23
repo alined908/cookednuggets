@@ -63,7 +63,7 @@
     <% @past_teams.each do |team| %>
       <div class="team-table-row">
         <div class="teamstable-ttr">
-          <span><%= image_tag(team.logo, class: "team-logo") %></span>
+          <span><%= image_tag(team.pic, class: "team-logo") if team.pic.attached?%></span>
           <span class="team-name"><%= link_to team.name, team_path(team) %></span>
         </div>
         <div>

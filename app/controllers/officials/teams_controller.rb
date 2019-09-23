@@ -1,10 +1,8 @@
 class Officials::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :new, :destroy, :edit, :update]
+  before_action :set_info, only: [:index, :create]
 
   def index
-    @players = Player.all.order('LOWER(handle)')
-    @teams, @team = Team.all, Team.new
-    @events = Event.all
   end
 
   def show
@@ -16,9 +14,9 @@ class Officials::TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     authorize @team
-    if team_params[:players]
-      team_params[:players].each do |player|
-        plyr = Player.find(player)
+    if params[:players]
+      params[:players].each do |player|
+        plyr = Player.find(player.to_i)
         unless @team.players.include?(plyr)
           @team.players << plyr
         end
@@ -57,6 +55,12 @@ class Officials::TeamsController < ApplicationController
   private
     def set_team
       @team = Team.find(params[:id])
+    end
+
+    def set_info
+      @players = Player.all.order('LOWER(handle)')
+      @teams, @team = Team.all, Team.new
+      @events = Event.all
     end
 
     def team_params
