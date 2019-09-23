@@ -310,7 +310,7 @@ p{
 
 .hoverable {
   position: absolute;
-  left: 220px;
+  left: -210px;
   top: 0;
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2);
   transition: all .25s ease .1s;
@@ -1780,9 +1780,6 @@ p{
       flex: 0 0 $columns !important;
       max-width: $columns !important;
     }
-  }
-  .hoverable{
-    left: $columns + .5vw;
   }
   .featured-article-wrapper .featured-article {
     height: 300px;
